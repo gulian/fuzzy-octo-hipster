@@ -5,8 +5,6 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1>drunken-bear project</h1>
-    <a href="dashboard">show me my dashboard</a>
-    <a href="invite">invite people</a>
+    <h1>welcome to your dashboard</h1>
   </body>
 </html>
