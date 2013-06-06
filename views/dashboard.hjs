@@ -1,10 +1,85 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>drunken-bear project</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+	<title>drunken-bear project</title>
+	<link rel='stylesheet' href='/stylesheets/vendors/bootstrap.css' />
+	<link rel='stylesheet' href='/stylesheets/vendors/bootstrap-responsive.css' />
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+	<script src="javascripts/vendors/jquery.js"></script>
+	<script src="javascripts/vendors/underscore.js"></script>
+	<script src="javascripts/vendors/backbone.js"></script>
+	<script src="javascripts/vendors/bootstrap.js"></script>
+	<script src="javascripts/app.js"></script>
   </head>
   <body>
-    <h1>welcome to your dashboard</h1>
+	<script type="text/template" id="search-result-template">
+		<div class='search-result span6'>
+
+		<blockquote>
+			<img class="img-polaroid" src="<%= thumbnail %>">
+			<p>
+				<%= title %> -
+				<span class='director'> <%= director %></span>
+			</p>
+			<small>
+				<% for (var i = 0 ; i < actors.length ; i++)
+					print( (i === 0 ? '' : ', ') + actors[i]) ;
+				%>
+				<span class='year'>(<%= year %>)</span>
+			</small>
+			<p>
+			  <button class="btn btn-small" type="button">add to collection</button>
+			  <button class="btn btn-small btn-info" type="button">edit</button>
+			  <button class="btn btn-small btn-inverse" type="button">cancel</button>
+			</p>
+		</blockquote>
+
+		</div>
+	</script>
+
+
+	<div id="drunken-bear">
+
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+			<div class="container-fluid">
+			<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			</button>
+			<a class="brand" href="#">drunken-bear project</a>
+			<div class="nav-collapse collapse">
+<!-- 			<p class="navbar-text pull-right">
+			Logged in as <a href="#" class="navbar-link">Username</a>
+			</p> -->
+			<ul class="nav">
+			<li><a href="/">home</a></li>
+			<li class="active"><a href="dashboard">dashboard</a></li>
+			</ul>
+			</div><!--/.nav-collapse -->
+			</div>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span1">
+				</div>
+				<div id='main-container' class="span11">
+					<h2>Dashboard</h2>
+					<!-- <a href="/">go home</a> -->
+					<div class='row-fluid'><form action='#' class='span4' id='ean13-form'>
+						<p class="lead">add item from barcode number</p>
+						<div class="input-prepend">
+  						<span class="add-on"><i class=icon-barcode></i></span>
+							<input type='text' name='ean13-number' id='ean13-number' placeholder='ean13 number'>
+						</div>
+					</form></div>
+					<div id="search-results" class=row-fluid></div>
+				</div>
+			</div>
+		</div>
+	</div>
   </body>
 </html>

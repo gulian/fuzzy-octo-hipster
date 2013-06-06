@@ -6,6 +6,7 @@
   </head>
   <body>
     <h1>drunken-bear project</h1>
+    <a href="/">go home</a>
     <h2>{{mails}}</h2>
     <form action='invite' method='GET'>
     	<input type='text' id='mails' name='mails' placeholder='mail address'>

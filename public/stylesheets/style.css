@@ -1,7 +1,37 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image: url(../images/background.png);
+}
+#main-container {
+  border-left: 1px solid black;
+  padding: 50px 30px;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+  background-color: white;
+  min-height: 1280px;
 }
 a {
   color: #00B7FF;
+}
+.container-fluid {
+  padding-right: 0;
+}
+blockquote {
+  background-color: white;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+}
+blockquote img {
+  float: left ;
+  margin-right: 10px;
+}
+blockquote span.director,
+blockquote span.year {
+  color: #c02f2f;
+  font-style: italic;
+}
+form {
+  background-color: white;
+  padding: 15px;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
 }

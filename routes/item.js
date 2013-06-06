@@ -25,20 +25,31 @@ exports.search = function(req, res){
 
 	var options = {
 			'SearchIndex'	: 'Video',
-			'ItemId'		: ean ,// '3700301024817',
-			'IdType'		: 'EAN'
+			'ItemId'		: ean ,
+			'IdType'		: 'EAN',
+			'ResponseGroup': 'ItemAttributes,Images'
 		};
 
-	opHelper.execute('ItemLookup', options, function(error, results) {
-		if (error)
-			return res.json(500);
-		if(!results.ItemLookupResponse.Items[0].Item){
-			return res.json(200, {});
-		}
-		var response = [];
-		for (var i = results.ItemLookupResponse.Items[0].Item.length - 1; i >= 0; i--) {
-			response.push(results.ItemLookupResponse.Items[0].Item[i].ItemAttributes[0]);
-		}
-		return res.json(200, response);
-	});
+	try {
+		opHelper.execute('ItemLookup', options, function(error, results) {
+			if (error)
+				return res.send(500);
+			if(!results.ItemLookupResponse.Items[0].Item){
+				return res.json(200, {});
+			}
+			var item =  results.ItemLookupResponse.Items[0].Item[0].ItemAttributes[0];
+			var response = {
+				title		: item.Title[0],
+				image		: results.ItemLookupResponse.Items[0].Item[0].ImageSets[0].ImageSet[0].LargeImage[0].URL[0],
+				thumbnail	: results.ItemLookupResponse.Items[0].Item[0].ImageSets[0].ImageSet[0].ThumbnailImage[0].URL[0],
+				director	: item.Director,
+				actors		: item.Actor,
+				year        : item.ReleaseDate[0].substr(0, 4)
+			};
+			console.log(item)
+			return res.json(200, response);
+		});
+	} catch (error){
+		return res.send(500);
+	}
 };

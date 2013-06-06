@@ -35,7 +35,7 @@ app.get('/'			, routes.index);
 app.get('/dashboard', routes.dashboard);
 app.get('/invite'	, routes.invite);
 app.get('/users'	, user.list);
-app.get('/item'	, item.list);
+app.get('/item'		, item.list);
 app.get('/item/search/:ean'	, item.search);
 
 http.createServer(app).listen(app.get('port'), function(){
