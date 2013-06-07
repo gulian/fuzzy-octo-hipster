@@ -5,21 +5,24 @@ exports.list = function(req, res){
 };
 
 exports.library = function(req, res){
-	req.mongoose.models.item.find(null, function(error, movies){
-		res.render('library', {movies:movies});
+	console.log(req.session._id)
+	req.mongoose.models.item.find({user_id : req.session._id}, function(error, items){
+		console.log(items)
+		res.render('library', {movies:items});
 	});
 };
 
 exports.add = function(req, res){
-	req.mongoose.models.item.find({ ean:req.body.ean },function(error, movies){
-		if(error || movies.length > 0){
+	req.mongoose.models.item.find({ ean:req.body.ean, user_id : req.session._id },function(error, items){
+		if(error || items.length > 0){
 			return res.send(412);
 		}
-		new req.mongoose.models.item(req.body).save(function (error, movie) {
+		req.body.user_id = req.session._id;
+		new req.mongoose.models.item(req.body).save(function (error, item) {
 			if (error)
 				res.send(500);
 			else{
-				res.json(200, movie);
+				res.json(200, item);
 			}
 		});
 	});

@@ -68,7 +68,8 @@ mongoose.model('item', new mongoose.Schema({
 	actors   : Array,
 	year     : Number,
 	image    : String,
-	thumbnail: String
+	thumbnail: String,
+	user_id  : String
 }));
 
 mongoose.model('user', new mongoose.Schema({

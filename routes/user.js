@@ -18,6 +18,7 @@ exports.register = function(req, res){
 
 			req.session.authenticated = true;
 			req.session.username      = user.username;
+			req.session._id           = user._id;
 
 			return res.render('user/register_success', {username:req.session.username});
 		});
@@ -36,7 +37,8 @@ exports.login = function(req, res){
 			return res.render('user/login', {message:"there is something wrong in your credentials"});
 
 		req.session.authenticated = true;
-		req.session.username      = req.body.username;
+		req.session.username      = users[0].username;
+		req.session._id           = users[0]._id;
 
 		return res.redirect('/');
 	});
