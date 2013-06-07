@@ -1,12 +1,50 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>drunken-bear project</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+	<title>drunken-bear project</title>
+	<link rel='stylesheet' href='/stylesheets/vendors/bootstrap.css' />
+	<link rel='stylesheet' href='/stylesheets/vendors/bootstrap-responsive.css' />
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+	<script src="javascripts/vendors/jquery.js"></script>
+	<script src="javascripts/vendors/underscore.js"></script>
+	<script src="javascripts/vendors/backbone.js"></script>
+	<script src="javascripts/vendors/bootstrap.js"></script>
+	<script src="javascripts/timeline.js"></script>
   </head>
   <body>
-    <h1>drunken-bear project</h1>
-    <a href="dashboard">show me my dashboard</a>
-    <a href="invite">invite people</a>
+	<div id="drunken-bear">
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container-fluid">
+					<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="brand" href="#">drunken-bear project</a>
+					<div class="nav-collapse collapse">
+						<ul class="nav">
+							<li class="active"><a href="/">home</a></li>
+							<li><a href="dashboard">dashboard</a></li>
+							<li><a href="library">library</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span1">
+				</div>
+				<div id='main-container' class="span11">
+					<h2>timeline</h2>
+					{{#session.username}}
+						<p>you are connected as {{session.username}}</p>
+					{{/session.username}}
+				</div>
+			</div>
+		</div>
+	</div>
   </body>
 </html>

@@ -1,28 +1,13 @@
-
-/*
- * GET home page.
- */
-
 exports.index = function(req, res){
-  res.render('index', {});
+	if(req.session.authenticated)
+		res.render('index', {session:req.session});
+	else
+		res.redirect('login');
 };
-
-
-/*
- * GET dashboard.
- */
 
 exports.dashboard = function(req, res){
-  res.render('dashboard', {});
-};
-
-
-/*
- * GET invite.
- */
-
-exports.invite = function(req, res){
-	var args = require('url').parse(req.url, true).query;
-	// console.log(args);
-	res.render('invite', args);
+	if(req.session.authenticated)
+		res.render('dashboard', {session:req.session});
+	else
+		res.redirect('login');
 };
