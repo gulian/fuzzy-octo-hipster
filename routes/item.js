@@ -45,8 +45,8 @@ exports.search = function(req, res){
 
 	var OperationHelper = require('apac').OperationHelper,
 		Amazon = new OperationHelper({
-			awsId    : '',
-			awsSecret: '',
+			awsId    : 'AKIAJCMDUTSHKJAM423A',
+			awsSecret: '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',
 			assocId  : 'gulianfr-20'
 		});
 
