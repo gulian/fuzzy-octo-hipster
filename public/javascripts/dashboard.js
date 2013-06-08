@@ -7,8 +7,8 @@ $(function(){
 		el: $('#drunken-bear'),
 
 		events: {
-			'submit   #ean13-form'   : 'ean13_form_submit',
-			'keypress #ean13-number' : 'ean13_number_handler'
+			'submit   #ean13-form'        : 'ean13_form_submit',
+			'submit   #find-friends-form' : 'find_friends_form_submit'
 		},
 
 		initialize: function(){
@@ -23,7 +23,20 @@ $(function(){
 				return false ;
 
 			$.getJSON('item/search/'+ean, function(data){
-				$('#search-results').append((new SearchResult(data)).render());
+				$('#search-results').append((new SearchItemResult(data)).render());
+			});
+		},
+
+		find_friends_form_submit:function(event){
+			event.preventDefault();
+			var username = $('#friend-username').val(), self = this;
+
+			if(username.length === 0) // TODO: other verification
+				return false ;
+
+			$.getJSON('user/search/'+username, function(data){
+				console.log(data);
+				// $('#search-results').append((new SearchUserResult(data)).render());
 			});
 		},
 
@@ -32,7 +45,7 @@ $(function(){
 		}
 	});
 
-	var SearchResult = Backbone.View.extend({
+	var SearchItemResult = Backbone.View.extend({
 
 		template: _.template($("script#search-result-template").html()),
 

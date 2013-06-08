@@ -25,6 +25,26 @@ exports.register = function(req, res){
 	});
 };
 
+exports.search = function(req, res){
+	if(!req.session.authenticated)
+		res.json(403);
+
+	var username = req.params.username ;
+
+	if(!username)
+		res.json(401);
+
+	req.mongoose.models.user.$where('this.username.indexOf("'+username+'") !== -1').exec(function(error, users){
+		res.json(200, users);
+	});
+	// req.mongoose.models.user.find({username: new RegExp('^'+username+'$', "i")},'_id username',function(error, users){
+	//	res.json(200, users);
+	// });
+	// req.mongoose.models.user.find({username: username},'_id username',function(error, users){
+	//	res.json(200, users);
+	// });
+},
+
 exports.login = function(req, res){
 	if(req.session.authenticated)
 		return res.redirect('/', {session:req.session});

@@ -43,6 +43,7 @@
 							<li><a href="/">home</a></li>
 							<li><a href="dashboard">dashboard</a></li>
 							<li class="active"><a href="library">library</a></li>
+							<li><a href="logout">logout</a></li>
 						</ul>
 					</div>
 				</div>

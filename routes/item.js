@@ -5,9 +5,10 @@ exports.list = function(req, res){
 };
 
 exports.library = function(req, res){
-	console.log(req.session._id)
+	if(!req.session.authenticated)
+		return res.redirect('login');
+
 	req.mongoose.models.item.find({user_id : req.session._id}, function(error, items){
-		console.log(items)
 		res.render('library', {movies:items});
 	});
 };
@@ -45,8 +46,8 @@ exports.search = function(req, res){
 
 	var OperationHelper = require('apac').OperationHelper,
 		Amazon = new OperationHelper({
-			awsId    : '',
-			awsSecret: '',
+			awsId    : 'AKIAJCMDUTSHKJAM423A',
+			awsSecret: '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',
 			assocId  : 'gulianfr-20'
 		});
 
@@ -54,7 +55,7 @@ exports.search = function(req, res){
 		'SearchIndex'	: 'Video',
 		'ItemId'		: ean ,
 		'IdType'		: 'EAN',
-		'ResponseGroup': 'ItemAttributes,Images'
+		'ResponseGroup' : 'ItemAttributes,Images'
 	}, function(error, results) {
 		if (error)
 			return res.send(500);

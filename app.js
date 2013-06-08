@@ -10,6 +10,7 @@ var express		= require('express'),
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'hjs');
+app.set('layout', 'layout');
 
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
@@ -55,6 +56,7 @@ app.get('/register'	, user.register);
 app.post('/register', user.register);
 
 app.get('/users'	, user.list);
+app.get('/user/search/:username'	, user.search);
 
 app.get('/library'			, item.library);
 app.get('/item/search/:ean'	, item.search);
