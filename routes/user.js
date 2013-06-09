@@ -20,7 +20,7 @@ exports.register = function(req, res){
 			req.session.username      = user.username;
 			req.session._id           = user._id;
 
-			return res.render('user/register_success', {username:req.session.username});
+			return res.render('user/register_success');
 		});
 	});
 };
@@ -37,28 +37,22 @@ exports.search = function(req, res){
 	req.mongoose.models.user.$where('this.username.indexOf("'+username+'") !== -1').exec(function(error, users){
 		res.json(200, users);
 	});
-	// req.mongoose.models.user.find({username: new RegExp('^'+username+'$', "i")},'_id username',function(error, users){
-	//	res.json(200, users);
-	// });
-	// req.mongoose.models.user.find({username: username},'_id username',function(error, users){
-	//	res.json(200, users);
-	// });
 },
 
 exports.login = function(req, res){
 	if(req.session.authenticated)
-		return res.redirect('/', {session:req.session});
+		return res.redirect('/');
 
 	if(req.method !== 'POST')
 		return res.render('user/login');
 
-	req.mongoose.models.user.find({username:req.body.username},function(error, users){
-		if(error || users.length !== 1 || crypto.createHmac('sha1', key).update(req.body.password).digest('hex') !== users[0].password)
+	req.mongoose.models.user.findOne({username:req.body.username},function(error, user){
+		if(error || !user || crypto.createHmac('sha1', key).update(req.body.password).digest('hex') !== user.password)
 			return res.render('user/login', {message:"there is something wrong in your credentials"});
 
 		req.session.authenticated = true;
-		req.session.username      = users[0].username;
-		req.session._id           = users[0]._id;
+		req.session.username      = user.username;
+		req.session._id           = user._id;
 
 		return res.redirect('/');
 	});

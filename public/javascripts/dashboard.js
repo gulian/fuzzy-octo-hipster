@@ -11,10 +11,6 @@ $(function(){
 			'submit   #find-friends-form' : 'find_friends_form_submit'
 		},
 
-		initialize: function(){
-			$(window).on('resize', this.resize_handler).trigger('resize');
-		},
-
 		ean13_form_submit: function(event){
 			event.preventDefault();
 			var ean = $('#ean13-number').val(), self = this;
@@ -38,11 +34,6 @@ $(function(){
 				console.log(data);
 				// $('#search-results').append((new SearchUserResult(data)).render());
 			});
-		},
-
-		resize_handler: function(){
-			$('#main-container').css('min-height', $(window).height() );
-		}
 	});
 
 	var SearchItemResult = Backbone.View.extend({

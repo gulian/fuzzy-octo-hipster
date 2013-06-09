@@ -12,14 +12,6 @@ $(function(){
 			'click .share-btn' : 'share'
 		},
 
-		initialize: function(){
-			$(window).on('resize', this.resize_handler).trigger('resize');
-		},
-
-		resize_handler: function(){
-			$('#main-container').css('min-height', $(window).height() );
-		},
-
 		share: function(event){
 			var id = $(event.currentTarget).closest('blockquote').data('item-id');
 			console.log(id);
