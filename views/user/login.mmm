@@ -1,0 +1,56 @@
+<style type="text/css">
+  body {
+      padding-top: 40px;
+      padding-bottom: 40px;
+      background-color: #f5f5f5;
+  }
+
+  .form-signin {
+      margin: 50px auto 20px;
+      padding: 19px 29px 29px;
+      max-width: 300px;
+      border: 1px solid #e5e5e5;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      background-color: #fff;
+      -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  }
+
+  .form-signin .form-signin-heading,
+  .form-signin .checkbox {
+      margin-bottom: 10px;
+  }
+
+  .form-signin input[type="text"],
+  .form-signin input[type="password"] {
+      height: auto;
+      margin-bottom: 15px;
+      padding: 7px 9px;
+      font-size: 16px;
+  }
+</style>
+
+
+<form action='login' method='POST' class='form-signin'>
+
+  <h2 class="form-signin-heading">Please sign in</h2>
+
+  {{#message}}
+    <div class="alert alert-block">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <h4>AAArgg!</h4>
+    {{message}}
+    </div>
+  {{/message}}
+
+  <input type='text' name='username'  class='input-block-level' placeholder=username>
+  <input type='password' name='password'  class='input-block-level' placeholder=password>
+  <label class="checkbox">
+    <input type="checkbox" value="remember-me"> Remember me
+  </label>
+  <button class="btn btn-large btn-primary" type="submit">Sign in to drunken-bear</button>
+
+</form>

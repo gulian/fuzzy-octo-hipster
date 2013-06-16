@@ -7,71 +7,55 @@ $(function(){
 		el: $('#drunken-bear'),
 
 		events: {
-			'submit   #ean13-form'        : 'ean13_form_submit',
-			'submit   #find-friends-form' : 'find_friends_form_submit'
+			'click .movie' : 'get_details',
+			'click #add-btn' : 'add_btn_handler',
+			'keypress #ean-input' : 'add_item',
+			'click .delete-btn': 'delete_item'
 		},
 
-		ean13_form_submit: function(event){
-			event.preventDefault();
-			var ean = $('#ean13-number').val(), self = this;
 
-			if(ean.length !== 13) // TODO: other verification
-				return false ;
+		get_details: function(event){
+			var $movie = $(event.currentTarget);
+			$.get('item/details/'+$movie.data('item-id'), function(data){
+				$("#main > .content").html(data);
+				$('.email-item-selected').removeClass('email-item-selected');
+				$movie.addClass('email-item-selected');
+			})
+		},
 
-			$.getJSON('item/search/'+ean, function(data){
-				$('#search-results').append((new SearchItemResult(data)).render());
+		add_btn_handler: function(event){
+			var $input = $("#ean-input");
+			if(!$input.data('step'))
+				$input
+					.css({'width': '100px', 'opacity':'1'})
+					.data('step',1);
+			else
+				$input
+					.css({'width': '0', 'opacity':'0'})
+					.data('step',0);
+		},
+
+		delete_item: function(event){
+			var $movie = $(event.currentTarget).closest('.movie-details');
+			var id = $movie.data('item-id');
+
+			$.ajax('item/'+id, {
+				method:'DELETE'
+			}).success(function(){
+				$('*[data-item-id='+id+']').remove();
 			});
 		},
 
-		find_friends_form_submit:function(event){
-			event.preventDefault();
-			var username = $('#friend-username').val(), self = this;
+		add_item: function(event){
+			var ean = $("#ean-input").val();
 
-			if(username.length === 0) // TODO: other verification
-				return false ;
-
-			$.getJSON('user/search/'+username, function(data){
-				console.log(data);
-				// $('#search-results').append((new SearchUserResult(data)).render());
-			});
-	});
-
-	var SearchItemResult = Backbone.View.extend({
-
-		template: _.template($("script#search-result-template").html()),
-
-		events: {
-			'click .add-to-collection-btn': 'add_to_collection',
-			'click .edit-btn'             : 'edit',
-			'click .cancel-btn'           : 'cancel'
-		},
-
-		initialize: function(data){
-			this.data = data ;
-		},
-
-		render: function(){
-			this.$el.html(this.template(this.data));
-			return this.$el;
-		},
-
-		add_to_collection: function(){
-			$.ajax('item/add', {
-				method: 'POST',
-				data : this.data
-			}).success(function(data){
-				//todo: tell success to ui
-			});
-		},
-
-		edit: function(){
-			console.log(this.data);
-		},
-
-		cancel: function(){
-			console.log(this.data);
+			if( ! (isNaN(1*ean) || ean.length !== 13 || event.which !== 13))
+				$.ajax('item/add/'+ean, {
+					method: 'GET', data : ean
+				}).success(function(data){
+					$("#list .content").prepend(data);
+				});
 		}
-
 	});
 
 	new DrunkenBear();

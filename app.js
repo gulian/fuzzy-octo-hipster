@@ -9,8 +9,8 @@ var express		= require('express'),
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
-app.set('view engine', 'hjs');
-app.set('layout', 'layout');
+app.set('view engine', 'mmm');
+app.set('layout', 'layout/main');
 
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
@@ -21,47 +21,56 @@ app.use(app.router);
 app.use(require('less-middleware')({ src: __dirname + '/public' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-var mongo_url  = 'mongodb://localhost/drunken-bear';
-var database   = mongoose.connect(mongo_url, function(error){
+var mongo_url  = 'mongodb://localhost/drunken-bear'
+	database   = mongoose.connect(mongo_url, function(error){
 
-	if(error)
-		throw error;
-
-	console.log('connected to '+mongo_url);
+	if(error){
+		console.error("fail to connect to mongo database");
+		process.kill();
+	}
 
 	http.createServer(app).listen(app.get('port'), function(){
+		console.log('connected to '+mongo_url);
 		console.log('drunken-bear is running perfeclty on port #' + app.get('port'));
 		console.log('drunken-bear is currently in ' + app.get('env'));
 	});
 
 });
 
-app.all('*', function(request, response, next){
-    request.mongoose = mongoose;
-    next();
-});
+app.all('*',function(req,res,n){req.mongoose=mongoose;n();});
 
-app.get('/'			, routes.index);
-app.get('/dashboard', routes.dashboard);
+app.get( '/'				, routes.dashboard);
 
-app.get('/login'	, user.login);
-app.post('/login'	, user.login);
-app.get('/logout'	, user.logout);
-app.get('/register'	, user.register);
-app.post('/register', user.register);
+app.get( '/dashboard'				, routes.dashboard);
+app.get( '/dashboard/collection'	, routes.dashboard);
+// app.get( '/dashboard/loan'		, routes.loan);
+// app.get( '/dashboard/borrow'		, routes.borrow);
+// app.get( '/dashboard/wishlist'	, routes.wishlist);
 
-app.get('/users'	, user.list);
-app.get('/user/search/:username'	, user.search);
+// app.get( '/dashboard/category/:category'	, routes.category);
 
-app.get('/library'			, item.library);
-app.get('/item/search/:ean'	, item.search);
-app.post('/item/add'		, item.add);
-app.delete('/item'			, item.delete);
+// app.get( '/timeline'		, routes.timeline);
+
+app.get( '/login'		, routes.login);
+app.post('/login'		, routes.login);
+app.get( '/logout'		, routes.logout);
+app.get( '/register'	, routes.register);
+app.post('/register'	, routes.register);
+
+app.get(	'/item/search/:ean'	, item.search);
+app.get(	'/item/details/:id'	, item.details);
+app.post(	'/item/add'			, item.add);
+app.get(	'/item/add/:ean'	, item.add_ean);
+app.delete(	'/item/:id'				, item.delete);
+
+app.get( '/user/search/:username'	, user.search);
+
+// temp route
+// app.get( '/users'					, user.list);
 
 mongoose.model('item', new mongoose.Schema({
 	ean      : Number,
