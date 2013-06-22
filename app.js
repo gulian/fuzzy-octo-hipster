@@ -29,7 +29,7 @@ var mongo_url  = process.env.MONGOHQ_URL || 'mongodb://localhost/drunken-bear',
 	database   = mongoose.connect(mongo_url, function(error){
 
 	if(error){
-		console.error("fail to connect to mongo database:"+mongo_url);
+		console.error(error);
 		process.kill();
 	}
 
