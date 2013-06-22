@@ -25,7 +25,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-var mongo_url  = 'mongodb://localhost/drunken-bear'
+var mongo_url  = process.env.MONGOHQ_URL || 'mongodb://localhost/drunken-bear',
 	database   = mongoose.connect(mongo_url, function(error){
 
 	if(error){
