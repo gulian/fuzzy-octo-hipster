@@ -63,11 +63,14 @@ exports.add_ean = function(req, res){
 			thumbnail: results.ItemLookupResponse.Items[0].Item[0].ImageSets[0].ImageSet[0].ThumbnailImage[0].URL[0],
 			directors: item.Director,
 			actors   : item.Actor,
-			year     : item.ReleaseDate[0].substr(0, 4),
 			ean      : ean,
 			user_id  : req.session._id,
 			amazon_url : results.ItemLookupResponse.Items[0].Item[0].DetailPageURL[0]
 		};
+
+		if(item.ReleaseDate)
+			response.year = item.ReleaseDate[0].substr(0, 4);
+
 		new req.mongoose.models.item(response).save(function (error, item) {
 			if (error)
 				res.send(500);
@@ -127,11 +130,13 @@ exports.import_eans = function(req, res){
 				thumbnail: results.ItemLookupResponse.Items[0].Item[0].ImageSets[0].ImageSet[0].ThumbnailImage[0].URL[0],
 				directors: item.Director,
 				actors   : item.Actor,
-				year     : item.ReleaseDate[0].substr(0, 4),
 				ean      : ean,
 				user_id  : req.session._id,
 				amazon_url : results.ItemLookupResponse.Items[0].Item[0].DetailPageURL[0]
 		};
+
+		if(item.ReleaseDate)
+			response.year = item.ReleaseDate[0].substr(0, 4);
 
 		new req.mongoose.models.item(response).save(function(){
 			if(eans.length === 1)
