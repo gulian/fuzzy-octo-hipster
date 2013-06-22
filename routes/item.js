@@ -28,14 +28,17 @@ exports.add = function(req, res){
 };
 
 exports.add_ean = function(req, res){
-	console.log(req.params.ean);
 	var ean = req.params.ean;
-
 	if(!ean)
 		return res.json(200, {});
+	var OperationHelper = require('apac').OperationHelper;
 
-	var OperationHelper = require('apac').OperationHelper,
-		Amazon = new OperationHelper({
+	OperationHelper.version = '2010-11-01';
+	OperationHelper.service = 'AWSECommerceService';
+	OperationHelper.defaultEndPoint = 'ecs.amazonaws.fr';
+	OperationHelper.defaultBaseUri = '/onca/xml';
+
+	var Amazon = new OperationHelper({
 			awsId    : 'AKIAJCMDUTSHKJAM423A',
 			awsSecret: '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',
 			assocId  : 'gulianfr-20'
@@ -91,8 +94,14 @@ exports.search = function(req, res){
 	if(!ean)
 		return res.json(200, {});
 
-	var OperationHelper = require('apac').OperationHelper,
-		Amazon = new OperationHelper({
+	var OperationHelper = require('apac').OperationHelper;
+
+	OperationHelper.version = '2010-11-01';
+	OperationHelper.service = 'AWSECommerceService';
+	OperationHelper.defaultEndPoint = 'ecs.amazonaws.fr';
+	OperationHelper.defaultBaseUri = '/onca/xml';
+
+	var Amazon = new OperationHelper({
 			awsId    : 'AKIAJCMDUTSHKJAM423A',
 			awsSecret: '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',
 			assocId  : 'gulianfr-20'
