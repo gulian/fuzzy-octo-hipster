@@ -13,6 +13,7 @@
     "apac" : "*",
     "connect-mongo" :"*",
     "mongoose": "*",
-    "mmm" : "*"
+    "mmm" : "*",
+    "mocha" : "*"
   }
 }
