@@ -59,6 +59,18 @@ $(function(){
 				}).success(function(data){
 					$("#list .content").prepend(data);
 				});
+			else
+				this.import_eans(event);
+		},
+		import_eans: function(event){
+			var ean = $("#ean-input").val();
+			console.log('trying to import:', ean.split(','));
+
+			$.ajax('/item/import/'+ean, {
+				method: 'GET', data : ean
+			}).success(function(data){
+				document.location.reload();
+			});
 		}
 	});
 

@@ -43,7 +43,7 @@ var mongo_url  = process.env.MONGOHQ_URL || 'mongodb://localhost/drunken-bear',
 
 app.all('*',function(req,res,n){req.mongoose=mongoose;n();});
 
-app.get( '/'				, routes.dashboard);	
+app.get( '/'				, routes.dashboard);
 
 app.get( '/dashboard'				, routes.dashboard);
 app.get( '/dashboard/collection'	, routes.dashboard);
@@ -65,6 +65,7 @@ app.get(	'/item/search/:ean'	, item.search);
 app.get(	'/item/details/:id'	, item.details);
 app.post(	'/item/add'			, item.add);
 app.get(	'/item/add/:ean'	, item.add_ean);
+app.get(	'/item/import/:eans'	, item.import_eans);
 app.delete(	'/item/:id'				, item.delete);
 
 app.get( '/user/search/:username'	, user.search);
