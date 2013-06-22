@@ -69,7 +69,6 @@ exports.add_ean = function(req, res){
 			user_id  : req.session._id,
 			amazon_url : results.ItemLookupResponse.Items[0].Item[0].DetailPageURL[0]
 		};
-		console.log(results.ItemLookupResponse.Items[0].Item[0].DetailPageURL[0])
 		new req.mongoose.models.item(response).save(function (error, item) {
 			if (error)
 				res.send(500);

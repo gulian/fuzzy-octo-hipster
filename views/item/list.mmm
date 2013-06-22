@@ -7,9 +7,9 @@
 		<div class="pure-u-3-4">
 			<h5 class="email-name">{{directors}}</h5>
 			<h4 class="email-subject"><a>{{title}}</a> <span>{{year}}</span></h4>
-<!-- 			<p class="email-desc">
+			<p class="email-desc">
 				{{actors}}
-			</p> -->
+			</p>
 		</div>
 	</div>
 {{/movies}}

@@ -1,21 +1,11 @@
 <!doctype html>
 <html lang="en">
 	<head>
-
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 		<title>drunken-bear</title>
-
 		<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css">
 		<link rel='stylesheet' href='/stylesheets/dashboard.css' />
-<!--
-
-		<script src="http://use.typekit.net/ajf8ggy.js"></script>
-		<script>
-			try { Typekit.load(); } catch (e) {}
-		</script>
- -->
 	</head>
 	<body id="drunken-bear">
 
@@ -28,10 +18,10 @@
 					<input type="text" id="ean-input" placeholder=ean style='opacity:0; width:0'>
 					<div class="pure-menu pure-menu-open">
 						<ul>
-							<!-- <li><a href="dashboard/collection">collection <span class="email-count">(139)</span></a></li> -->
-<!-- 							<li><a href="dashboard/loan">lent <span class="email-count">(2)</span></a></li>
-							<li><a href="dashboard/borrow">borrowed <span class="email-count">(1)</span></a></li>
-							<li><a href="dashboard/wishlist">wishlist  <span class="email-count">(13)</span></a></li>
+							<li><a href="dashboard/collection">collection</a></li>
+							<li><a href="dashboard/loan">lent</a></li>
+							<li><a href="dashboard/borrow">borrowed</a></li>
+							<li><a href="dashboard/wishlist">wishlist</a></li>
 
 							<li class="pure-menu-heading">Categories</li>
 							<li><a href="#"><span class="email-label-action"></span>Action</a></li>
@@ -40,9 +30,9 @@
 							<li><a href="#"><span class="email-label-music"></span>Music</a></li>
 
 							<li class="pure-menu-heading">Settings</li>
-							<li><a href="#"><span class="email-label-action"></span>account</a></li>
-							<li><a href="#"><span class="email-label-drama"></span>privacy</a></li>
-							<li><a href="#"><span class="email-label-comedy"></span>logout</a></li> -->
+							<li><a href="#">account</a></li>
+							<li><a href="#">privacy</a></li>
+							<li><a href="#">logout</a></li>
 						</ul>
 					</div>
 				</div>
