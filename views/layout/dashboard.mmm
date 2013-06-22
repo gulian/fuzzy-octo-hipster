@@ -28,8 +28,8 @@
 					<input type="text" id="ean-input" placeholder=ean style='opacity:0; width:0'>
 					<div class="pure-menu pure-menu-open">
 						<ul>
-							<li><a href="dashboard/collection">collection <span class="email-count">(139)</span></a></li>
-							<li><a href="dashboard/loan">lent <span class="email-count">(2)</span></a></li>
+							<!-- <li><a href="dashboard/collection">collection <span class="email-count">(139)</span></a></li> -->
+<!-- 							<li><a href="dashboard/loan">lent <span class="email-count">(2)</span></a></li>
 							<li><a href="dashboard/borrow">borrowed <span class="email-count">(1)</span></a></li>
 							<li><a href="dashboard/wishlist">wishlist  <span class="email-count">(13)</span></a></li>
 
@@ -42,7 +42,7 @@
 							<li class="pure-menu-heading">Settings</li>
 							<li><a href="#"><span class="email-label-action"></span>account</a></li>
 							<li><a href="#"><span class="email-label-drama"></span>privacy</a></li>
-							<li><a href="#"><span class="email-label-comedy"></span>logout</a></li>
+							<li><a href="#"><span class="email-label-comedy"></span>logout</a></li> -->
 						</ul>
 					</div>
 				</div>

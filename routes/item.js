@@ -32,6 +32,7 @@ exports.add_ean = function(req, res){
 	if(!ean)
 		return res.json(200, {});
 	var OperationHelper = require('apac').OperationHelper;
+		console.log("kkk");
 
 	OperationHelper.version = '2010-11-01';
 	OperationHelper.service = 'AWSECommerceService';
@@ -48,11 +49,12 @@ exports.add_ean = function(req, res){
 		'SearchIndex'	: 'Video',
 		'ItemId'		: ean ,
 		'IdType'		: 'EAN',
-		'ResponseGroup' : 'ItemAttributes,Images'
+		'ResponseGroup' : 'ItemAttributes,Images,Similarities,RelatedItems,EditorialReview'
 	}, function(error, results) {
 		if (error)
 			return res.send(500);
 		if(!results.ItemLookupResponse.Items[0].Item){
+			// console.log(results.ItemLookupResponse.Items[0].Request[0].Errors[0].Error[0])
 			return res.json(200, {});
 		}
 		var item =  results.ItemLookupResponse.Items[0].Item[0].ItemAttributes[0];
@@ -64,9 +66,10 @@ exports.add_ean = function(req, res){
 			actors   : item.Actor,
 			year     : item.ReleaseDate[0].substr(0, 4),
 			ean      : ean,
-			user_id  : req.session._id
+			user_id  : req.session._id,
+			amazon_url : results.ItemLookupResponse.Items[0].Item[0].DetailPageURL[0]
 		};
-
+		console.log(results.ItemLookupResponse.Items[0].Item[0].DetailPageURL[0])
 		new req.mongoose.models.item(response).save(function (error, item) {
 			if (error)
 				res.send(500);

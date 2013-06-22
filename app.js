@@ -43,7 +43,7 @@ var mongo_url  = process.env.MONGOHQ_URL || 'mongodb://localhost/drunken-bear',
 
 app.all('*',function(req,res,n){req.mongoose=mongoose;n();});
 
-app.get( '/'				, routes.dashboard);
+app.get( '/'				, routes.dashboard);	
 
 app.get( '/dashboard'				, routes.dashboard);
 app.get( '/dashboard/collection'	, routes.dashboard);
@@ -80,7 +80,8 @@ mongoose.model('item', new mongoose.Schema({
 	year     : Number,
 	image    : String,
 	thumbnail: String,
-	user_id  : String
+	user_id  : String,
+	amazon_url : String
 }));
 
 mongoose.model('user', new mongoose.Schema({
