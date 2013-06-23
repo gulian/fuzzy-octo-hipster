@@ -149,20 +149,7 @@ exports.search = function(req, res){
 	if(!ean)
 		return res.json(200, {});
 
-	var OperationHelper = require('apac').OperationHelper;
-
-	OperationHelper.version = '2010-11-01';
-	OperationHelper.service = 'AWSECommerceService';
-	OperationHelper.defaultEndPoint = 'ecs.amazonaws.fr';
-	OperationHelper.defaultBaseUri = '/onca/xml';
-
-	var Amazon = new OperationHelper({
-			awsId    : 'AKIAJCMDUTSHKJAM423A',
-			awsSecret: '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',
-			assocId  : 'gulianfr-20'
-		});
-
-	Amazon.execute('ItemLookup', {
+	new req.OperationHelper(req.amazon_credentials).execute('ItemLookup', {
 		'SearchIndex'	: 'Video',
 		'ItemId'		: ean ,
 		'IdType'		: 'EAN',
