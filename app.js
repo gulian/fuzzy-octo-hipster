@@ -27,33 +27,42 @@ if ('development' == app.get('env')) {
 
 var mongo_url  = process.env.MONGOHQ_URL || 'mongodb://localhost/drunken-bear',
 	database   = mongoose.connect(mongo_url, function(error){
-
 	if(error){
 		console.error(error);
 		process.kill();
 	}
-
 	http.createServer(app).listen(app.get('port'), function(){
 		console.log('connected to '+mongo_url);
 		console.log('drunken-bear is running perfeclty on port #' + app.get('port'));
 		console.log('drunken-bear is currently in ' + app.get('env'));
 	});
-
 });
 
-app.all('*',function(req,res,n){req.mongoose=mongoose;n();});
+var OperationHelper = require('apac').OperationHelper;
+
+OperationHelper.defaultEndPoint = 'ecs.amazonaws.fr'; // manage locales here
+
+if(!process.env.AWS_ID || !process.env.AWS_SECRET){
+	console.log('Search will failed because no Amazon WS credentials was provided');
+}
+
+var amazon_credentials = {
+	awsId    : process.env.AWS_ID,
+	awsSecret: process.env.AWS_SECRET,
+	assocId  : process.env.AWS_ASSOC_ID || 'gulianfr-20'
+};
+
+app.all('*',function(req,res,n){
+	req.mongoose=mongoose;
+	req.OperationHelper=OperationHelper;
+	req.amazon_credentials = amazon_credentials;
+	n();
+});
 
 app.get( '/'				, routes.dashboard);
 
 app.get( '/dashboard'				, routes.dashboard);
 app.get( '/dashboard/collection'	, routes.dashboard);
-// app.get( '/dashboard/loan'		, routes.loan);
-// app.get( '/dashboard/borrow'		, routes.borrow);
-// app.get( '/dashboard/wishlist'	, routes.wishlist);
-
-// app.get( '/dashboard/category/:category'	, routes.category);
-
-// app.get( '/timeline'		, routes.timeline);
 
 app.get( '/login'		, routes.login);
 app.post('/login'		, routes.login);
@@ -69,9 +78,6 @@ app.get(	'/item/import/:eans'	, item.import_eans);
 app.delete(	'/item/:id'				, item.delete);
 
 app.get( '/user/search/:username'	, user.search);
-
-// temp route
-// app.get( '/users'					, user.list);
 
 mongoose.model('item', new mongoose.Schema({
 	ean      : Number,
@@ -90,5 +96,3 @@ mongoose.model('user', new mongoose.Schema({
 	password : String,
 	email    : String
 }));
-
-
