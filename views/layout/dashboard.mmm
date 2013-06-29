@@ -8,38 +8,9 @@
 		<link rel='stylesheet' href='/stylesheets/dashboard.css' />
 	</head>
 	<body>
-
-		<div class="pure-g-r content" id="layout">
-			<div class="pure-u" id="nav">
-				<a href="#nav" class="nav-menu-button">Drunken Bear</a>
-				<div class="nav-inner">
-					<button class="pure-button primary-button" id="add-btn"> + Add </button>
-					<input type="text" id="ean-input" placeholder=ean style='opacity:0; width:0'>
-					<div class="pure-menu pure-menu-open">
-						<ul>
-							<li><a href="dashboard/collection">collection</a></li>
-							<li><a href="dashboard/loan">lent</a></li>
-							<li><a href="dashboard/borrow">borrowed</a></li>
-							<li><a href="dashboard/wishlist">wishlist</a></li>
-							<li class="pure-menu-heading">Categories</li>
-							<li><a href="#"><span class="email-label-action"></span>Action</a></li>
-							<li><a href="#"><span class="email-label-drama"></span>Drama</a></li>
-							<li><a href="#"><span class="email-label-comedy"></span>Comedy</a></li>
-							<li><a href="#"><span class="email-label-music"></span>Music</a></li>
-							<li class="pure-menu-heading">Settings</li>
-							<li><a href="#">account</a></li>
-							<li><a href="#">privacy</a></li>
-							<li><a href="#">logout</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div ng-view></div>
-		</div>
-
+		<div ng-view></div>
 		<script src="../javascripts/vendors/jquery.js"></script>
 		<script src="../javascripts/vendors/angular.js"></script>
 		<script src="../javascripts/dashboard.js"></script>
-
 	</body>
 </html>
