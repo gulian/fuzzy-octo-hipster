@@ -1,0 +1,32 @@
+<div class="content" ng-controller="moviesAddController">
+
+	<select ng-model="addingType">
+		<option value="ean">ean</option>
+		<option value="eans">eans</option>
+		<option value="full">full</option>
+		<option value="full">search</option>
+	</select>
+
+	<div ng-switch on="addingType" >
+    	<div ng-switch-when="ean">
+			<input type="text" placeholder="ean-13" ng-model="ean">
+			<button ng-click="addEan(ean)">add</button>
+    	</div>
+    	<div ng-switch-when="eans">
+			<input type="text" placeholder="import (ean separated values)" ng-model="esv">
+			<button ng-click="importEsv(esv)">import</button>
+    	</div>
+    	<div ng-switch-when="full">
+			full
+    	</div>
+    	<div ng-switch-when="search">
+			search
+    	</div>
+		<span ng-switch-default>Choose adding method !</span>
+	</div>
+
+	<div>
+		[[addResult.title]]
+	</div>
+
+</div>

@@ -40,7 +40,7 @@ exports.add_ean = function(req, res){
 		'ResponseGroup' : 'ItemAttributes,Images'
 	}, function(error, results) {
 
-		if (error || results.ItemLookupResponse.Items[0].Request[0].Errors[0].Error[0])
+		if (error )//|| results.ItemLookupResponse.Items[0].Request[0].Errors[0].Error[0])
 			return res.send(500);
 		if(!results.ItemLookupResponse.Items[0].Item)
 			return res.json(200, {});
@@ -54,7 +54,8 @@ exports.add_ean = function(req, res){
 			if (error)
 				return res.send(500);
 			else{
-				return res.render('item/list', {layout:'layout/none', movies :[item]});
+				return res.json(200, item);
+				// return res.render('item/list', {layout:'layout/none', movies :[item]});
 			}
 		});
 	});
@@ -123,10 +124,20 @@ exports.result_to_item = function(results){
 			title    : item.Title[0],
 			image    : imageSet.LargeImage[0].URL[0],
 			thumbnail: imageSet.ThumbnailImage[0].URL[0],
-			directors: item.Director,
-			actors   : item.Actor,
+			directors : [],
+			actors : [],
 			amazon_url : results.ItemLookupResponse.Items[0].Item[0].DetailPageURL[0]
 		};
+
+	if(item.Director)
+		for (var i = 0; i < item.Director.length; i++) {
+			response.directors.push( { name : item.Director[i] } );
+		}
+
+	if(item.Actor)
+		for (var j = 0; j < item.Actor.length; j++) {
+			response.actors.push( { name : item.Actor[j] } );
+		}
 
 	if(item.ReleaseDate)
 		response.year = item.ReleaseDate[0].substr(0, 4);

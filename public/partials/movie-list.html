@@ -14,12 +14,12 @@
 
 		<h3>Director<span ng-show="movie.directors.length > 1">s</span></h3>
 		<ul ng-repeat="director in movie.directors">
-			<li><a href="#/movies/search/[[director]]">[[director]]</a></li>
+			<li><a href="#/movies/search/[[director.name]]">[[director.name]]</a></li>
 		</ul>
 
 		<h3>Actor<span ng-show="movie.actors.length > 1">s</span></h3>
 		<ul ng-repeat="actor in movie.actors">
-			<li><a href="#/movies/search/[[actor]]">[[actor]]</a></li>
+			<li><a href="#/movies/search/[[actor.name]]">[[actor.name]]</a></li>
 		</ul>
 
 	</div>

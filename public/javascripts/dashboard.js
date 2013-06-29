@@ -6,9 +6,10 @@ angular.module('drunkenbear', []).config(function($interpolateProvider) {
 }).config(['$routeProvider', function($routeProvider) {
 
 	$routeProvider.
-		when('/movies',				{templateUrl: 'partials/movie-list.html'	, controller: moviesListController}).
+		when('/movies',					{templateUrl: 'partials/movie-list.html'	, controller: moviesListController}).
 		when('/movies/search/:query',	{templateUrl: 'partials/movie-list.html'	, controller: moviesListController}).
-		when('/movies/:movieId',	{templateUrl: 'partials/movie-details.html'	, controller: moviesDetailController}).
+		when('/movies/add',				{templateUrl: 'partials/movie-add.html'		, controller: moviesAddController}).
+		when('/movies/:movieId',		{templateUrl: 'partials/movie-details.html'	, controller: moviesDetailController}).
 		otherwise({redirectTo: '/movies'});
 
 }]);
@@ -40,4 +41,18 @@ function moviesDetailController($scope, $routeParams, $http) {
 		window.open($scope.movie.amazon_url,'_blank');
 	};
 
+}
+function moviesAddController($scope, $routeParams, $http) {
+
+	$scope.addEan = function(ean){
+		$http.get('/item/add/'+ean).success(function(data) {
+			$scope.addResult = data;
+		});
+	};
+
+	$scope.importEsv = function(esv){
+		$http.get('/item/import/'+esv).success(function(data) {
+			document.location.reload();
+		});
+	};
 }

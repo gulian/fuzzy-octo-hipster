@@ -1,26 +1,44 @@
 <div ng-controller="moviesDetailController">
 
-	<img alt="" ng-src="[[movie.image]]"/>
+	<button>share</button>
+	<button>lent</button>
+	<button ng-click="editSwitch=!editSwitch">edit</button>
+	<button class="buy-btn" ng-click='buy()' data-link="[[movie.amazon_url]]">buy</button>
+	<button class="delete-btn">delete</button>
+
+	<div ng-show="editSwitch">
+		<h3>Edit movie</h3>
+		<input type="text" ng-model="movie.title">
+		<input type="text" ng-model="movie.year">
+
+		<div ng-repeat="director in movie.directors">
+    		<input type="text" ng-model="director.name">
+    	</div>
+
+		<div ng-repeat="actor in movie.actors">
+    		<input type="text" ng-model="actor.name">
+    	</div>
+
+		<button ng-click="editSwitch=!editSwitch">save</button>
+	</div>
+
+	<img alt="" ng-src="[[movie.thumbnail]]"/>
+	<!-- <img alt="" ng-src="[[movie.image]]"/> -->
 
 	<h1>[[movie.title]]</h1>
 	<h3>[[movie.year]]</h3>
 
-	<p>
-		From <span ng-repeat="director in movie.directors">
-		<a href="#">[[director]]</a>
-		</span>
-	</p>
+	<h3>Director<span ng-show="movie.directors.length > 1">s</span></h3>
+	<ul ng-repeat="director in movie.directors">
+		<li><a href="#/movies/search/[[director.name]]">[[director.name]]</a></li>
+	</ul>
 
-	<p>
-		With <span ng-repeat="actor in movie.actors">
-		<a href="#">[[actor]]</a>
-		</span>
-	</p>
+	<h3>Actor<span ng-show="movie.actors.length > 1">s</span></h3>
+	<ul ng-repeat="actor in movie.actors">
+		<li><a href="#/movies/search/[[actor.name]]">[[actor.name]]</a></li>
+	</ul>
 
-	<button class=""> share</button>
-	<button class="">lent</button>
-	<button class="">edit</button>
-	<button class="buy-btn" ng-click='buy()' data-link="[[movie.amazon_url]]">buy</button>
-	<button class="delete-btn">delete</button>
+
+
 
 </div>
