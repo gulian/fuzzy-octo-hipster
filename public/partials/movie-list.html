@@ -2,22 +2,24 @@
 	Search: <input ng-model="query">
 	<select ng-model="orderProp">
 		<option value="title">Alphabetical</option>
-		<option value="year">Newest</option>
+		<option value="-title">Alphabetical desc</option>
+		<option value="year">Oldest</option>
+		<option value="-year">Newest</option>
 	</select>
 
-	<div ng-click='details()' ng-repeat="movie in movies  | filter:query | orderBy:orderProp" class="movie">
-		<img class="" alt="" ng-src="[[movie.thumbnail]]"/>
+	<div ng-click='details()' ng-repeat="movie in movies  | filter:query | orderBy:orderProp">
+		<img alt="" ng-src="[[movie.thumbnail]]"/>
 
-		<h4 class=""><a href="#/movies/[[movie._id]]">[[movie.title]]</a> <span>[[movie.year]]</span></h4>
+		<h4><a href="#/movies/[[movie._id]]">[[movie.title]]</a> <span>[[movie.year]]</span></h4>
 
 		<h3>Director<span ng-show="movie.directors.length > 1">s</span></h3>
-		<ul ng-repeat="director in movie.directors" class="">
-			<li><a href="#">[[director]]</a></li>
+		<ul ng-repeat="director in movie.directors">
+			<li><a href="#/movies/search/[[director]]">[[director]]</a></li>
 		</ul>
 
 		<h3>Actor<span ng-show="movie.actors.length > 1">s</span></h3>
-		<ul ng-repeat="actor in movie.actors" class="">
-			<li><a href="#">[[actor]]</a></li>
+		<ul ng-repeat="actor in movie.actors">
+			<li><a href="#/movies/search/[[actor]]">[[actor]]</a></li>
 		</ul>
 
 	</div>
