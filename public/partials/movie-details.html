@@ -1,0 +1,25 @@
+<div class="email-content pure-g movie-details">
+	<div class="email-content-header pure-g">
+		<div class="pure-u-1-2">
+			<img class="email-avatar" alt="" ng-src="[[movie.image]]" width="64" style="float:left"/>
+			<h1 class="email-content-title">[[movie.title]]</h1>
+			<p class="email-content-subtitle">
+				From <a>[[movie.directors]]</a>  <span>[[movie.year]]</span>
+			</p>
+		</div>
+
+		<div class="pure-u-1-2 email-content-controls">
+			<button class="pure-button secondary-button" ng-click='share()'> share</button>
+			<button class="pure-button secondary-button">lent</button>
+			<button class="pure-button secondary-button">edit</button>
+			<button class="pure-button secondary-button buy-btn" data-link="[[movie.amazon_url]]">buy</button>
+			<button class="pure-button secondary-button delete-btn">delete</button>
+		</div>
+	</div>
+
+	<div class="email-content-body pure-u-1">
+		<p>
+			[[movie.actors]]
+		</p>
+	</div>
+</div>

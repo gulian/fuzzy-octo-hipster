@@ -12,6 +12,7 @@
 		<div class="pure-g-r content" id="layout">
 			<div class="pure-u" id="nav">
 				<a href="#nav" class="nav-menu-button">Drunken Bear</a>
+
 				<div class="nav-inner">
 					<button class="pure-button primary-button" id="add-btn"> + Add </button>
 					<input type="text" id="ean-input" placeholder=ean style='opacity:0; width:0'>
@@ -21,11 +22,13 @@
 							<li><a href="dashboard/loan">lent</a></li>
 							<li><a href="dashboard/borrow">borrowed</a></li>
 							<li><a href="dashboard/wishlist">wishlist</a></li>
+
 							<li class="pure-menu-heading">Categories</li>
 							<li><a href="#"><span class="email-label-action"></span>Action</a></li>
 							<li><a href="#"><span class="email-label-drama"></span>Drama</a></li>
 							<li><a href="#"><span class="email-label-comedy"></span>Comedy</a></li>
 							<li><a href="#"><span class="email-label-music"></span>Music</a></li>
+
 							<li class="pure-menu-heading">Settings</li>
 							<li><a href="#">account</a></li>
 							<li><a href="#">privacy</a></li>
@@ -34,7 +37,36 @@
 					</div>
 				</div>
 			</div>
-			<div ng-view></div>
+
+			<div class="pure-u" id="list">
+				<div class="content" ng-controller="moviesListController">
+					Search: <input ng-model="query">
+					<select ng-model="orderProp">
+						<option value="title">Alphabetical</option>
+						<option value="year">Newest</option>
+					</select>
+
+					<div  ng-repeat="movie in movies  | filter:query | orderBy:orderProp" class="movie email-item pure-g">
+						<div class="pure-u">
+							<img class="email-avatar" alt="" ng-src="[[movie.thumbnail]]" width="64"/>
+						</div>
+
+						<div class="pure-u-3-4">
+							<h5 class="email-name">[[movie.directors]]</h5>
+							<h4 class="email-subject"><a>[[movie.title]]</a> <span>[[movie.year]]</span></h4>
+							<p class="email-desc">
+							[[movie.actors]]
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="pure-u" id="main">
+				<div class="content">
+
+				</div>
+			</div>
 		</div>
 
 		<script src="../javascripts/vendors/jquery.js"></script>

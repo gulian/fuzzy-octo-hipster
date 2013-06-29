@@ -1,12 +1,13 @@
 exports.list = function(req, res){
-	req.mongoose.models.item.find(null, function(error, movies){
+	req.mongoose.models.item.find({user_id : req.session._id}, function(error, movies){
 		res.json(200, movies);
 	});
 };
 
 exports.details = function(req, res){
-	req.mongoose.models.item.find({_id:req.params.id}, function(error, movies){
-		res.render('item/details',{layout:'layout/none', movies : movies});
+	req.mongoose.models.item.findOne({_id:req.params.id}, function(error, movie){
+		res.json(200, movie);
+		// res.render('item/details',{layout:'layout/none', movies : movies});
 	});
 };
 

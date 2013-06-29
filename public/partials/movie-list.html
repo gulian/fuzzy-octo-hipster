@@ -1,0 +1,28 @@
+<div class="pure-u" id="list">
+	<div class="content">
+		<div class="content" ng-controller="moviesListController">
+			Search: <input ng-model="query">
+			<select ng-model="orderProp">
+				<option value="title">Alphabetical</option>
+				<option value="year">Newest</option>
+			</select>
+
+			<div ng-click='details()' ng-repeat="movie in movies  | filter:query | orderBy:orderProp" class="movie email-item pure-g">
+				<div class="pure-u">
+					<img class="email-avatar" alt="" ng-src="[[movie.thumbnail]]" width="64"/>
+				</div>
+
+				<div class="pure-u-3-4">
+					<h5 class="email-name">[[movie.directors]]</h5>
+					<h4 class="email-subject"><a href="#/movies/[[movie._id]]">[[movie.title]]</a> <span>[[movie.year]]</span></h4>
+					<p class="email-desc">[[movie.actors]]</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="pure-u" id="main">
+	<div class="content">
+	</div>
+</div>

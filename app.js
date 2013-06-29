@@ -71,8 +71,9 @@ app.get( '/register'	, routes.register);
 app.post('/register'	, routes.register);
 
 app.get(	'/item/search/:ean'	, item.search);
-app.get(	'/item/details/:id'	, item.details);
+app.get(	'/item/:id'	, item.details);
 app.post(	'/item/add'			, item.add);
+app.get(	'/item/'			, item.list);
 app.get(	'/item/add/:ean'	, item.add_ean);
 app.get(	'/item/import/:eans'	, item.import_eans);
 app.delete(	'/item/:id'				, item.delete);
