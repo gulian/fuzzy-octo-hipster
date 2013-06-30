@@ -1,8 +1,0 @@
-<h1>congratulations {{username}}!</h1>
-
-<p>your account is now ready to be use! now you can :
-	<ul>
-		<li><a href="dashboard">start registering new movie</a></li>
-		<li><a href="friends/find">find friends</a></li>
-	</ul>
-</p>
