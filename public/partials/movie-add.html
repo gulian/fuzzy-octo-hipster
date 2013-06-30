@@ -4,17 +4,20 @@
 		<option value="ean">ean</option>
 		<option value="eans">eans</option>
 		<option value="full">full</option>
-		<option value="full">search</option>
+		<option value="search">search</option>
+		<option value="photo">photo</option>
+		<option value="video">video</option>
 	</select>
 
 	<div ng-switch on="addingType" >
+		<span ng-switch-default>Choose adding method !</span>
     	<div ng-switch-when="ean">
 			<input type="text" placeholder="ean-13" ng-model="ean">
-			<button ng-click="addEan(ean)">add</button>
+			<button class=btn ng-click="addEan(ean)">add</button>
     	</div>
     	<div ng-switch-when="eans">
 			<input type="text" placeholder="import (ean separated values)" ng-model="esv">
-			<button ng-click="importEsv(esv)">import</button>
+			<button class=btn ng-click="importEsv(esv)">import</button>
     	</div>
     	<div ng-switch-when="full">
 			full
@@ -22,11 +25,14 @@
     	<div ng-switch-when="search">
 			search
     	</div>
-		<span ng-switch-default>Choose adding method !</span>
+    	<div ng-switch-when="photo">
+			photo
+    	</div>
+    	<div ng-switch-when="video">
+			video
+    	</div>
 	</div>
 
-	<div>
-		[[addResult.title]]
-	</div>
+	<div>[[addResult.title]] [[addResult.year]]</div>
 
 </div>

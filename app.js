@@ -73,6 +73,7 @@ app.post('/register'	, routes.register);
 app.get(	'/item/search/:ean'	, item.search);
 app.get(	'/item/:id'	, item.details);
 app.post(	'/item/add'			, item.add);
+app.put(	'/item/:id'			, item.edit);
 app.get(	'/item/'			, item.list);
 app.get(	'/item/add/:ean'	, item.add_ean);
 app.get(	'/item/import/:eans'	, item.import_eans);

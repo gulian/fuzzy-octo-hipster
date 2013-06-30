@@ -29,7 +29,7 @@ function moviesListController($scope, $routeParams, $http) {
 
 }
 
-function moviesDetailController($scope, $routeParams, $http) {
+function moviesDetailController($scope, $routeParams, $http, $location) {
 
 	$scope.movieId = $routeParams.movieId;
 
@@ -39,6 +39,18 @@ function moviesDetailController($scope, $routeParams, $http) {
 
 	$scope.buy = function() {
 		window.open($scope.movie.amazon_url,'_blank');
+	};
+
+	$scope.edit = function(){
+		$http.put('item/'+$scope.movie._id, $scope.movie).success(function(data) {
+			$scope.editSwitch=!$scope.editSwitch;
+		});
+	};
+
+	$scope.delete = function(){
+		$http.delete('item/'+$scope.movie._id).success(function(data) {
+			$location.path('/movies');
+		});
 	};
 
 }

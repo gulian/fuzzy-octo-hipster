@@ -4,12 +4,56 @@
 		<meta charset="utf-8">
 		<title>drunken-bear</title>
 		<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css">
+		<link rel='stylesheet' href='/stylesheets/vendors/bootstrap.css' />
 		<link rel='stylesheet' href='/stylesheets/dashboard.css' />
 	</head>
 	<body>
-		<div ng-view></div>
-		<script src="../javascripts/vendors/jquery.js"></script>
-		<script src="../javascripts/vendors/angular.js"></script>
-		<script src="../javascripts/dashboard.js"></script>
+
 	</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<title>drunken-bear</title>
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css">
+	<link rel='stylesheet' href='/stylesheets/vendors/bootstrap.css' />
+	<link rel='stylesheet' href='/stylesheets/dashboard.css' />
+	<link rel='stylesheet' href='/stylesheets/vendors/bootstrap-responsive.css' />
+  </head>
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#/movies">drunken-bear</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="#/movies">Movies</a></li>
+              <li><a href="#/movies/add">Add</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+		<div ng-view></div>
+    </div>
+	<script src="../javascripts/vendors/jquery.js"></script>
+	<script src="../javascripts/vendors/angular.js"></script>
+	<script src="../javascripts/vendors/bootstrap.js"></script>
+	<script src="../javascripts/dashboard.js"></script>
+  </body>
 </html>

@@ -3,8 +3,8 @@
 	<button>share</button>
 	<button>lent</button>
 	<button ng-click="editSwitch=!editSwitch">edit</button>
-	<button class="buy-btn" ng-click='buy()' data-link="[[movie.amazon_url]]">buy</button>
-	<button class="delete-btn">delete</button>
+	<button class="buy-btn" ng-click='buy()'>buy</button>
+	<button class="delete-btn"  ng-click='delete()' >delete</button>
 
 	<div ng-show="editSwitch">
 		<h3>Edit movie</h3>
@@ -19,7 +19,7 @@
     		<input type="text" ng-model="actor.name">
     	</div>
 
-		<button ng-click="editSwitch=!editSwitch">save</button>
+		<button ng-click="edit()">save</button>
 	</div>
 
 	<img alt="" ng-src="[[movie.thumbnail]]"/>
@@ -37,8 +37,6 @@
 	<ul ng-repeat="actor in movie.actors">
 		<li><a href="#/movies/search/[[actor.name]]">[[actor.name]]</a></li>
 	</ul>
-
-
 
 
 </div>

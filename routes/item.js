@@ -61,7 +61,25 @@ exports.add_ean = function(req, res){
 	});
 };
 
+exports.edit = function(req, res){
+	req.mongoose.models.item.findOne({ _id: req.params.id}, function (error, item) {
+		if(error)
+			return res.send(500);
 
+		item.title =  req.body.title;
+		item.actors =  req.body.title;
+		item.directors =  req.body.title;
+		item.year =  req.body.title;
+
+		item.save(function(error, item){
+			if(error){
+				console.log(error);
+				return res.send(500);
+			}
+			return res.json(200, item);
+		});
+	});
+};
 
 exports.import_eans = function(req, res){
 
