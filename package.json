@@ -21,7 +21,6 @@
     "apac-g" : "*",
     "connect-mongo" :"*",
     "mongoose": "*",
-    "mmm" : "*",
     "mocha" : "*"
   }
 }

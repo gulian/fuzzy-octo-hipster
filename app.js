@@ -9,8 +9,8 @@ var express		= require('express'),
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
-app.set('view engine', 'mmm');
-app.set('layout', 'layout/main');
+app.set('view engine', 'hjs');
+// app.set('layout', 'layout/main');
 
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
@@ -64,10 +64,7 @@ app.all('*',function(req,res,n){
 //   res.send(500, 'Something broke!');
 // });
 
-app.get('/', routes.dashboard);
-
-app.get('/dashboard', routes.dashboard);
-app.get('/dashboard/collection', routes.dashboard);
+app.get('/', routes.index);
 
 app.get('/login', routes.login);
 app.post('/login', routes.login);

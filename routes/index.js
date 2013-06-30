@@ -1,30 +1,22 @@
 var crypto = require('crypto'),
 	key    = 'drunk3n-b34r-r0ck5';
 
-exports.dashboard = function(req, res){
+exports.index = function(req, res){
 	if(!req.session.authenticated)
 		return res.redirect('login');
 
-	req.mongoose.models.item.find({user_id : req.session._id}, function(error, items){
-		res.render('item/list', {layout:'layout/dashboard', movies:items, session: req.session});
-	});
+	res.render('index', {session: req.session});
 };
 
-exports.timeline = function(req, res){
-	if(req.session.authenticated)
-		res.render('timeline', {layout: 'layout/timeline', session:req.session});
-	else
-		res.redirect('login');
-};
 
 exports.register = function(req, res){
 
 	if(req.method !== 'POST')
-		return res.render('user/register');
+		return res.render('register');
 
 	req.mongoose.models.user.find({username:req.body.username},function(error, users){
 		if(error || users.length > 0)
-			return res.render('user/register', {message:"this username is already taken, please choose another one !"});
+			return res.render('register', {message:"this username is already taken, please choose another one !"});
 
 		req.body.password = crypto.createHmac('sha1', key).update(req.body.password).digest('hex');
 
@@ -36,7 +28,7 @@ exports.register = function(req, res){
 			req.session.username      = user.username;
 			req.session._id           = user._id;
 
-			return res.render('user/register_success');
+			return res.redirect('/');
 		});
 	});
 };
@@ -46,11 +38,11 @@ exports.login = function(req, res){
 		return res.redirect('/');
 
 	if(req.method !== 'POST')
-		return res.render('user/login');
+		return res.render('login');
 
 	req.mongoose.models.user.findOne({username:req.body.username},function(error, user){
 		if(error || !user || crypto.createHmac('sha1', key).update(req.body.password).digest('hex') !== user.password)
-			return res.render('user/login', {message:"there is something wrong in your credentials"});
+			return res.render('login', {message:"there is something wrong in your credentials"});
 
 		req.session.authenticated = true;
 		req.session.username      = user.username;
