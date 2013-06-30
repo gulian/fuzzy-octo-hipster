@@ -220,10 +220,11 @@ exports.autocomplete = function(req, res){
 		if(!results.ItemSearchResponse.Items[0].Item){
 			return res.json(200, {});
 		}
-		
+
 		var response = [];
-		for (var i=0; i < 10; i++){
-			response[i] = results.ItemSearchResponse.Items[0].Item[i].ItemAttributes[0].Title[0];
+		for (var i=0; i < 10 ; i++){
+			if(results.ItemSearchResponse.Items[0].Item[i])
+				response.push(results.ItemSearchResponse.Items[0].Item[i].ItemAttributes[0].Title[0]);
 		}
 		return res.json(200, response);
 	});

@@ -37,7 +37,7 @@
 	<script src="../javascripts/vendors/jquery.js"></script>
 	<script src="../javascripts/vendors/angular.js"></script>
   <script src="../javascripts/vendors/bootstrap.js"></script>
-	<script src="../javascripts/vendors/ui.bootstrap.js"></script>
+	<script src="../javascripts/vendors/angular.strap.js"></script>
 	<script src="../javascripts/drunkenbear.js"></script>
   </body>
 </html>

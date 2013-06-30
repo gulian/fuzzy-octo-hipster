@@ -20,7 +20,7 @@ angular.module('SharedServices', [])
     });
 
 
-angular.module('drunkenbear', ['ui.bootstrap', 'SharedServices']).config(function($interpolateProvider) {
+angular.module('drunkenbear', ['$strap.directives', 'SharedServices']).config(function($interpolateProvider) {
 	$interpolateProvider.startSymbol('[[');
 	$interpolateProvider.endSymbol(']]');
 
@@ -74,13 +74,9 @@ function moviesDetailController($scope, $routeParams, $http, $location) {
 
 }
 function moviesAddController($scope, $routeParams, $http) {
-<<<<<<< HEAD
-$scope.states = '';
-	//$scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
-	
-=======
 
->>>>>>> 20552ab3e80a44d4cdf881274aedea59474d8192
+	$scope.autocompleteSource = [];
+
 	$scope.addEan = function(ean){
 		$http.get('/item/add/'+ean).success(function(data) {
 			$scope.addResult = data;
@@ -92,11 +88,12 @@ $scope.states = '';
 			document.location.reload();
 		});
 	};
-	
-	$scope.search = function(searchedText){
+
+	$scope.search = function(searchedText, callback){
+		if(searchedText.length < 4)
+			return ;
 		$http.get('/item/autocomplete/'+searchedText).success(function(data) {
-			console.log(data);
-			$scope.states = data;
+			callback(data);
 		});
 	};
 }

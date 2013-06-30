@@ -23,10 +23,11 @@
 			full
     	</div>
     	<div ng-switch-when="search">
-<<<<<<< HEAD
-			<input type="text" placeholder="Title, author or else..." ng-model="searchedText" ng-change="search(searchedText)" typeahead="state for state in states | filter:$viewValue">
-=======
->>>>>>> 20552ab3e80a44d4cdf881274aedea59474d8192
+			<input type="text" ng-model="typeaheadValue" bs-typeahead="search">
+<!-- 			<input 	type="text" placeholder="Title, author or else..." ng-model="searchedText"
+					ng-change="search(searchedText)"
+					typeahead="movie for movie in autocompleteSource | filter:$viewValue"> -->
+
     	</div>
     	<div ng-switch-when="photo">
 			photo
