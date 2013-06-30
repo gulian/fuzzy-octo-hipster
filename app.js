@@ -38,7 +38,7 @@ var mongo_url  = process.env.MONGOHQ_URL || 'mongodb://localhost/drunken-bear',
 	});
 });
 
-var OperationHelper = require('apac').OperationHelper;
+var OperationHelper = require('apac-g').OperationHelper;
 
 OperationHelper.defaultEndPoint = 'ecs.amazonaws.fr'; // manage locales here
 
