@@ -33,6 +33,7 @@
     <div class="container">
 		  <div ng-view></div>
     </div>
+    <!-- <div class="progress-indicator"><img src="../images/loading.gif" alt="" /></div> -->
 	<script src="../javascripts/vendors/jquery.js"></script>
 	<script src="../javascripts/vendors/angular.js"></script>
   <script src="../javascripts/vendors/bootstrap.js"></script>
