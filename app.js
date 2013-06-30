@@ -73,6 +73,7 @@ app.get('/register', routes.register);
 app.post('/register', routes.register);
 
 app.get('/item/search/:ean', item.search);
+app.get('/item/autocomplete/:searchedText', item.autocomplete);
 app.get('/item/:id', item.details);
 app.post('/item/add', item.add);
 app.put('/item/:id', item.edit);
@@ -92,7 +93,8 @@ mongoose.model('item', new mongoose.Schema({
 	image    : String,
 	thumbnail: String,
 	user_id  : String,
-	amazon_url : String
+	amazon_url : String,
+	search	 : String
 }));
 
 mongoose.model('user', new mongoose.Schema({

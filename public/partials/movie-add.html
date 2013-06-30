@@ -23,8 +23,7 @@
 			full
     	</div>
     	<div ng-switch-when="search">
-			<input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue">
-			[[selected]]
+			<input type="text" placeholder="Title, author or else..." ng-model="searchedText" ng-change="search(searchedText)" typeahead="state for state in states | filter:$viewValue">
     	</div>
     	<div ng-switch-when="photo">
 			photo
