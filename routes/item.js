@@ -67,9 +67,9 @@ exports.edit = function(req, res){
 			return res.send(500);
 
 		item.title =  req.body.title;
-		item.actors =  req.body.title;
-		item.directors =  req.body.title;
-		item.year =  req.body.title;
+		item.actors =  req.body.actors;
+		item.directors =  req.body.directors;
+		item.year =  req.body.year;
 
 		item.save(function(error, item){
 			if(error){
