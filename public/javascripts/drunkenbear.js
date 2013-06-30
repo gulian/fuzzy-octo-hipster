@@ -1,4 +1,26 @@
-angular.module('drunkenbear', ['ui.bootstrap']).config(function($interpolateProvider) {
+angular.module('SharedServices', [])
+    .config(function ($httpProvider) {
+        $httpProvider.responseInterceptors.push('myHttpInterceptor');
+        var spinnerFunction = function (data, headersGetter) {
+            $('.progress-indicator').show();
+            return data;
+        };
+        $httpProvider.defaults.transformRequest.push(spinnerFunction);
+    })
+    .factory('myHttpInterceptor', function ($q, $window) {
+        return function (promise) {
+            return promise.then(function (response) {
+				$('.progress-indicator').hide();
+                return response;
+            }, function (response) {
+				$('.progress-indicator').hide();
+                return $q.reject(response);
+            });
+        };
+    });
+
+
+angular.module('drunkenbear', ['ui.bootstrap', 'SharedServices']).config(function($interpolateProvider) {
 	$interpolateProvider.startSymbol('[[');
 	$interpolateProvider.endSymbol(']]');
 
@@ -49,8 +71,6 @@ function moviesDetailController($scope, $routeParams, $http, $location) {
 
 }
 function moviesAddController($scope, $routeParams, $http) {
-
-	$scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
 
 	$scope.addEan = function(ean){
 		$http.get('/item/add/'+ean).success(function(data) {
