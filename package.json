@@ -18,7 +18,7 @@
     "express": "3.2.6",
     "hjs": "*",
     "less-middleware": "*",
-    "apac" : "*",
+    "apac-g" : "*",
     "connect-mongo" :"*",
     "mongoose": "*",
     "mmm" : "*",

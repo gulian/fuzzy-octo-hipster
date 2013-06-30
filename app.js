@@ -59,27 +59,32 @@ app.all('*',function(req,res,n){
 	n();
 });
 
-app.get( '/'				, routes.dashboard);
+// app.use(function(err, req, res, next){
+//   console.error(err.stack);
+//   res.send(500, 'Something broke!');
+// });
 
-app.get( '/dashboard'				, routes.dashboard);
-app.get( '/dashboard/collection'	, routes.dashboard);
+app.get('/', routes.dashboard);
 
-app.get( '/login'		, routes.login);
-app.post('/login'		, routes.login);
-app.get( '/logout'		, routes.logout);
-app.get( '/register'	, routes.register);
-app.post('/register'	, routes.register);
+app.get('/dashboard', routes.dashboard);
+app.get('/dashboard/collection', routes.dashboard);
 
-app.get(	'/item/search/:ean'	, item.search);
-app.get(	'/item/:id'	, item.details);
-app.post(	'/item/add'			, item.add);
-app.put(	'/item/:id'			, item.edit);
-app.get(	'/item/'			, item.list);
-app.get(	'/item/add/:ean'	, item.add_ean);
-app.get(	'/item/import/:eans'	, item.import_eans);
-app.delete(	'/item/:id'				, item.delete);
+app.get('/login', routes.login);
+app.post('/login', routes.login);
+app.get('/logout', routes.logout);
+app.get('/register', routes.register);
+app.post('/register', routes.register);
 
-app.get( '/user/search/:username'	, user.search);
+app.get('/item/search/:ean', item.search);
+app.get('/item/:id', item.details);
+app.post('/item/add', item.add);
+app.put('/item/:id', item.edit);
+app.get('/item/', item.list);
+app.get('/item/add/:ean', item.add_ean);
+app.get('/item/import/:eans', item.import_eans);
+app.delete('/item/:id', item.delete);
+
+app.get('/user/search/:username', user.search);
 
 mongoose.model('item', new mongoose.Schema({
 	ean      : Number,
