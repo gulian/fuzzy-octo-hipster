@@ -36,11 +36,14 @@ angular.module('drunkenbear', ['ui.bootstrap', 'SharedServices']).config(functio
 }]);
 
 function moviesListController($scope, $routeParams, $http) {
+	$scope.movies = JSON.parse(localStorage["moviesCache"] || '[]');
 
 	$scope.orderProp = 'title';
 	$scope.query = $routeParams.query;
+
 	$http.get('item/').success(function(data) {
 		$scope.movies = data;
+		localStorage["moviesCache"] = JSON.stringify(data);
 	});
 
 }
@@ -54,7 +57,7 @@ function moviesDetailController($scope, $routeParams, $http, $location) {
 	});
 
 	$scope.buy = function() {
-		window.open($scope.movie.amazon_url,'_blank');
+		open($scope.movie.amazon_url,'_blank');
 	};
 
 	$scope.edit = function(){
