@@ -1,5 +1,5 @@
 var crypto = require('crypto'),
-	key    = 'drunk3n-b34r-r0ck5';
+	key    = 'fuzzy-0ct0-h1pst3r-r0ck5';
 
 exports.index = function(req, res){
 	if(!req.session.authenticated)
@@ -14,9 +14,9 @@ exports.register = function(req, res){
 	if(req.method !== 'POST')
 		return res.render('register');
 
-	req.mongoose.models.user.find({username:req.body.username},function(error, users){
+	req.mongoose.models.user.find({email:req.body.email},function(error, users){
 		if(error || users.length > 0)
-			return res.render('register', {message:"this username is already taken, please choose another one !"});
+			return res.render('register', {message:"this address is already registered!"});
 
 		req.body.password = crypto.createHmac('sha1', key).update(req.body.password).digest('hex');
 
@@ -25,7 +25,7 @@ exports.register = function(req, res){
 				return res.send(500);
 
 			req.session.authenticated = true;
-			req.session.username      = user.username;
+			req.session.email      = user.email;
 			req.session._id           = user._id;
 
 			return res.redirect('/');
@@ -40,12 +40,12 @@ exports.login = function(req, res){
 	if(req.method !== 'POST')
 		return res.render('login');
 
-	req.mongoose.models.user.findOne({username:req.body.username},function(error, user){
+	req.mongoose.models.user.findOne({email:req.body.email},function(error, user){
 		if(error || !user || crypto.createHmac('sha1', key).update(req.body.password).digest('hex') !== user.password)
 			return res.render('login', {message:"there is something wrong in your credentials"});
 
 		req.session.authenticated = true;
-		req.session.username      = user.username;
+		req.session.email      = user.email;
 		req.session._id           = user._id;
 
 		return res.redirect('/');

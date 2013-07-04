@@ -1,6 +1,6 @@
 {
-  "name": "drunken-bear",
-  "version": "0.0.4",
+  "name": "fuzzy-octo-hipster",
+  "version": "0.0.1",
   "private": false,
   "scripts": {
     "start": "node app.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
       "type": "git",
-      "url": "https://github.com/gulian/drunken-bear.git"
+      "url": "https://github.com/gulian/fuzzy-octo-hipster.git"
   },
   "engines": {
     "node": "0.10.x",
@@ -18,7 +18,6 @@
     "express": "3.2.6",
     "hjs": "*",
     "less-middleware": "*",
-    "apac-g" : "*",
     "connect-mongo" :"*",
     "mongoose": "*",
     "mocha" : "*"

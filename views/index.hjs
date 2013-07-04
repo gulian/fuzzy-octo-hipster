@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="drunkenbear">
+<html lang="en" ng-app="fuzzyoctohipster">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-	<title>drunken-bear</title>
+	<title>fuzzy-octo-hipster</title>
 	<link rel='stylesheet' href='/stylesheets/vendors/bootstrap.css' />
-	<link rel='stylesheet' href='/stylesheets/drunkenbear.css' />
+	<link rel='stylesheet' href='/stylesheets/fuzzyoctohipster.css' />
 	<link rel='stylesheet' href='/stylesheets/vendors/bootstrap-responsive.css' />
   </head>
   <body>
@@ -19,11 +19,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#/movies">drunken-bear</a>
+          <a class="brand" href="#">fuzzy-octo-hipster</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><a href="#/movies">Movies</a></li>
-              <li><a href="#/movies/add">Add</a></li>
+              <li><a href="#/add">Add</a></li>
+            </ul>
+            <ul class="nav pull-right">
               <li><a href="/logout">Logout</a></li>
             </ul>
           </div>
@@ -38,6 +39,6 @@
 	<script src="../javascripts/vendors/angular.js"></script>
   <script src="../javascripts/vendors/bootstrap.js"></script>
 	<script src="../javascripts/vendors/angular.strap.js"></script>
-	<script src="../javascripts/drunkenbear.js"></script>
+	<script src="../javascripts/fuzzyoctohipster.js"></script>
   </body>
 </html>
