@@ -40,7 +40,7 @@
           </div>
         {{/message}}
 
-        <input type='text' name='username'  class='input-block-level' placeholder=username>
+        <input type='text' name='email'  class='input-block-level' placeholder=email>
         <input type='password' name='password'  class='input-block-level' placeholder=password>
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Remember me

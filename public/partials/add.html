@@ -1,4 +1,7 @@
-<div class="content" ng-controller="itemAddController">
-
-
+<div class="content" >
+	<form ng-controller="itemAddController" ng-submit="add()" ng-model='item'>
+	     <input ng-model='item.title'></input>
+	     <input ng-model='item.url'></input>
+	     <input type="submit" id="submit" value="Submit" />
+	</form>
 </div>

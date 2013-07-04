@@ -1,22 +1,17 @@
 exports.retreive = function(req, res){
-	req.mongoose.models.item.find({user_id : req.session._id}, function(error, items){
+	req.mongoose.models.item.find(null, function(error, items){
 		res.json(200, items);
 	});
 };
 
 exports.create = function(req, res){
-	req.mongoose.models.item.find({ ean:req.body.ean, user_id : req.session._id },function(error, items){
-		if(error || items.length > 0){
-			return res.send(412);
+	req.body.user_id = req.session._id;
+	new req.mongoose.models.item(req.body).save(function (error, item) {
+		if (error)
+			res.send(500);
+		else{
+			res.json(200, item);
 		}
-		req.body.user_id = req.session._id;
-		new req.mongoose.models.item(req.body).save(function (error, item) {
-			if (error)
-				res.send(500);
-			else{
-				res.json(200, item);
-			}
-		});
 	});
 };
 
@@ -26,9 +21,7 @@ exports.update = function(req, res){
 			return res.send(500);
 
 		item.title =  req.body.title;
-		item.actors =  req.body.actors;
-		item.directors =  req.body.directors;
-		item.year =  req.body.year;
+		item.actors =  req.body.url;
 
 		item.save(function(error, item){
 			if(error){

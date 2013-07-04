@@ -9,9 +9,20 @@ angular.module('fuzzyoctohipster', ['$strap.directives']).config(function($inter
 }]);
 
 function itemListController($scope, $routeParams, $http) {
-
+	$http.get('item/').success(function(data){
+		$scope.items = data;
+	});
 }
 
 function itemAddController($scope, $routeParams, $http) {
 
+	$scope.item ={};
+	$scope.item.title = '';
+	$scope.item.url = 'http://';
+
+	$scope.add = function(){
+		$http.post('item/', $scope.item).success(function(data) {
+			console.log(data);
+		});
+	}
 }

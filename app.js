@@ -51,6 +51,7 @@ app.post('/register', routes.register);
 
 app.post('/item/'		, item.create);
 app.get('/item/:id'		, item.retreive);
+app.get('/item/'		, item.retreive);
 app.put('/item/:id'		, item.update);
 app.delete('/item/:id'	, item.delete);
 
@@ -58,7 +59,7 @@ mongoose.model('item', new mongoose.Schema({
 	title: String,
 	image: String,
 	tags: String,
-	urls: String,
+	url: String,
 	user_id: String
 }));
 

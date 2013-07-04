@@ -5,7 +5,6 @@
 		<option value="title">Alphabetical</option>
 		<option value="-title">Alphabetical desc</option>
 	</select>
-
 	<div ng-repeat="item in items  | filter:query | orderBy:orderProp">
 		[[item.title]]
 	</div>
