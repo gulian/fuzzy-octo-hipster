@@ -53,17 +53,23 @@ app.post('/item/'		, item.create);
 app.get('/item/:id'		, item.retreive);
 app.get('/item/'		, item.retreive);
 app.put('/item/:id'		, item.update);
+app.put('/item/clicked/:id'		, item.updateClick);
 app.delete('/item/:id'	, item.delete);
 
-mongoose.model('item', new mongoose.Schema({
+var itemSchema = mongoose.Schema({
 	title: String,
 	image: String,
-	tags: String,
+	tags: [String],
 	url: String,
-	user_id: String
-}));
+	click: { type: Number, default: 0 },
+	user:  {type:  mongoose.Schema.Types.ObjectId, ref: 'user' },
+	created: { type: Date, default: Date.now }
+});
 
-mongoose.model('user', new mongoose.Schema({
+var userSchema = mongoose.Schema({
 	email    : String,
 	password : String
-}));
+});
+
+mongoose.model('item', itemSchema);
+mongoose.model('user', userSchema);

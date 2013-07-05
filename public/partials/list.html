@@ -5,40 +5,48 @@
 	<select ng-model="orderProp">
 		<option value="title">Alphabetical</option>
 		<option value="-title">Alphabetical desc</option>
+		<option value="click">Visites</option>
+		<option value="-click">Visites desc</option>
 	</select>
 
 
 
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Titre</th>
-      <th>Lien</th>
-      <th>Auteur</th>
-      <th>Tags</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-  	<tr ng-repeat="item in items  | filter:query | orderBy:orderProp">
-		<td>[[item.title]]</td>
-	    <td><a href="[[item.url]]" target='_blank'>[[item.url]]</a></td>
-	    <td>[[item.author]]</td>
-	    <td>[[item.tags]]</td>
-	    <td>
-			<div class="btn-group">
-				<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">Actions <span class="caret"></span></button>
-				<ul class="dropdown-menu">
-					<li><a href="#/update/[[item._id]]">Modifier</a></li>
-					<li><a href="#/delete/[[item._id]]">Supprimer</a></li>
-				</ul>
-			</div>
-	    </td>
-	</tr>
-  </tbody>
-</table>
-
-
+	<table class="table table-hover">
+		<thead>
+			<tr>
+			<th></th>
+			<th>Titre</th>
+			<th>Lien</th>
+			<th>Auteur</th>
+			<th>Tags</th>
+			<th>Visites</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in items  | filter:query | orderBy:orderProp">
+				<td>
+					<div class="btn-group">
+						<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+						<ul class="dropdown-menu">
+							<li><a href="#/update/[[item._id]]">Modifier</a></li>
+							<li><a href="#/delete/[[item._id]]">Supprimer</a></li>
+						</ul>
+					</div>
+				</td>
+				<td>[[item.title]]</td>
+				<td>
+					<a href="[[item.url]]" target='_blank' ng-click='click(item)'>[[item.url]]</a>
+				</td>
+				<td> <a href="#/filter/[[item.user.email]]" >[[item.user.email]]</a></td>
+				<td>
+					<span ng-repeat="tag in item.tags">
+						tag.name
+					</span>
+				</td>
+				<td>[[item.click]]</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
 
 
