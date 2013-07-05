@@ -3,27 +3,17 @@ angular.module('fuzzyoctohipster', ['$strap.directives']).config(function($inter
 	$interpolateProvider.endSymbol(']]');
 }).config(['$routeProvider', function($routeProvider) {
 	$routeProvider.
-		when('',					{templateUrl: 'partials/list.html'}).
+		when('/',					{templateUrl: 'partials/list.html'}).
 		when('/add',				{templateUrl: 'partials/add.html' }).
-		otherwise({redirectTo: ''});
+		when('/update/:id',				{templateUrl: 'partials/update.html' }).
+		when('/delete/:id',				{templateUrl: 'partials/delete.html' }).
+		otherwise({redirectTo: '/'});
 }]);
 
 function itemListController($scope, $routeParams, $http) {
 	$http.get('item/').success(function(data){
 		$scope.items = data;
 	});
-
-	$scope.dropdown = [
-			{text: 'Another action', href: '#anotherAction'},
-			{divider: true},
-			{text: 'Separated link', href: '#',
-				submenu: [
-					{text: 'Second level link', href: '#'},
-					{text: 'Second level link 2', href: '#'}
-				]
-			}
-	];
-
 
 }
 
@@ -37,5 +27,23 @@ function itemAddController($scope, $routeParams, $http) {
 		$http.post('item/', $scope.item).success(function(data) {
 			console.log(data);
 		});
-	}
+	};
+}
+
+function itemUpdateController($scope,  $http, $routeParams){
+	$http.get('item/'+$routeParams.id).success(function(data){
+		$scope.item = data[0];
+	});
+}
+
+function itemDeleteController($scope,  $http, $routeParams, $location){
+	$http.get('item/'+$routeParams.id).success(function(data){
+		$scope.item = data[0];
+	});
+
+	$scope.delete = function(){
+		$http.delete('item/'+$routeParams.id).success(function(data){
+			$location.path('');
+		});
+	};
 }

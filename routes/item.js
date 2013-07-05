@@ -1,5 +1,8 @@
 exports.retreive = function(req, res){
-	req.mongoose.models.item.find(null, function(error, items){
+
+	var request = req.params.id ? { _id : req.params.id } : null ;
+
+	req.mongoose.models.item.find(request, function(error, items){
 		res.json(200, items);
 	});
 };

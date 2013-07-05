@@ -26,12 +26,13 @@
 	    <td>[[item.author]]</td>
 	    <td>[[item.tags]]</td>
 	    <td>
-	    	<div class="btn-group">
-  <button type="button" class="btn">Visiter</button>
-  <button type="button" class="btn" bs-dropdown="dropdown">
-    <span class="caret"></span>
-  </button>
-</div>
+			<div class="btn-group">
+				<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">Actions <span class="caret"></span></button>
+				<ul class="dropdown-menu">
+					<li><a href="#/update/[[item._id]]">Modifier</a></li>
+					<li><a href="#/delete/[[item._id]]">Supprimer</a></li>
+				</ul>
+			</div>
 	    </td>
 	</tr>
   </tbody>
