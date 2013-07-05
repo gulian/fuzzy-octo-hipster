@@ -12,6 +12,19 @@ function itemListController($scope, $routeParams, $http) {
 	$http.get('item/').success(function(data){
 		$scope.items = data;
 	});
+
+	$scope.dropdown = [
+			{text: 'Another action', href: '#anotherAction'},
+			{divider: true},
+			{text: 'Separated link', href: '#',
+				submenu: [
+					{text: 'Second level link', href: '#'},
+					{text: 'Second level link 2', href: '#'}
+				]
+			}
+	];
+
+
 }
 
 function itemAddController($scope, $routeParams, $http) {

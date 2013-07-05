@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-	<title>fuzzy-octo-hipster</title>
-	<link rel='stylesheet' href='/stylesheets/vendors/bootstrap.css' />
-	<link rel='stylesheet' href='/stylesheets/fuzzyoctohipster.css' />
-	<link rel='stylesheet' href='/stylesheets/vendors/bootstrap-responsive.css' />
+  <title>fuzzy-octo-hipster</title>
+  <link rel='stylesheet' href='/stylesheets/vendors/bootstrap.css' />
+  <link rel='stylesheet' href='/stylesheets/fuzzyoctohipster.css' />
+  <link rel='stylesheet' href='/stylesheets/vendors/bootstrap-responsive.css' />
   </head>
   <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -19,9 +19,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">fuzzy-octo-hipster</a>
+          <a class="brand" href="#"><img src="images/logo.png" alt="logo" width=24> fuzzy-octo-hipster</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
+              <li><a href="#/add">Add</a></li>
+            </ul>
+            <ul class="nav pull-right">
+              <li><a href="/logout">Logout</a></li>
             </ul>
           </div>
         </div>

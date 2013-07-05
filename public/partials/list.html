@@ -1,11 +1,43 @@
 <div class="content" ng-controller="itemListController">
 
+
 	<input type=text ng-model="query" placeholder="Search">
 	<select ng-model="orderProp">
 		<option value="title">Alphabetical</option>
 		<option value="-title">Alphabetical desc</option>
 	</select>
-	<div ng-repeat="item in items  | filter:query | orderBy:orderProp">
-		[[item.title]]
-	</div>
+
+
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Titre</th>
+      <th>Lien</th>
+      <th>Autheur</th>
+      <th>Tags</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  	<tr ng-repeat="item in items  | filter:query | orderBy:orderProp">
+		<td>[[item.title]]</td>
+	    <td>[[item.url]]</td>
+	    <td>[[item.author]]</td>
+	    <td>[[item.tags]]</td>
+	    <td>
+	    	<div class="btn-group">
+  <button type="button" class="btn">Visiter</button>
+  <button type="button" class="btn" bs-dropdown="dropdown">
+    <span class="caret"></span>
+  </button>
 </div>
+	    </td>
+	</tr>
+  </tbody>
+</table>
+
+
+</div>
+
+
