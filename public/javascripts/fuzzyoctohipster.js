@@ -30,10 +30,16 @@ function itemAddController($scope, $routeParams, $http) {
 	};
 }
 
-function itemUpdateController($scope,  $http, $routeParams){
+function itemUpdateController($scope,  $http, $routeParams, $location){
 	$http.get('item/'+$routeParams.id).success(function(data){
 		$scope.item = data[0];
 	});
+
+	$scope.update = function(){
+		$http.put('item/'+$routeParams.id, $scope.item).success(function(data){
+			$location.path('');
+		});
+	};
 }
 
 function itemDeleteController($scope,  $http, $routeParams, $location){

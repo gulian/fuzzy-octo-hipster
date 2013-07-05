@@ -24,7 +24,7 @@ exports.update = function(req, res){
 			return res.send(500);
 
 		item.title =  req.body.title;
-		item.actors =  req.body.url;
+		item.url =  req.body.url;
 
 		item.save(function(error, item){
 			if(error){
