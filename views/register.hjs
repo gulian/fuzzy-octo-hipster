@@ -22,32 +22,49 @@
           <a class="brand" href="#"><img src="images/logo.png" alt="logo" width=24> fuzzy-octo-hipster</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><a href="#/add">Add</a></li>
             </ul>
-            <ul class="nav pull-right">
-              <li><a href="/logout">Logout</a></li>
+            <ul class="nav pull-right ">
+              <form class="navbar-form pull-left">
+                  <a class="btn btn-success">Créer compte</a>
+                </form>
             </ul>
           </div>
         </div>
       </div>
     </div>
-    <div class="container">
-<h1>register</h1>
+<!--     <div class="container">
 
-{{#message}}
-	<div class="alert alert-block">
-	  <button type="button" class="close" data-dismiss="alert">&times;</button>
-	  <h4>AAArgg!</h4>
-	  {{message}}
-	</div>
-{{/message}}
+
 
 <form action='register' method='POST'>
 	<input type="text" name='email' placeholder='email'>
 	<input type="password"  name='password' placeholder='password'>
 	<input type="submit" value='register'>
 </form>
+    </div> -->
+
+
+
+        <div class="container">
+      <form action='register' method='POST' class='form-signin'>
+
+        <h2 class="form-signin-heading">Hey !</h2>
+
+{{#message}}
+  <div class="alert alert-block">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <h4>AAArgg!</h4>
+    {{message}}
+  </div>
+{{/message}}
+
+        <input type='text' name='email'  class='input-block-level' placeholder=email>
+        <input type='password' name='password'  class='input-block-level' placeholder=password>
+        <button class="btn btn-large btn-primary" type="submit">Inscription</button>
+
+      </form>
     </div>
+
 	<script src="../javascripts/vendors/jquery.js"></script>
 	<script src="../javascripts/vendors/angular.js"></script>
 	<script src="../javascripts/vendors/bootstrap.js"></script>

@@ -22,10 +22,11 @@
           <a class="brand" href="#"><img src="images/logo.png" alt="logo" width=24> fuzzy-octo-hipster</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><a href="#/add">Add</a></li>
             </ul>
-            <ul class="nav pull-right">
-              <li><a href="/logout">Logout</a></li>
+            <ul class="nav pull-right ">
+              <form class="navbar-form pull-left">
+                  <a class="btn btn-success">Créer compte</a>
+                </form>
             </ul>
           </div>
         </div>
@@ -34,7 +35,7 @@
     <div class="container">
       <form action='login' method='POST' class='form-signin'>
 
-        <h2 class="form-signin-heading">Please sign in</h2>
+        <h2 class="form-signin-heading">Hey ! Welcome back !</h2>
 
         {{#message}}
           <div class="alert alert-block">
@@ -46,10 +47,7 @@
 
         <input type='text' name='email'  class='input-block-level' placeholder=email>
         <input type='password' name='password'  class='input-block-level' placeholder=password>
-        <label class="checkbox">
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-        <button class="btn btn-large btn-primary" type="submit">Sign in to fuzzy-octo-hipster</button>
+        <button class="btn btn-large btn-primary" type="submit">Connexion</button>
 
       </form>
     </div>
