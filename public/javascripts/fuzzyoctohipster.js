@@ -17,7 +17,7 @@ function itemListController($scope, $routeParams, $http) {
 
 }
 
-function itemAddController($scope, $routeParams, $http) {
+function itemAddController($scope, $routeParams, $http, $location) {
 
 	$scope.item ={};
 	$scope.item.title = '';
@@ -25,7 +25,7 @@ function itemAddController($scope, $routeParams, $http) {
 
 	$scope.add = function(){
 		$http.post('item/', $scope.item).success(function(data) {
-			console.log(data);
+			$location.path('');
 		});
 	};
 }
