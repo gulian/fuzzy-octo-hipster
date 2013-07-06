@@ -40,7 +40,7 @@ function itemAddController($scope, $routeParams, $http, $location) {
 
 	$scope.add = function(){
 
-		if($scope.item.tagsRepo.length)
+		if($scope.item.tagsRepo && $scope.item.tagsRepo.length)
 			$scope.item.tags.push({
 				name : $scope.item.tagsRepo
 			});
@@ -71,11 +71,45 @@ function itemUpdateController($scope,  $http, $routeParams, $location){
 		$scope.item = data[0];
 	});
 
+	$scope.alert = {
+		"type": "error",
+		"title": "Modification interdite",
+		"content": "<br>Vous n'êtes pas propriétaire de ce lien.<br><a href='#/'>Retour</a>",
+		"hide" : true
+    };
+
 	$scope.update = function(){
+
+		if($scope.item.tagsRepo && $scope.item.tagsRepo.length)
+			$scope.item.tags.push({
+				name : $scope.item.tagsRepo
+			});
+
+		delete $scope.item.tagsRepo;
+
+
 		$http.put('item/'+$routeParams.id, $scope.item).success(function(data){
 			$location.path('');
+		}).error(function(response, code){
+			if(code === 403){
+				$scope.alert.hide = false;
+			}
 		});
 	};
+
+	$scope.handleTag = function(){
+		if($scope.item.tagsRepo.indexOf(',') !== -1){
+			$scope.item.tags.push({
+				name : $scope.item.tagsRepo.slice(0,-1)
+			});
+			$scope.item.tagsRepo = '';
+		}
+	};
+
+	$scope.removeTag = function(index){
+		$scope.item.tags.splice(index, 1);
+	};
+
 }
 
 function itemDeleteController($scope,  $http, $routeParams, $location){
@@ -83,9 +117,20 @@ function itemDeleteController($scope,  $http, $routeParams, $location){
 		$scope.item = data[0];
 	});
 
+	$scope.alert = {
+		"type": "error",
+		"title": "Suppression interdite",
+		"content": "<br>Vous n'êtes pas propriétaire de ce lien.<br><a href='#/'>Retour</a>",
+		"hide" : true
+    };
+
 	$scope.delete = function(){
 		$http.delete('item/'+$routeParams.id).success(function(data){
 			$location.path('');
+		}).error(function(response, code){
+			if(code === 403){
+				$scope.alert.hide = false;
+			}
 		});
 	};
 }

@@ -7,11 +7,11 @@
     <meta name="author" content="">
 	<title>fuzzy-octo-hipster</title>
 	<link rel='stylesheet' href='/stylesheets/vendors/bootstrap.css' />
-	<link rel='stylesheet' href='/stylesheets/fuzzyoctohipster.css' />
 	<link rel='stylesheet' href='/stylesheets/vendors/bootstrap-responsive.css' />
+  <link rel='stylesheet' href='/stylesheets/fuzzyoctohipster.css' />
   </head>
   <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -19,13 +19,23 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#"><img src="images/logo.png" alt="logo" width=24> fuzzy-octo-hipster</a>
+          <a class="brand" href="#"><img src="images/logo.png" alt="logo"> fuzzy-octo-hipster</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li><a href="#/add">Add</a></li>
             </ul>
             <ul class="nav pull-right">
-              <li><a href="/logout">Logout</a></li>
+<li><div class="btn-group">
+  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+    <i class="icon-user"></i>
+  </a>
+  <ul class="dropdown-menu">
+   <li><a href="/logout">Logout</a></li> <!-- dropdown menu links -->
+  </ul>
+</div>
+</li>
+
+
             </ul>
           </div>
         </div>

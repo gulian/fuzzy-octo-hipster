@@ -23,8 +23,13 @@ exports.update = function(req, res){
 		if(error)
 			return res.send(500);
 
-		item.title =  req.body.title;
-		item.url =  req.body.url;
+		if(item.user != req.session._id)
+			return res.send(403);
+
+		item.title   =  req.body.title;
+		item.url     =  req.body.url;
+		item.tags    =  req.body.tags;
+		item.created = Date.now();
 
 		item.save(function(error, item){
 			if(error){
@@ -53,10 +58,16 @@ exports.updateClick = function(req, res){
 };
 
 exports.delete = function(req,res){
-	req.mongoose.models.item.find({ _id:req.params.id }).remove(function(error, removed){
-		if(removed > 0)
-			res.send(200);
-		else
-			res.send(404);//give UI information
-	});
+	req.mongoose.models.item.findOne({ _id:req.params.id }, function(error, item){
+		if(item && item.user != req.session._id)
+			return res.send(403);
+
+		item.remove(function(error){
+			if(error)
+				res.send(500);
+			else
+				res.send(200);
+		});
+	})
+
 };
