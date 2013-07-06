@@ -35,7 +35,7 @@
     <div class="container">
       <form action='login' method='POST' class='form-signin'>
 
-        <h2 class="form-signin-heading">Hey ! Welcome back !</h2>
+        <h2 class="form-signin-heading">Connexion</h2>
 
         {{#message}}
           <div class="alert alert-block">

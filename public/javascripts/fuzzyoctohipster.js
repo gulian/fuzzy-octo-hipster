@@ -32,14 +32,37 @@ function itemListController($scope, $routeParams, $http) {
 
 function itemAddController($scope, $routeParams, $http, $location) {
 
-	$scope.item ={};
-	$scope.item.title = '';
-	$scope.item.url = 'http://';
+	$scope.item = {
+		title:'',
+		url: 'http://',
+		tags: []
+	};
 
 	$scope.add = function(){
+
+		if($scope.item.tagsRepo.length)
+			$scope.item.tags.push({
+				name : $scope.item.tagsRepo
+			});
+
+		delete $scope.item.tagsRepo;
+
 		$http.post('item/', $scope.item).success(function(data) {
 			$location.path('');
 		});
+	};
+
+	$scope.handleTag = function(){
+		if($scope.item.tagsRepo.indexOf(',') !== -1){
+			$scope.item.tags.push({
+				name : $scope.item.tagsRepo.slice(0,-1)
+			});
+			$scope.item.tagsRepo = '';
+		}
+	};
+
+	$scope.removeTag = function(index){
+		$scope.item.tags.splice(index, 1);
 	};
 }
 

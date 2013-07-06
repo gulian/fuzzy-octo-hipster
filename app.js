@@ -59,7 +59,7 @@ app.delete('/item/:id'	, item.delete);
 var itemSchema = mongoose.Schema({
 	title: String,
 	image: String,
-	tags: [String],
+	tags: mongoose.Schema.Types.Mixed,
 	url: String,
 	click: { type: Number, default: 0 },
 	user:  {type:  mongoose.Schema.Types.ObjectId, ref: 'user' },

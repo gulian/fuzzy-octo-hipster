@@ -9,17 +9,13 @@
 		<option value="-click">Visites desc</option>
 	</select>
 
-
-
 	<table class="table table-hover">
 		<thead>
 			<tr>
 			<th></th>
 			<th>Titre</th>
-			<th>Lien</th>
-			<th>Auteur</th>
 			<th>Tags</th>
-			<th>Visites</th>
+			<th>Auteur</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -33,17 +29,15 @@
 						</ul>
 					</div>
 				</td>
-				<td>[[item.title]]</td>
 				<td>
-					<a href="[[item.url]]" target='_blank' ng-click='click(item)'>[[item.url]]</a>
+					<a href="[[item.url]]" target='_blank' ng-click='click(item)' data-placement="right" bs-tooltip="item.click">[[item.title]]</a>
 				</td>
-				<td> <a href="#/filter/[[item.user.email]]" >[[item.user.email]]</a></td>
 				<td>
 					<span ng-repeat="tag in item.tags">
-						tag.name
+						<a  href="#/filter/[[tag.name]]" class="label">[[tag.name]]</a>
 					</span>
 				</td>
-				<td>[[item.click]]</td>
+				<td> <a href="#/filter/[[item.user.email]]" >[[item.user.email]]</a></td>
 			</tr>
 		</tbody>
 	</table>
