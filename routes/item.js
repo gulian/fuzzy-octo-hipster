@@ -2,7 +2,7 @@ exports.retreive = function(req, res){
 
 	var request = req.params.id ? { _id : req.params.id } : null ;
 
-	req.mongoose.models.item.find(request).populate('user', 'email').exec(function(error, items){
+	req.mongoose.models.item.find(request).sort({created: -1}).populate('user', 'email').exec(function(error, items){
 		res.json(200, items);
 	});
 };
