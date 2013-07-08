@@ -1,6 +1,7 @@
-angular.module('fuzzyoctohipster', ['$strap.directives']).config(function($interpolateProvider) {
+angular.module('fuzzyoctohipster', ['$strap.directives']).config(function($compileProvider, $interpolateProvider) {
 	$interpolateProvider.startSymbol('[[');
 	$interpolateProvider.endSymbol(']]');
+	$compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|javascript|file):/);
 }).config(['$routeProvider', function($routeProvider) {
 	$routeProvider.
 		when('/',					{templateUrl: 'partials/list.html'}).
@@ -13,10 +14,24 @@ angular.module('fuzzyoctohipster', ['$strap.directives']).config(function($inter
 
 function itemListController($scope, $routeParams, $http) {
 
+
+
 	$scope.query = $routeParams.query;
 
 	$http.get('item/').success(function(data){
 		$scope.items = data;
+	});
+
+	$http.get('credentials/').success(function(data){
+		$scope.bookmarklet  = "javascript:(function(){";
+			$scope.bookmarklet += "var h=new XMLHttpRequest(),url='"+document.location.origin+"/item/',params='title='+document.title+'&url='+document.location+'&user="+data+"';";
+			$scope.bookmarklet += "h.open('POST',url,true);";
+			$scope.bookmarklet += "h.setRequestHeader('Content-type','application/x-www-form-urlencoded');";
+			$scope.bookmarklet += "h.onreadystatechange = function() {if(h.readyState == 4 && h.status == 200){alert('Lien ajouté avec succés !');console.log(h);}};";
+			$scope.bookmarklet += "h.send(params);";
+		$scope.bookmarklet += "}());";
+
+		$("#bookmarklet").attr("href", $scope.bookmarklet);
 	});
 
 	$scope.click = function(item){
@@ -76,7 +91,7 @@ function itemUpdateController($scope,  $http, $routeParams, $location){
 		"title": "Modification interdite",
 		"content": "<br>Vous n'êtes pas propriétaire de ce lien.<br><a href='#/'>Retour</a>",
 		"hide" : true
-    };
+	};
 
 	$scope.update = function(){
 
@@ -122,7 +137,7 @@ function itemDeleteController($scope,  $http, $routeParams, $location){
 		"title": "Suppression interdite",
 		"content": "<br>Vous n'êtes pas propriétaire de ce lien.<br><a href='#/'>Retour</a>",
 		"hide" : true
-    };
+	};
 
 	$scope.delete = function(){
 		$http.delete('item/'+$routeParams.id).success(function(data){

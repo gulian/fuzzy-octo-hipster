@@ -8,7 +8,15 @@ exports.retreive = function(req, res){
 };
 
 exports.create = function(req, res){
-	req.body.user = req.session._id;
+
+	res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
+	req.body.user = req.body.user || req.session._id;
+
+	if(!req.body.user)
+		res.send(403);
+
 	new req.mongoose.models.item(req.body).save(function (error, item) {
 		if (error)
 			res.send(500);
@@ -23,7 +31,7 @@ exports.update = function(req, res){
 		if(error)
 			return res.send(500);
 
-		if(item.user != req.session._id)
+		if(item && item.user != req.session._id && item.user !== undefined)
 			return res.send(403);
 
 		item.title   =  req.body.title;
@@ -59,7 +67,7 @@ exports.updateClick = function(req, res){
 
 exports.delete = function(req,res){
 	req.mongoose.models.item.findOne({ _id:req.params.id }, function(error, item){
-		if(item && item.user != req.session._id)
+		if(item && item.user != req.session._id && item.user !== undefined)
 			return res.send(403);
 
 		item.remove(function(error){

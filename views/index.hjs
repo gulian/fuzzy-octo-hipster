@@ -22,18 +22,33 @@
           <a class="brand" href="#"><img src="images/logo.png" alt="logo"> fuzzy-octo-hipster</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><a href="#/add">Add</a></li>
+                            <li><div class="btn-group">
+  <a class="btn" href="#/add">
+    <i class="icon-plus"></i>
+  </a>
+</div>
+</li>
+              <!-- <li><a href="#/add">Add</a></li> -->
             </ul>
-            <ul class="nav pull-right">
+            <ul class='nav pull-right'>
+
+              <li><div class="btn-group">
+  <a id="bookmarklet" class="btn" href="#">
+    <i class="icon-tag"></i> Bookmarklet
+  </a>
+</div>
+</li>
+
 <li><div class="btn-group">
   <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
     <i class="icon-user"></i>
   </a>
   <ul class="dropdown-menu">
-   <li><a href="/logout">Logout</a></li> <!-- dropdown menu links -->
+   <li><a href="/logout">Logout</a></li>
   </ul>
 </div>
 </li>
+
 
 
             </ul>
