@@ -82,6 +82,13 @@ function itemAddController($scope, $routeParams, $http, $location) {
 }
 
 function itemUpdateController($scope,  $http, $routeParams, $location){
+
+	$scope.item = {
+		title:'',
+		url: 'http://',
+		tags: []
+	};
+
 	$http.get('item/'+$routeParams.id).success(function(data){
 		$scope.item = data[0];
 	});
