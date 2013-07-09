@@ -1,7 +1,6 @@
 <div class="content" >
 	<form ng-controller="itemDeleteController" ng-submit="delete()" ng-model='item'>
 		<div class="alert fade" ng-hide="alert.hide" bs-alert="alert"></div>
-		<label for="">Supprimer ?</label>
-	    <input type="submit" id="submit" value="Supprimer" />
+	    <button class="btn" type="submit">Supprimer "[[item.title]]"</button>
 	</form>
 </div>
