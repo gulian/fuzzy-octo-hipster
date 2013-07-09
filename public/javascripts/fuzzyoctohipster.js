@@ -86,6 +86,12 @@ function itemAddController($scope, $routeParams, $http, $location) {
 
 function itemUpdateController($scope,  $http, $routeParams, $location){
 
+	$scope.item = {
+		title:'',
+		url: 'http://',
+		tags: []
+	};
+
 	$http.get('item/'+$routeParams.id).success(function(data){
 		$scope.item = data[0];
 	});
@@ -99,13 +105,15 @@ function itemUpdateController($scope,  $http, $routeParams, $location){
 
 	$scope.update = function(){
 
-		if($scope.item.tagsRepo && $scope.item.tagsRepo.length)
+		if($scope.item.tagsRepo && $scope.item.tagsRepo.length){
+			if(!$scope.item.tags)
+				$scope.item.tags = [];
 			$scope.item.tags.push({
 				name : $scope.item.tagsRepo
 			});
+		}
 
 		delete $scope.item.tagsRepo;
-
 
 		$http.put('item/'+$routeParams.id, $scope.item).success(function(data){
 			$location.path('');
