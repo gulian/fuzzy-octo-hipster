@@ -10,7 +10,17 @@ exports.retreive = function(req, res){
 exports.create = function(req, res){
 
 	res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+	res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
+	if(typeof req.body.tags === "string"){
+		var tmp = [];
+		for (var i = 0; i < req.body.tags.split(',').length; i++) {
+			tmp.push({
+				name: req.body.tags.split(',')[i]
+			});
+		}
+		req.body.tags = tmp;
+	}
 
 	req.body.user = req.body.user || req.session._id;
 

@@ -24,7 +24,8 @@ function itemListController($scope, $routeParams, $http) {
 
 	$http.get('credentials/').success(function(data){
 		$scope.bookmarklet  = "javascript:(function(){";
-			$scope.bookmarklet += "var h=new XMLHttpRequest(),url='"+document.location.origin+"/item/',params='title='+document.title+'&url='+document.location+'&user="+data+"';";
+			$scope.bookmarklet += "var tags = prompt('Tags (séparés par des virgules)');";
+			$scope.bookmarklet += "var h=new XMLHttpRequest(),url='"+document.location.origin+"/item/',params='title='+document.title+'&url='+document.location+'&tags='+tags+'&user="+data+"';";
 			$scope.bookmarklet += "h.open('POST',url,true);";
 			$scope.bookmarklet += "h.setRequestHeader('Content-type','application/x-www-form-urlencoded');";
 			$scope.bookmarklet += "h.onreadystatechange = function() {if(h.readyState == 4 && h.status == 200){alert('Lien ajouté avec succés !');console.log(h);}};";
