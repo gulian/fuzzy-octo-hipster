@@ -9,8 +9,14 @@ exports.retreive = function(req, res){
 
 exports.create = function(req, res){
 
-	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Origin", req.headers.origin);
 	res.header("Access-Control-Allow-Headers", "X-Requested-With");
+	res.header("Access-Control-Allow-Credentials", true);
+
+	req.body.user = req.session._id;
+
+	if(!req.body.user)
+		return res.send(403);
 
 	if(typeof req.body.tags === "string"){
 		var tmp = [];
@@ -21,11 +27,6 @@ exports.create = function(req, res){
 		}
 		req.body.tags = tmp;
 	}
-
-	req.body.user = req.body.user || req.session._id;
-
-	if(!req.body.user)
-		res.send(403);
 
 	new req.mongoose.models.item(req.body).save(function (error, item) {
 		if (error)

@@ -24,11 +24,13 @@ function itemListController($scope, $routeParams, $http) {
 
 	$http.get('credentials/').success(function(data){
 		$scope.bookmarklet  = "javascript:(function(){";
+			$scope.bookmarklet += "function createCORSRequest(method, url){var x = new XMLHttpRequest();if ('withCredentials' in x)x.open(method, url, true);else if (typeof XDomainRequest != 'undefined') {x = new XDomainRequest();x.open(method, url);} else x = null;return x;}";
 			$scope.bookmarklet += "var tags = prompt('Tags (séparés par des virgules)');";
-			$scope.bookmarklet += "var h=new XMLHttpRequest(),url='"+document.location.origin+"/item/',params='title='+document.title+'&url='+document.location+'&tags='+tags+'&user="+data+"';";
+			$scope.bookmarklet += "var h=new createCORSRequest(),url='"+document.location.origin+"/item/',params='title='+document.title+'&url='+document.location+'&tags='+tags;";
+			$scope.bookmarklet += "h.withCredentials = true;";
 			$scope.bookmarklet += "h.open('POST',url,true);";
 			$scope.bookmarklet += "h.setRequestHeader('Content-type','application/x-www-form-urlencoded');";
-			$scope.bookmarklet += "h.onreadystatechange = function() {if(h.readyState == 4 && h.status == 200){alert('Lien ajouté avec succés !');console.log(h);}};";
+			$scope.bookmarklet += "h.onreadystatechange = function() {if(h.readyState == 4 && h.status == 200){alert('Lien ajouté avec succés !');} else if(h.readyState == 4 && h.status == 403){alert(\"Vous n'êtes pas authentifié\");}};";
 			$scope.bookmarklet += "h.send(params);";
 		$scope.bookmarklet += "}());";
 
