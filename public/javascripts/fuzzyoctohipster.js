@@ -83,12 +83,6 @@ function itemAddController($scope, $routeParams, $http, $location) {
 
 function itemUpdateController($scope,  $http, $routeParams, $location){
 
-	$scope.item = {
-		title:'',
-		url: 'http://',
-		tags: []
-	};
-
 	$http.get('item/'+$routeParams.id).success(function(data){
 		$scope.item = data[0];
 	});
@@ -121,6 +115,9 @@ function itemUpdateController($scope,  $http, $routeParams, $location){
 
 	$scope.handleTag = function(){
 		if($scope.item.tagsRepo.indexOf(',') !== -1){
+			if(!$scope.item.tags)
+				$scope.item.tags = [];
+
 			$scope.item.tags.push({
 				name : $scope.item.tagsRepo.slice(0,-1)
 			});
