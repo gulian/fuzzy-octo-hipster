@@ -1,0 +1,25 @@
+<div ng-controller="commentsController">
+	<div class="modal-header">
+
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3>Commentaires pour [[item.title]]</h3>
+	</div>
+
+	<div class="modal-body">
+		<!-- <div ng-repeat="comment in item.comments" class="comment"> -->
+			<!-- <div class="text"> <span class="author">by </span></div>
+		</div> -->
+
+		<blockquote ng-repeat="comment in item.comments">
+		  <p>[[comment.comment]]</p>
+		  <small>[[comment.user.email]] <cite title="date" style="font-size:9px">à [[comment.created |  date:'HH:mm le dd/MM/yyyy']]</cite></small>
+		</blockquote>
+	</div>
+
+	<div class="modal-footer">
+		<form class="pull-left footer-form" ng-model="newComment" ng-submit="addComment()">
+			<input type="text" name="comment" placeholder="Commentaire ..." ng-model="newComment.comment"></input>
+		</form>
+		<button type="button" class="btn" ng-click="hide()">Fermer</button>
+	</div>
+</div>

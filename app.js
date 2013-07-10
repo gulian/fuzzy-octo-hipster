@@ -1,6 +1,7 @@
 var express		= require('express'),
 	routes      = require('./routes'),
 	item        = require('./routes/item'),
+	comment        = require('./routes/comment'),
 	http        = require('http'),
 	path        = require('path'),
 	app         = express(),
@@ -49,6 +50,9 @@ app.get('/logout', routes.logout);
 app.get('/register', routes.register);
 app.post('/register', routes.register);
 
+app.post('/comment/'		, comment.create);
+app.delete('/comment/:id'		, comment.delete);
+
 app.post('/item/'		, item.create);
 app.get('/item/:id'		, item.retreive);
 app.get('/item/'		, item.retreive);
@@ -67,6 +71,7 @@ var itemSchema = mongoose.Schema({
 	url: String,
 	click: { type: Number, default: 0 },
 	user:  {type:  mongoose.Schema.Types.ObjectId, ref: 'user' },
+	comments :  [{ type: mongoose.Schema.Types.ObjectId, ref: 'comment' }],
 	created: { type: Date, default: Date.now }
 });
 
@@ -75,5 +80,13 @@ var userSchema = mongoose.Schema({
 	password : String
 });
 
+var commentSchema = mongoose.Schema({
+	user    : {type:  mongoose.Schema.Types.ObjectId, ref: 'user' },
+	item    : {type:  mongoose.Schema.Types.ObjectId, ref: 'item' },
+	comment : String,
+	created : { type: Date, default: Date.now }
+});
+
 mongoose.model('item', itemSchema);
 mongoose.model('user', userSchema);
+mongoose.model('comment', commentSchema);

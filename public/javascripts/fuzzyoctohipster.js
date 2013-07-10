@@ -13,9 +13,9 @@ angular.module('fuzzyoctohipster', ['$strap.directives']).config(function($compi
 		otherwise({redirectTo: '/'});
 }]);
 
-function itemListController($scope, $routeParams, $http) {
+function itemListController($scope, $routeParams, $http, $modal) {
 
-
+	$scope.showComments = false ;
 
 	$scope.query = $routeParams.query;
 
@@ -23,20 +23,18 @@ function itemListController($scope, $routeParams, $http) {
 		$scope.items = data;
 	});
 
-	$http.get('credentials/').success(function(data){
-		$scope.bookmarklet  = "javascript:(function(){";
-			$scope.bookmarklet += "function createCORSRequest(method, url){var x = new XMLHttpRequest();if ('withCredentials' in x)x.open(method, url, true);else if (typeof XDomainRequest != 'undefined') {x = new XDomainRequest();x.open(method, url);} else x = null;return x;}";
-			$scope.bookmarklet += "var tags = prompt('Tags (séparés par des virgules)');";
-			$scope.bookmarklet += "var h=new createCORSRequest(),url='"+document.location.origin+"/item/',params='title='+document.title+'&url='+document.location+'&tags='+tags;";
-			$scope.bookmarklet += "h.withCredentials = true;";
-			$scope.bookmarklet += "h.open('POST',url,true);";
-			$scope.bookmarklet += "h.setRequestHeader('Content-type','application/x-www-form-urlencoded');";
-			$scope.bookmarklet += "h.onreadystatechange = function() {if(h.readyState == 4 && h.status == 200){alert('Lien ajouté avec succés !');} else if(h.readyState == 4 && h.status == 403){alert(\"Vous n'êtes pas authentifié\");}};";
-			$scope.bookmarklet += "h.send(params);";
-		$scope.bookmarklet += "}());";
+	$scope.bookmarklet  = "javascript:(function(){";
+		$scope.bookmarklet += "function createCORSRequest(method, url){var x = new XMLHttpRequest();if ('withCredentials' in x)x.open(method, url, true);else if (typeof XDomainRequest != 'undefined') {x = new XDomainRequest();x.open(method, url);} else x = null;return x;}";
+		$scope.bookmarklet += "var tags = prompt('Tags (séparés par des virgules)');";
+		$scope.bookmarklet += "var h=new createCORSRequest(),url='"+document.location.origin+"/item/',params='title='+document.title+'&url='+document.location+'&tags='+tags;";
+		$scope.bookmarklet += "h.withCredentials = true;";
+		$scope.bookmarklet += "h.open('POST',url,true);";
+		$scope.bookmarklet += "h.setRequestHeader('Content-type','application/x-www-form-urlencoded');";
+		$scope.bookmarklet += "h.onreadystatechange = function() {if(h.readyState == 4 && h.status == 200){alert('Lien ajouté avec succés !');} else if(h.readyState == 4 && h.status == 403){alert(\"Vous n'êtes pas authentifié\");}};";
+		$scope.bookmarklet += "h.send(params);";
+	$scope.bookmarklet += "}());";
 
-		$("#bookmarklet").attr("href", $scope.bookmarklet);
-	});
+	$("#bookmarklet").attr("href", $scope.bookmarklet);
 
 	$scope.click = function(item){
 		$http.put('item/clicked/'+item._id).success(function(data) {
@@ -47,6 +45,36 @@ function itemListController($scope, $routeParams, $http) {
 	$scope.emailFilter = function(email){
 		$scope.query = email ;
 	};
+
+	$scope.showComments = function(id){
+		$scope.currentItemId = id ;
+		$modal({
+			template: 'partials/comments.html',
+			show: true,
+			backdrop: 'static',
+			scope: $scope,
+			persist : true
+		});
+	};
+}
+
+function commentsController($http,$scope){
+
+	$http.get('item/'+$scope.$parent.currentItemId).success(function(data){
+		$scope.item = data[0];
+	});
+
+	$scope.addComment = function(){
+		$scope.newComment.item = $scope.$parent.currentItemId;
+		$http.post('comment/', $scope.newComment).success(function(data) {
+			data.user = {
+				email : "You"
+			};
+			$scope.item.comments.push(data);
+			$scope.newComment = {};
+		});
+	};
+
 }
 
 function itemAddController($scope, $routeParams, $http, $location) {

@@ -1,3 +1,6 @@
+.comment .author {
+  font-size: 10px;
+}
 .brand {
   font-size: 15px !important;
 }
@@ -6,6 +9,9 @@
 }
 .nav .btn-group {
   margin-top: 10px!important;
+}
+.footer-form {
+  margin: 0!important;
 }
 .label-warning {
   background-color: #FF8A1F !important;
