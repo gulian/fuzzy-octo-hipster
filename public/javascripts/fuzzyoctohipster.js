@@ -106,8 +106,6 @@ function itemUpdateController($scope,  $http, $routeParams, $location){
 	$scope.update = function(){
 
 		if($scope.item.tagsRepo && $scope.item.tagsRepo.length){
-			if(!$scope.item.tags)
-				$scope.item.tags = [];
 			$scope.item.tags.push({
 				name : $scope.item.tagsRepo
 			});
@@ -126,8 +124,6 @@ function itemUpdateController($scope,  $http, $routeParams, $location){
 
 	$scope.handleTag = function(){
 		if($scope.item.tagsRepo.indexOf(',') !== -1){
-			if(!$scope.item.tags)
-				$scope.item.tags = [];
 
 			$scope.item.tags.push({
 				name : $scope.item.tagsRepo.slice(0,-1)

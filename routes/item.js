@@ -18,7 +18,10 @@ exports.create = function(req, res){
 	if(!req.body.user)
 		return res.send(403);
 
-	if(typeof req.body.tags === "string"){
+
+	if(!req.body.tags)
+		req.body.tags = [];
+	else if(typeof req.body.tags === "string"){
 		var tmp = [];
 		for (var i = 0; i < req.body.tags.split(',').length; i++) {
 			tmp.push({
