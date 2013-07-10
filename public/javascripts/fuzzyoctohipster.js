@@ -9,6 +9,7 @@ angular.module('fuzzyoctohipster', ['$strap.directives']).config(function($compi
 		when('/add',					{templateUrl: 'partials/add.html' }).
 		when('/update/:id',				{templateUrl: 'partials/update.html' }).
 		when('/delete/:id',				{templateUrl: 'partials/delete.html' }).
+		when('/howto/',				{templateUrl: 'partials/howto.html' }).
 		otherwise({redirectTo: '/'});
 }]);
 
