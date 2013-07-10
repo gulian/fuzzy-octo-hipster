@@ -49,7 +49,6 @@ app.get('/logout', routes.logout);
 app.get('/register', routes.register);
 app.post('/register', routes.register);
 
-
 app.post('/item/'		, item.create);
 app.get('/item/:id'		, item.retreive);
 app.get('/item/'		, item.retreive);
@@ -60,7 +59,6 @@ app.delete('/item/:id'	, item.delete);
 app.get('/credentials/'		, function(req, res){
 	res.send(req.session._id)
 });
-
 
 var itemSchema = mongoose.Schema({
 	title: String,
