@@ -1,5 +1,9 @@
 <div class="content" ng-controller="itemListController">
 
+	<div ng-show="query.length">
+		<button class="btn btn-success" ng-click="query = ''"><i class="icon-arrow-left"></i> Effacer les filtres</button>
+		<br><br>
+	</div>
 	<input type=text ng-model="query" placeholder="Search">
 	<select ng-model="orderProp">
 		<option value="title">A-Z</option>
@@ -10,30 +14,35 @@
 		<option value="created">Ancien</option>
 	</select>
 
+
 	<table class="table table-hover">
 		<thead>
 			<tr>
 			<th></th>
 			<th>Titre</th>
+			<th></th>
 			<th>Tags</th>
 			<th>Auteur</th>
 			</tr>
 		</thead>
 		<tbody>
-			<!-- <tr ng-repeat="item in items  | filter:query | orderBy:orderProp" bs-modal="'partials/comments.html'"> -->
 			<tr ng-repeat="item in items  | filter:query | orderBy:orderProp">
 				<td>
 					<div class="btn-group">
 						<button class="btn btn-link btn-mini dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 						<ul class="dropdown-menu">
 							<li><a href="#/update/[[item._id]]">Modifier</a></li>
-							<li><a  ng-click="showComments(item._id)" href="">Commentaires (ß)</a></li>
 							<li><a href="#/delete/[[item._id]]">Supprimer</a></li>
 						</ul>
 					</div>
 				</td>
 				<td>
 					<a href="[[item.url]]" target='_blank' ng-click='click(item)' data-placement="right" bs-tooltip="item.click">[[item.title]]</a>
+				</td>
+				<td>
+					<a  ng-click="showComments(item._id, $index)" href="">
+						<span ng-show="item.comments.length > 0">[[item.comments.length]]</span> <i class="icon-comment"></i>
+					</a>
 				</td>
 				<td>
 					<span ng-repeat="tag in item.tags">

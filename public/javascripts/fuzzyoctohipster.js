@@ -15,8 +15,6 @@ angular.module('fuzzyoctohipster', ['$strap.directives']).config(function($compi
 
 function itemListController($scope, $routeParams, $http, $modal) {
 
-	$scope.showComments = false ;
-
 	$scope.query = $routeParams.query;
 
 	$http.get('item/').success(function(data){
@@ -46,8 +44,9 @@ function itemListController($scope, $routeParams, $http, $modal) {
 		$scope.query = email ;
 	};
 
-	$scope.showComments = function(id){
+	$scope.showComments = function(id, itemIndex){
 		$scope.currentItemId = id ;
+		$scope.currentItemIndex = itemIndex ;
 		$modal({
 			template: 'partials/comments.html',
 			show: true,
@@ -60,9 +59,7 @@ function itemListController($scope, $routeParams, $http, $modal) {
 
 function commentsController($http,$scope){
 
-	$http.get('item/'+$scope.$parent.currentItemId).success(function(data){
-		$scope.item = data[0];
-	});
+	$scope.item = $scope.$parent.items[$scope.$parent.currentItemIndex];
 
 	$scope.addComment = function(){
 		$scope.newComment.item = $scope.$parent.currentItemId;
