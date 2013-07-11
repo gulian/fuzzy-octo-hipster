@@ -21,12 +21,13 @@
 		</thead>
 		<tbody>
 			<!-- <tr ng-repeat="item in items  | filter:query | orderBy:orderProp" bs-modal="'partials/comments.html'"> -->
-			<tr ng-repeat="item in items  | filter:query | orderBy:orderProp" ng-click="showComments(item._id)">
+			<tr ng-repeat="item in items  | filter:query | orderBy:orderProp">
 				<td>
 					<div class="btn-group">
 						<button class="btn btn-link btn-mini dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 						<ul class="dropdown-menu">
 							<li><a href="#/update/[[item._id]]">Modifier</a></li>
+							<li><a  ng-click="showComments(item._id)" href="">Commentaires (ß)</a></li>
 							<li><a href="#/delete/[[item._id]]">Supprimer</a></li>
 						</ul>
 					</div>
