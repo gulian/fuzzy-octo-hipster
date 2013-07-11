@@ -19,5 +19,6 @@
 			<input type="text" name="comment" placeholder="Commentaire ..." ng-model="newComment.comment"></input>
 		</form>
 		<button type="button" class="btn" ng-click="hide()">Fermer</button>
+		<span ng-show="newComment.comment.length > 0"><br><br><small class="pull-left">Appuyez sur entrée pour envoyer votre commentaire</small></span>
 	</div>
 </div>
