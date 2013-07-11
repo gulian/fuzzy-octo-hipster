@@ -75,6 +75,16 @@ function commentsController($http,$scope){
 		});
 	};
 
+	$scope.deleteComment = function(id, index){
+		$http.delete('comment/'+id).success(function(data){
+			$scope.item.comments.splice(index, 1);
+		}).error(function(response, code){
+			if(code === 403){
+				//TODO tell user that this is not his comment
+			}
+		});
+	};
+
 }
 
 function itemAddController($scope, $routeParams, $http, $location) {

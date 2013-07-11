@@ -6,13 +6,9 @@
 	</div>
 
 	<div class="modal-body">
-		<!-- <div ng-repeat="comment in item.comments" class="comment"> -->
-			<!-- <div class="text"> <span class="author">by </span></div>
-		</div> -->
-
 		<blockquote ng-repeat="comment in item.comments">
 		  <p>[[comment.comment]]</p>
-		  <small>[[comment.user.email]] <cite title="date" style="font-size:9px">à [[comment.created |  date:'HH:mm le dd/MM/yyyy']]</cite></small>
+		  <small>[[comment.user.email]] <cite title="date" style="font-size:9px">à [[comment.created |  date:'HH:mm le dd/MM/yyyy']] <a ng-click="deleteComment(comment._id,$index)" href="">supprimer</a></cite></small>
 		</blockquote>
 	</div>
 

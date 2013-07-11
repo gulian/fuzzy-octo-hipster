@@ -1,6 +1,5 @@
 exports.create = function(req, res){
 
-	console.log(req.body);
 	req.body.user = req.session._id;
 
 	if(!req.body.user)
