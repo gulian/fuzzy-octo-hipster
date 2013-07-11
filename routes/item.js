@@ -6,9 +6,8 @@ exports.retreive = function(req, res){
 
 		req.mongoose.models.user.populate(items, {
 			path: 'comments.user',
-			select: 'email',
+			select: 'email'
 		}, function(error, items){
-			console.log(items);
 			res.json(200, items);
 		});
 

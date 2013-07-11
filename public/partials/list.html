@@ -1,10 +1,16 @@
 <div class="content" ng-controller="itemListController">
 
 	<div ng-show="query.length">
-		<button class="btn btn-success" ng-click="query = ''"><i class="icon-arrow-left"></i> Effacer les filtres</button>
+		<button class="btn btn-success" ng-click="query = ''"><i class="icon-arrow-left icon-white"></i> Effacer les filtres</button>
 		<br><br>
 	</div>
-	<input type=text ng-model="query" placeholder="Search">
+
+<div class="input-prepend">
+  <span class="add-on"><i class="icon-filter"></i></span>
+  <input type=text ng-model="query" placeholder="Filtre">
+</div>
+
+
 	<select ng-model="orderProp">
 		<option value="title">A-Z</option>
 		<option value="-title">Z-A</option>
@@ -21,8 +27,8 @@
 			<th></th>
 			<th>Titre</th>
 			<th></th>
-			<th>Tags</th>
-			<th>Auteur</th>
+			<th><i class="icon-tags"></i></th>
+			<th><i class="icon-user"></i></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -41,12 +47,12 @@
 				</td>
 				<td>
 					<a  ng-click="showComments(item._id, $index)" href="">
-						<span ng-show="item.comments.length > 0">[[item.comments.length]]</span> <i class="icon-comment"></i>
+						<i class="icon-comment"></i> <span ng-show="item.comments.length > 0">[[item.comments.length]]</span>
 					</a>
 				</td>
 				<td>
 					<span ng-repeat="tag in item.tags">
-						<a  href="#/filter/[[tag.name]]" class="label label-warning">[[tag.name]]</a>
+						<a  href="#/filter/[[tag.name]]" class="label label-warning"><i class="icon-tag icon-white"></i> [[tag.name]]</a>
 					</span>
 				</td>
 				<td> <a href="#/filter/[[item.user.email]]" >[[item.user.email]]</a></td>
