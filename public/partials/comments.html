@@ -10,7 +10,7 @@
 		<span ng-show="item.comments.length < 1">Pas de commentaire !</span>
 		<blockquote ng-repeat="comment in item.comments">
 		  <p>[[comment.comment]]</p>
-		  <small>[[comment.user.email]] <cite title="date" style="font-size:9px">à [[comment.created |  date:'HH:mm le dd/MM/yyyy']] <a ng-click="deleteComment(comment._id,$index)" href="">supprimer</a></cite></small>
+		  <small>[[comment.user.email]] <cite style="font-size:9px">à [[comment.created |  date:'HH:mm le dd/MM/yyyy']] <a ng-click="deleteComment(comment._id,$index)" href="">supprimer</a></cite></small>
 		</blockquote>
 	</div>
 
