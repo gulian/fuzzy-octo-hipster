@@ -69,6 +69,7 @@
     <script src="../javascripts/vendors/angular.js"></script>
     <script src="../javascripts/vendors/bootstrap.js"></script>
     <script src="../javascripts/vendors/angular.strap.js"></script>
+    <script src="../javascripts/vendors/angular.cookies.js"></script>
     <script src="../javascripts/fuzzyoctohipster.js"></script>
   </body>
 </html>

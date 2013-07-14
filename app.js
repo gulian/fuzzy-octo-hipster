@@ -61,7 +61,14 @@ app.put('/item/clicked/:id'		, item.updateClick);
 app.delete('/item/:id'	, item.delete);
 
 app.get('/credentials/'		, function(req, res){
-	res.send(req.session._id)
+	// res.send(req.session._id)
+
+		req.mongoose.models.user.findOne({ _id: req.session._id}, "email", function (error, user) {
+		if(error)
+			return res.send(500);
+		
+		res.json(200, user);
+	});
 });
 
 var itemSchema = mongoose.Schema({

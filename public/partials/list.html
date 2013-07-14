@@ -34,7 +34,7 @@
 		<tbody>
 			<tr ng-repeat="item in items  | filter:query | orderBy:orderProp">
 				<td>
-					<div class="btn-group">
+					<div ng-show="item.user._id == connectedUserId" class="btn-group">
 						<button class="btn btn-link btn-mini dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 						<ul class="dropdown-menu">
 							<li><a href="#/update/[[item._id]]">Modifier</a></li>

@@ -1,4 +1,4 @@
-angular.module('fuzzyoctohipster', ['$strap.directives', 'customModule']).config(function($compileProvider, $interpolateProvider) {
+angular.module('fuzzyoctohipster', ['$strap.directives', 'customModule','ngCookies']).config(function($compileProvider, $interpolateProvider) {
 	$interpolateProvider.startSymbol('[[');
 	$interpolateProvider.endSymbol(']]');
 	$compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|javascript|file):/);
@@ -20,12 +20,17 @@ angular.module('customModule', [])
 		};
 	});
 
-function itemListController($scope, $routeParams, $http, $modal) {
+function itemListController($scope, $routeParams, $http, $modal, $cookies) {
+
+	$http.get('credentials/').success(function(data){
+		$scope.connectedUserId = data._id ; // set this value at login in cookie to access it everywhere
+	});
 
 	$scope.query = $routeParams.query;
 
 	$http.get('item/').success(function(data){
 		$scope.items = data;
+		// console.log(data);
 	});
 
 	$scope.bookmarklet  = "javascript:(function(){";
@@ -68,6 +73,12 @@ function commentsController($http,$scope){
 
 	$scope.item = $scope.$parent.items[$scope.$parent.currentItemIndex];
 
+
+	$http.get('credentials/').success(function(data){
+		$scope.connectedUserId = data._id ; // set this value at login in cookie to access it everywhere
+	});
+
+
 	$scope.addComment = function(){
 		$scope.newComment.item = $scope.$parent.currentItemId;
 		$http.post('comment/', $scope.newComment).success(function(data) {
@@ -82,10 +93,6 @@ function commentsController($http,$scope){
 	$scope.deleteComment = function(id, index){
 		$http.delete('comment/'+id).success(function(data){
 			$scope.item.comments.splice(index, 1);
-		}).error(function(response, code){
-			if(code === 403){
-				//TODO tell user that this is not his comment
-			}
 		});
 	};
 
@@ -139,12 +146,6 @@ function itemUpdateController($scope,  $http, $routeParams, $location){
 		$scope.item = data[0];
 	});
 
-	$scope.alert = {
-		"type": "error",
-		"title": "Modification interdite",
-		"content": "<br>Vous n'êtes pas propriétaire de ce lien.<br><a href='#/'>Retour</a>",
-		"hide" : true
-	};
 
 	$scope.update = function(){
 
@@ -158,10 +159,6 @@ function itemUpdateController($scope,  $http, $routeParams, $location){
 
 		$http.put('item/'+$routeParams.id, $scope.item).success(function(data){
 			$location.path('');
-		}).error(function(response, code){
-			if(code === 403){
-				$scope.alert.hide = false;
-			}
 		});
 	};
 
@@ -186,20 +183,9 @@ function itemDeleteController($scope,  $http, $routeParams, $location){
 		$scope.item = data[0];
 	});
 
-	$scope.alert = {
-		"type": "error",
-		"title": "Suppression interdite",
-		"content": "<br>Vous n'êtes pas propriétaire de ce lien.<br><a href='#/'>Retour</a>",
-		"hide" : true
-	};
-
 	$scope.delete = function(){
 		$http.delete('item/'+$routeParams.id).success(function(data){
 			$location.path('');
-		}).error(function(response, code){
-			if(code === 403){
-				$scope.alert.hide = false;
-			}
 		});
 	};
 }
