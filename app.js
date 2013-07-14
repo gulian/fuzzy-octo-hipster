@@ -60,14 +60,21 @@ app.put('/item/:id'		, item.update);
 app.put('/item/clicked/:id'		, item.updateClick);
 app.delete('/item/:id'	, item.delete);
 
-app.get('/credentials/'		, function(req, res){
-	// res.send(req.session._id)
-
-		req.mongoose.models.user.findOne({ _id: req.session._id}, "email", function (error, user) {
+app.get('/credentials/'	, function(req, res){
+	req.mongoose.models.user.findOne({ _id: req.session._id}, "email", function (error, user) {
 		if(error)
 			return res.send(500);
 		
 		res.json(200, user);
+	});
+});
+
+app.get('/bookmarklet.js', function(req, res){
+	console.log(req);
+	var fs = require('fs');
+	fs.readFile(__dirname+'/public/javascripts/bookmarklet.js', 'utf8', function (err,bookmarklet) {
+		res.setHeader('Content-Type', 'text/javascript; charset=utf-8');
+		res.send(200, bookmarklet.replace('[[DOMAIN]]', "http://"+req.headers.host));
 	});
 });
 

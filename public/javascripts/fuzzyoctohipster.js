@@ -30,21 +30,9 @@ function itemListController($scope, $routeParams, $http, $modal, $cookies) {
 
 	$http.get('item/').success(function(data){
 		$scope.items = data;
-		// console.log(data);
 	});
 
-	$scope.bookmarklet  = "javascript:(function(){";
-		$scope.bookmarklet += "function createCORSRequest(method, url){var x = new XMLHttpRequest();if ('withCredentials' in x)x.open(method, url, true);else if (typeof XDomainRequest != 'undefined') {x = new XDomainRequest();x.open(method, url);} else x = null;return x;}";
-		$scope.bookmarklet += "var tags = prompt('Tags (séparés par des virgules)');";
-		$scope.bookmarklet += "var h=new createCORSRequest(),url='"+document.location.origin+"/item/',params='title='+document.title+'&url='+document.location+'&tags='+tags;";
-		$scope.bookmarklet += "h.withCredentials = true;";
-		$scope.bookmarklet += "h.open('POST',url,true);";
-		$scope.bookmarklet += "h.setRequestHeader('Content-type','application/x-www-form-urlencoded');";
-		$scope.bookmarklet += "h.onreadystatechange = function() {if(h.readyState == 4 && h.status == 200){alert('Lien ajouté avec succés !');} else if(h.readyState == 4 && h.status == 403){alert(\"Vous n'êtes pas authentifié\");}};";
-		$scope.bookmarklet += "h.send(params);";
-	$scope.bookmarklet += "}());";
-
-	$("#bookmarklet").attr("href", $scope.bookmarklet);
+	$("#bookmarklet").attr("href", "javascript:void((function(d){var e=d.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','"+document.location.origin+"/bookmarklet.js');d.body.appendChild(e)})(document));");
 
 	$scope.click = function(item){
 		$http.put('item/clicked/'+item._id).success(function(data) {
