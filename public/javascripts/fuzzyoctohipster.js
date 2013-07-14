@@ -16,7 +16,7 @@ angular.module('fuzzyoctohipster', ['$strap.directives', 'customModule','ngCooki
 angular.module('customModule', [])
 	.filter('trigram', function () {
 		return function (text) {
-			return text.slice(0,3);
+			return text.slice(0,3).toUpperCase();
 		};
 	});
 

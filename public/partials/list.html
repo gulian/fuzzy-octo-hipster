@@ -40,6 +40,7 @@
 						</button>
 						<ul class="dropdown-menu">
 							<li><a ng-click="showComments(item._id, $index)"><i class="icon-comment"></i> Commenter</a></li>
+							<li><a href="#/filter/[[item.user.email]]"><i class="icon-user"></i> Filtrer par auteur</a></li>
 							<li><a ng-show="item.user._id == connectedUserId" href="#/update/[[item._id]]"><i class="icon-edit"></i> Modifier</a></li>
 							<li><a ng-show="item.user._id == connectedUserId" href="#/delete/[[item._id]]"><i class="icon-trash"></i> Supprimer</a></li>
 						</ul>
