@@ -14,6 +14,13 @@ exports.register = function(req, res){
 	if(req.method !== 'POST')
 		return res.render('register');
 
+	var providedEmail = req.body.email,
+		mustMatchwith = "@"+process.env.DOMAIN;
+
+	if(providedEmail.indexOf(mustMatchwith, providedEmail.length - mustMatchwith.length) === -1){ // must use regex
+		return res.render('register', {message:"your address is not allowed. It must be a "+process.env.DOMAIN+" address."});
+	}
+
 	req.mongoose.models.user.find({email:req.body.email},function(error, users){
 		if(error || users.length > 0)
 			return res.render('register', {message:"this address is already registered!"});

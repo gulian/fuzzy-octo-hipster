@@ -24,6 +24,11 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+if(!process.env.DOMAIN){
+	console.error('no domain was provided, exiting.');
+	return false;
+} 
+
 var mongo_url  = process.env.MONGOHQ_URL || 'mongodb://localhost/fuzzy-octo-hipster',
 	database   = mongoose.connect(mongo_url, function(error){
 	if(error){
@@ -34,6 +39,7 @@ var mongo_url  = process.env.MONGOHQ_URL || 'mongodb://localhost/fuzzy-octo-hips
 		console.log('connected to '+mongo_url);
 		console.log('fuzzy-octo-hipster is running perfeclty on port #' + app.get('port'));
 		console.log('fuzzy-octo-hipster is currently in ' + app.get('env'));
+		console.log('fuzzy-octo-hipster is running for ' + process.env.DOMAIN);
 	});
 });
 
