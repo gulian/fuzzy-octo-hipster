@@ -70,9 +70,6 @@ function commentsController($http,$scope){
 	$scope.addComment = function(){
 		$scope.newComment.item = $scope.$parent.currentItemId;
 		$http.post('comment/', $scope.newComment).success(function(data) {
-			data.user = {
-				email : "You"
-			};
 			$scope.item.comments.push(data);
 			$scope.newComment = {};
 		});

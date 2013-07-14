@@ -24,7 +24,14 @@ exports.create = function(req, res){
 						console.log(error);
 						return res.send(500);
 					}
-					return res.json(200, comment);
+
+					req.mongoose.models.user.populate(comment, {
+						path: 'user',
+						select: 'email'
+					}, function(error, comment){
+						res.json(200, comment);
+					});
+
 				});
 			});
 		}

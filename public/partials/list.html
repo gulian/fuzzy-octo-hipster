@@ -28,26 +28,35 @@
 			<th>Titre</th>
 			<th></th>
 			<th><i class="icon-tags"></i></th>
-			<th><i class="icon-user"></i></th>
+			<!-- <th><i class="icon-user"></i></th> -->
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="item in items  | filter:query | orderBy:orderProp">
 				<td>
-					<div ng-show="item.user._id == connectedUserId" class="btn-group">
-						<button class="btn btn-link btn-mini dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+					<div class="btn-group">
+						<button class="btn btn-link btn-mini dropdown-toggle" data-toggle="dropdown">
+							<span class="label">[[item.user.email|trigram]]</span>
+						</button>
 						<ul class="dropdown-menu">
-							<li><a href="#/update/[[item._id]]">Modifier</a></li>
-							<li><a href="#/delete/[[item._id]]">Supprimer</a></li>
+							<li><a ng-click="showComments(item._id, $index)"><i class="icon-comment"></i> Commenter</a></li>
+							<li><a ng-show="item.user._id == connectedUserId" href="#/update/[[item._id]]"><i class="icon-edit"></i> Modifier</a></li>
+							<li><a ng-show="item.user._id == connectedUserId" href="#/delete/[[item._id]]"><i class="icon-trash"></i> Supprimer</a></li>
 						</ul>
 					</div>
+<!-- 					<div  class="btn-group" ng-hide="item.user._id == connectedUserId">
+						<span class="label">[[item.user.email|trigram]]</span>
+					</div> -->
 				</td>
 				<td>
-					<a href="[[item.url]]" target='_blank' ng-click='click(item)' data-placement="right" bs-tooltip="item.click">[[item.title]]</a>
+					<!-- <a href="#/filter/[[item.user.email]]" class="label">[[item.user.email|trigram]]</a> -->
+					<a href="[[item.url]]" target='_blank' ng-click='click(item)' data-placement="right" bs-tooltip="item.click">[[item.title]] </a> 
 				</td>
 				<td>
 					<a  ng-click="showComments(item._id, $index)" href="">
-						<i class="icon-comment"></i> <span ng-show="item.comments.length > 0">[[item.comments.length]]</span>
+						 <span ng-show="item.comments.length > 0" class="badge">
+						 	 [[item.comments.length]] <i class="icon-comment icon-white"></i>
+						 </span>
 					</a>
 				</td>
 				<td>
@@ -55,7 +64,7 @@
 						<a ng-model='tag.name' href="#/filter/[[tag.name]]" class="label label-warning">[[tag.name]]</a>
 					</span>
 				</td>
-				<td> <a href="#/filter/[[item.user.email]]" >[[item.user.email|trigram]]</a></td>
+				<!-- <td> <a href="#/filter/[[item.user.email]]" >[[item.user.email|trigram]]</a></td> -->
 
 			</tr>
 		</tbody>
