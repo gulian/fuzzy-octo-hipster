@@ -1,4 +1,4 @@
-angular.module('fuzzyoctohipster', ['$strap.directives']).config(function($compileProvider, $interpolateProvider) {
+angular.module('fuzzyoctohipster', ['$strap.directives', 'customModule']).config(function($compileProvider, $interpolateProvider) {
 	$interpolateProvider.startSymbol('[[');
 	$interpolateProvider.endSymbol(']]');
 	$compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|javascript|file):/);
@@ -11,7 +11,14 @@ angular.module('fuzzyoctohipster', ['$strap.directives']).config(function($compi
 		when('/delete/:id',				{templateUrl: 'partials/delete.html' }).
 		when('/howto/',				{templateUrl: 'partials/howto.html' }).
 		otherwise({redirectTo: '/'});
-}]);
+}])
+
+angular.module('customModule', [])
+	.filter('trigram', function () {
+		return function (text) {
+			return text.slice(0,3);
+		};
+	});
 
 function itemListController($scope, $routeParams, $http, $modal) {
 
