@@ -11,7 +11,7 @@
     <link rel='stylesheet' href='/stylesheets/fuzzyoctohipster.css' />
   </head>
   <body>
-    <div class="navbar navbar-fixed-top">
+    <div class="navbar navbar-fixed-top" ng-controller="navbarController">
       <div class="navbar-inner">
         <div class="container">
           <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -37,19 +37,8 @@
                   <a id="bookmarklet" class="btn" href="#">
                   <i class="icon-tag"></i> Bookmarklet
                   </a>
-                </div>
-              </li>
-              <li>
-                <div class="btn-group">
-                  <a class="btn" href="#/howto">
-                  Aide
-                  </a>
-                </div>
-              </li>
-              <li>
-                <div class="btn-group">
                   <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                  <i class="icon-user"></i>
+                  <i class="icon-user"></i> [[userEmail | trigram]]
                   </a>
                   <ul class="dropdown-menu">
                     <li><a href="/logout">Logout</a></li>
@@ -57,6 +46,8 @@
                   </ul>
                 </div>
               </li>
+      
+
             </ul>
           </div>
         </div>

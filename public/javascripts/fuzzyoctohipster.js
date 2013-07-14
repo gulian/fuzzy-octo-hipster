@@ -20,6 +20,15 @@ angular.module('customModule', [])
 		};
 	});
 
+function navbarController($scope, $routeParams, $http, $modal, $cookies) {
+	$scope.userEmail = "" ; // set this value at login in cookie to access it everywhere
+	
+	$http.get('credentials/').success(function(data){
+		$scope.userEmail = data.email ; // set this value at login in cookie to access it everywhere
+	});
+
+}
+
 function itemListController($scope, $routeParams, $http, $modal, $cookies) {
 
 	$http.get('credentials/').success(function(data){
