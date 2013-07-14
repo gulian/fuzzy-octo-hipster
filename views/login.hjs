@@ -53,7 +53,7 @@
         {{/message}}
         <input type='text' name='email'  class='input-block-level' placeholder=email>
         <input type='password' name='password'  class='input-block-level' placeholder=password>
-        <button class="btn btn-large btn-primary" type="submit">Connexion</button>
+        <button class="btn btn-large btn-warning" type="submit">Connexion</button>
       </form>
     </div>
   </body>
