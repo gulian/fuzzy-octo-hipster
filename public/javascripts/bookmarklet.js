@@ -13,13 +13,18 @@ function createCORSRequest(method, url){
 
 var tags = prompt('Tags (séparés par des virgules)');
 
-if(!tags)
+if(tags === null || tags === undefined)
 	return ;
+
+
 
 var h = new createCORSRequest(),
 	url='[[DOMAIN]]/item/',
-	params='title='+document.title+'&url='+document.location+'&tags='+tags;
-	
+	params='title='+document.title+'&url='+document.location;
+
+	if(tags !== "")
+		params += '&tags='+tags;
+
 h.withCredentials = true;
 h.open('POST',url,true);
 h.setRequestHeader('Content-type','application/x-www-form-urlencoded');
