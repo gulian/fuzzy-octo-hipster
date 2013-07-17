@@ -13,6 +13,8 @@ function createCORSRequest(method, url){
 
 var tags = prompt('Tags (séparés par des virgules)');
 
+if(!tags)
+	return ;
 
 var h = new createCORSRequest(),
 	url='[[DOMAIN]]/item/',
