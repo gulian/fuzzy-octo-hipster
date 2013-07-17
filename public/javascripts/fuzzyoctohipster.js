@@ -53,9 +53,9 @@ function itemListController($scope, $routeParams, $http, $modal, $cookies) {
 		$scope.query = email ;
 	};
 
-	$scope.showComments = function(id, itemIndex){
-		$scope.currentItemId = id ;
-		$scope.currentItemIndex = itemIndex ;
+	$scope.showComments = function(item, itemIndex){
+		$scope.currentItemId = item.id ;
+		$scope.currentItem = item ;
 		$modal({
 			template: 'partials/comments.html',
 			show: true,
@@ -68,8 +68,7 @@ function itemListController($scope, $routeParams, $http, $modal, $cookies) {
 
 function commentsController($http,$scope){
 
-	$scope.item = $scope.$parent.items[$scope.$parent.currentItemIndex];
-
+	$scope.item = $scope.$parent.currentItem;
 
 	$http.get('credentials/').success(function(data){
 		$scope.connectedUserId = data._id ; // set this value at login in cookie to access it everywhere
@@ -77,7 +76,7 @@ function commentsController($http,$scope){
 
 
 	$scope.addComment = function(){
-		$scope.newComment.item = $scope.$parent.currentItemId;
+		$scope.newComment.item = $scope.item._id;
 		$http.post('comment/', $scope.newComment).success(function(data) {
 			$scope.item.comments.push(data);
 			$scope.newComment = {};
