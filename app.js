@@ -15,7 +15,7 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser('oh my god, i can\'t tell you what i\'m writing, because it\'s a secret'));
-app.use(express.session());
+app.use(express.session({ secret: 'oh my god, i can\'t tell you what i\'m writing, because it\'s a secret',  cookie: {expires: new Date(Date.now() + 30*24*60*60000)}}));
 app.use(app.router);
 app.use(require('less-middleware')({ src: __dirname + '/public' }));
 app.use(express.static(path.join(__dirname, 'public')));
