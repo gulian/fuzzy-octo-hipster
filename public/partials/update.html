@@ -13,7 +13,7 @@
 		    <input type="text" name="tags" ng-change="handleTag()" ng-model='item.tagsRepo'></input>
 
 			<span ng-repeat="tag in item.tags">
-				<span ng-click='removeTag($index)' class="label"><i class="icon-remove-sign icon-white"></i> [[tag.name]]</span>
+				<span ng-click='removeTag($index)' class="label"><i class="icon-remove icon-white"></i> [[tag.name]]</span>
 			</span>
 		    <br>
 		    <button class="btn" type="submit" id="submit">Modifier [[item.title]]</button>
