@@ -5,10 +5,6 @@ angular.module('fuzzyoctohipster', ['$strap.directives', 'fuzzyFilter','fuzzySer
 }).config(['$routeProvider', function($routeProvider) {
 	$routeProvider.
 		when('/',					{templateUrl: 'partials/list.html'}).
-		when('/filter/:query',					{templateUrl: 'partials/list.html'}).
-		when('/add',					{templateUrl: 'partials/add.html' }).
-		when('/update/:id',				{templateUrl: 'partials/update.html' }).
-		when('/delete/:id',				{templateUrl: 'partials/delete.html' }).
 		when('/howto/',				{templateUrl: 'partials/howto.html' }).
 		otherwise({redirectTo: '/'});
 }])
@@ -16,32 +12,39 @@ angular.module('fuzzyoctohipster', ['$strap.directives', 'fuzzyFilter','fuzzySer
 angular.module('fuzzyFilter', [])
 	.filter('trigram', function () {
 		return function (text) {
+			if(text)
 			return text.slice(0,3).toUpperCase();
 		};
 	});
 
-function navbarController($scope, $routeParams, $http, $modal, $cookies) {
+function navbarController($scope, $routeParams, $http, $modal, $cookies, $modal) {
 	$scope.userEmail = "" ; // set this value at login in cookie to access it everywhere
 	
 	$http.get('credentials/').success(function(data){
 		$scope.userEmail = data.email ; // set this value at login in cookie to access it everywhere
 	});
 
+	$scope.addModal = function(){
+		$modal({
+			template: 'partials/add.html',
+			show: true,
+			backdrop: 'static',
+			persist : true
+		});
+	}
 }
 
-function itemListController($scope, $routeParams, $http, $modal, $cookies, Item) {
+function itemListController($scope, $rootScope, $routeParams, $http, $modal, $cookies, Item) {
 
-	$scope.items = Item.all();
+	$rootScope.items = Item.all();
 
 	$http.get('credentials/').success(function(data){
 		$scope.connectedUserId = data._id ; // set this value at login in cookie to access it everywhere
 	});
 
-	$scope.query = $routeParams.query;
-
-	// $http.get('item/').success(function(data){
-	// 	$scope.items = data;
-	// });
+	$scope.filterList = function(filter){
+		$scope.query = filter ;
+	}
 
 	$("#bookmarklet").attr("href", "javascript:void((function(d){var e=d.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','"+document.location.origin+"/bookmarklet.js');d.body.appendChild(e)})(document));");
 
@@ -55,6 +58,30 @@ function itemListController($scope, $routeParams, $http, $modal, $cookies, Item)
 		$scope.query = email ;
 	};
 
+	$scope.updateModal = function(item, itemIndex){
+		$scope.currentItemId = item.id ;
+		$scope.currentItem = item ;
+		$modal({
+			template: 'partials/update.html',
+			show: true,
+			backdrop: 'static',
+			scope: $scope,
+			persist : true
+		});
+	}
+
+	$scope.deleteModal = function(item, itemIndex){
+		$scope.currentItemIndex = itemIndex ;
+		$scope.currentItem = item ;
+		$modal({
+			template: 'partials/delete.html',
+			show: true,
+			backdrop: 'static',
+			scope: $scope,
+			persist : true
+		});
+	}
+
 	$scope.showComments = function(item, itemIndex){
 		$scope.currentItemId = item.id ;
 		$scope.currentItem = item ;
@@ -66,6 +93,10 @@ function itemListController($scope, $routeParams, $http, $modal, $cookies, Item)
 			persist : true
 		});
 	};
+
+
+
+
 }
 
 function commentsController($http,$scope){
@@ -93,29 +124,31 @@ function commentsController($http,$scope){
 
 }
 
-function itemAddController($scope, $routeParams, $http, $location, Item) {
+function itemAddController($scope, $rootScope, $routeParams, $http, $location, Item) {
 
 	$scope.item = new Item({
 		title:'',
 		url: 'http://',
-		tags: []
+		tags: [], 
+		tagsRepo : ''
 	});
 
 	$scope.add = function(){
 
-		if($scope.item.tagsRepo && $scope.item.tagsRepo.length)
+		if($scope.item.tagsRepo.length)
 			$scope.item.tags.push({
 				name : $scope.item.tagsRepo
 			});
 
-		$scope.item.$save($location.path(''));
+		$scope.item.$save(function(data){
+			$rootScope.items.unshift(data);
+			$scope.hide();
+		});
 	};
 
 	$scope.handleTag = function(){
 		if($scope.item.tagsRepo.indexOf(',') !== -1){
-			$scope.item.tags.push({
-				name : $scope.item.tagsRepo.slice(0,-1)
-			});
+			$scope.item.tags.push({ name : $scope.item.tagsRepo.slice(0,-1)});
 			$scope.item.tagsRepo = '';
 		}
 	};
@@ -125,18 +158,9 @@ function itemAddController($scope, $routeParams, $http, $location, Item) {
 	};
 }
 
-function itemUpdateController($scope,  $http, $routeParams, $location){
+function itemUpdateController($scope,$rootScope, $http, $routeParams, $location){
 
-	$scope.item = {
-		title:'',
-		url: 'http://',
-		tags: []
-	};
-
-	$http.get('item/'+$routeParams.id).success(function(data){
-		$scope.item = data[0];
-	});
-
+	$scope.item = $scope.$parent.currentItem;
 
 	$scope.update = function(){
 
@@ -146,16 +170,15 @@ function itemUpdateController($scope,  $http, $routeParams, $location){
 			});
 		}
 
-		delete $scope.item.tagsRepo;
-
-		$http.put('item/'+$routeParams.id, $scope.item).success(function(data){
-			$location.path('');
+		$http.put('item/' + $scope.item._id, $scope.item).success(function(data){
+			$rootScope[$scope.$parent.currentItemIndex] = data;
+			$scope.hide();
 		});
+
 	};
 
 	$scope.handleTag = function(){
 		if($scope.item.tagsRepo.indexOf(',') !== -1){
-
 			$scope.item.tags.push({
 				name : $scope.item.tagsRepo.slice(0,-1)
 			});
@@ -169,14 +192,12 @@ function itemUpdateController($scope,  $http, $routeParams, $location){
 
 }
 
-function itemDeleteController($scope,  $http, $routeParams, $location){
-	$http.get('item/'+$routeParams.id).success(function(data){
-		$scope.item = data[0];
-	});
-
+function itemDeleteController($scope, $rootScope, $http, $routeParams, $location){
+	$scope.item = $scope.$parent.currentItem;
 	$scope.delete = function(){
-		$http.delete('item/'+$routeParams.id).success(function(data){
-			$location.path('');
+		$http.delete('item/'+$scope.$parent.currentItem._id).success(function(data){
+			$rootScope.items.splice($scope.$parent.currentItemIndex, 1);
+			$scope.hide(); 
 		});
 	};
 }

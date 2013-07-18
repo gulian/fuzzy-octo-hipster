@@ -9,7 +9,6 @@
   <span class="add-on"><i class="icon-filter"></i></span>
   <input type=text ng-model="query" placeholder="Filtre">
 </div>
-[[test]]
 
 	<select ng-model="orderProp">
 		<option value="title">A-Z</option>
@@ -40,8 +39,11 @@
 						<ul class="dropdown-menu">
 							<li><a ng-click="showComments(item, $index)"><i class="icon-comment"></i> Commenter</a></li>
 							<li><a href="#/filter/[[item.user.email]]"><i class="icon-user"></i> Filtrer par auteur</a></li>
-							<li><a ng-show="item.user._id == connectedUserId" href="#/update/[[item._id]]"><i class="icon-edit"></i> Modifier</a></li>
-							<li><a ng-show="item.user._id == connectedUserId" href="#/delete/[[item._id]]"><i class="icon-trash"></i> Supprimer</a></li>
+
+							<li><a ng-show="item.user._id == connectedUserId" href="" ng-click="updateModal(item, $index)" ><i class="icon-edit"></i> Modifier</a></li>
+							<!-- <li><a ng-show="item.user._id == connectedUserId" href="#/update/[[item._id]]"><i class="icon-edit"></i> Modifier</a></li> -->
+							<!-- <li><a ng-show="item.user._id == connectedUserId" href="#/delete/[[item._id]]"><i class="icon-trash"></i> Supprimer</a></li> -->
+							<li><a ng-show="item.user._id == connectedUserId" href=""  ng-click="deleteModal(item, $index)"><i class="icon-trash"></i> Supprimer</a></li>
 						</ul>
 					</div>
 				</td>
@@ -57,7 +59,7 @@
 				</td>
 				<td>
 					<span ng-repeat="tag in item.tags">
-						<a ng-model='tag.name' href="#/filter/[[tag.name]]" class="label label-warning">[[tag.name]]</a>
+						<span ng-model='tag.name' ng-click="filterList(tag.name)"  class="label label-warning">[[tag.name]]</span>
 					</span>
 				</td>
 			</tr>

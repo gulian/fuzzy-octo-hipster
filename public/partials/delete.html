@@ -1,5 +1,17 @@
-<div class="content" >
-	<form ng-controller="itemDeleteController" ng-submit="delete()" ng-model='item'>
-	    <button class="btn" type="submit">Supprimer "[[item.title]]"</button>
-	</form>
-</div>
+<form ng-controller="itemDeleteController" ng-submit="delete()" ng-model='item' style="margin:0">
+	<div ng-controller="commentsController">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3>Suppression de [[item.title]]</h3>
+		</div>
+
+		<div class="modal-body">
+			<p>Attention vous êtes sur le point de supprimer le lien : [[item.title]]</p>
+		</div>
+
+		<div class="modal-footer">
+			<button class="btn btn-danger" type="submit">Supprimer</button>
+			<button type="button" class="btn" ng-click="hide()">Annuler</button>
+		</div>
+	</div>
+</form>

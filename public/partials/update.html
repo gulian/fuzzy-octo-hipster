@@ -1,23 +1,32 @@
-<div class="content" >
-	<h1>Modification</h1>
-	<form ng-controller="itemUpdateController" ng-submit="update()" ng-model='item'>
-		<fieldset>
-			<legend>Modifier un lien</legend>
-			<label for="title">Titre</label>
-		    <input type="text" name="title" ng-model='item.title'></input>
+<form ng-controller="itemUpdateController" ng-submit="update()" ng-model='item' style="margin:0">
 
-			<label for="url">Url</label>
-		    <input type="text" name="url" ng-model='item.url'></input>
+	<div ng-controller="commentsController">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3>Modification</h3>
+		</div>
 
-			<label for="tags">Tags (séparés par des virgules)</label>
-		    <input type="text" name="tags" ng-change="handleTag()" ng-model='item.tagsRepo'></input>
+		<div class="modal-body">
+			<fieldset>
+				<label for="title">Titre</label>
+			    <input type="text" name="title" ng-model='item.title'></input>
 
-			<span ng-repeat="tag in item.tags">
-				<span ng-click='removeTag($index)' class="label"><i class="icon-remove icon-white"></i> [[tag.name]]</span>
-			</span>
-		    <br>
-		    <button class="btn" type="submit" id="submit">Modifier [[item.title]]</button>
-	    </fieldset>
-	</form>
-</div>
+				<label for="url">Url</label>
+			    <input type="text" name="url" ng-model='item.url'></input>
 
+				<label for="tags">Tags (séparés par des virgules)</label>
+			    <input type="text" name="tags" ng-change="handleTag()" ng-model='item.tagsRepo'></input>
+
+				<span ng-repeat="tag in item.tags">
+					<span ng-click='removeTag($index)' class="label"><i class="icon-remove icon-white"></i> [[tag.name]]</span>
+				</span>
+		    </fieldset>
+		</div>
+
+		<div class="modal-footer">
+			    <button class="btn btn-success" type="submit" id="submit">Modifier</button>
+			<button type="button" class="btn" ng-click="hide()">Fermer</button>
+		</div>
+	</div>
+
+</form>

@@ -24,7 +24,7 @@
             <ul class="nav">
               <li>
                 <div class="btn-group">
-                  <a class="btn" href="#/add">
+                  <a class="btn" ng-click="addModal()">
                   <i class="icon-plus"></i>
                   </a>
                 </div>

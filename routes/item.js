@@ -42,7 +42,15 @@ exports.create = function(req, res){
 		if (error)
 			res.send(500);
 		else{
-			res.json(200, item);
+			req.mongoose.models.user.populate(item, {
+				path: 'user',
+				select: 'email'
+			}, function(error, item){
+				if (error)
+					return res.send(500);
+				else 
+					res.json(200, item);
+			});
 		}
 	});
 };
