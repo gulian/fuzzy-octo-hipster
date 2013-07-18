@@ -41,8 +41,10 @@
                   <i class="icon-user"></i> [[userEmail | trigram]]
                   </a>
                   <ul class="dropdown-menu">
-                    <li><a href="/logout">Logout</a></li>
-                    <li><a href="#/howto">Help</a></li>
+                    <li><a href="/logout"><i class="icon-arrow-right"></i> Logout</a></li>
+                    <!-- <li><a target=_blank href="https://github.com/gulian/fuzzy-octo-hipster/issues/new"><i class="icon-warning-sign"></i> Saisir un bug</a></li> -->
+                    <li><a target=_blank href="https://github.com/gulian/fuzzy-octo-hipster/issues/new"><i class="icon-warning-sign"></i> Github Issue</a></li>
+                    <li><a href="#/howto"><i class="icon-question-sign"></i> Aide</a></li>
                   </ul>
                 </div>
               </li>
