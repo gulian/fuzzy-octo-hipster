@@ -56,11 +56,14 @@ app.get('/logout', routes.logout);
 app.get('/register', routes.register);
 app.post('/register', routes.register);
 
+app.post('/comment'		, comment.create);
 app.post('/comment/'		, comment.create);
 app.delete('/comment/:id'		, comment.delete);
 
+app.post('/item'		, item.create);
 app.post('/item/'		, item.create);
 app.get('/item/:id'		, item.retreive);
+app.get('/item'		, item.retreive);
 app.get('/item/'		, item.retreive);
 app.put('/item/:id'		, item.update);
 app.put('/item/clicked/:id'		, item.updateClick);

@@ -63,6 +63,8 @@
     <script src="../javascripts/vendors/bootstrap.js"></script>
     <script src="../javascripts/vendors/angular.strap.js"></script>
     <script src="../javascripts/vendors/angular.cookies.js"></script>
+    <script src="../javascripts/vendors/angular.resource.js"></script>
     <script src="../javascripts/fuzzyoctohipster.js"></script>
+    <script src="../javascripts/services.js"></script>
   </body>
 </html>

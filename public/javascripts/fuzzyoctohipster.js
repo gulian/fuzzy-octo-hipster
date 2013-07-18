@@ -1,4 +1,4 @@
-angular.module('fuzzyoctohipster', ['$strap.directives', 'customModule','ngCookies']).config(function($compileProvider, $interpolateProvider) {
+angular.module('fuzzyoctohipster', ['$strap.directives', 'fuzzyFilter','fuzzyServices','ngCookies']).config(function($compileProvider, $interpolateProvider) {
 	$interpolateProvider.startSymbol('[[');
 	$interpolateProvider.endSymbol(']]');
 	$compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|javascript|file):/);
@@ -13,7 +13,7 @@ angular.module('fuzzyoctohipster', ['$strap.directives', 'customModule','ngCooki
 		otherwise({redirectTo: '/'});
 }])
 
-angular.module('customModule', [])
+angular.module('fuzzyFilter', [])
 	.filter('trigram', function () {
 		return function (text) {
 			return text.slice(0,3).toUpperCase();
@@ -29,7 +29,9 @@ function navbarController($scope, $routeParams, $http, $modal, $cookies) {
 
 }
 
-function itemListController($scope, $routeParams, $http, $modal, $cookies) {
+function itemListController($scope, $routeParams, $http, $modal, $cookies, Item) {
+
+	$scope.items = Item.all();
 
 	$http.get('credentials/').success(function(data){
 		$scope.connectedUserId = data._id ; // set this value at login in cookie to access it everywhere
@@ -37,9 +39,9 @@ function itemListController($scope, $routeParams, $http, $modal, $cookies) {
 
 	$scope.query = $routeParams.query;
 
-	$http.get('item/').success(function(data){
-		$scope.items = data;
-	});
+	// $http.get('item/').success(function(data){
+	// 	$scope.items = data;
+	// });
 
 	$("#bookmarklet").attr("href", "javascript:void((function(d){var e=d.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','"+document.location.origin+"/bookmarklet.js');d.body.appendChild(e)})(document));");
 
@@ -91,13 +93,13 @@ function commentsController($http,$scope){
 
 }
 
-function itemAddController($scope, $routeParams, $http, $location) {
+function itemAddController($scope, $routeParams, $http, $location, Item) {
 
-	$scope.item = {
+	$scope.item = new Item({
 		title:'',
 		url: 'http://',
 		tags: []
-	};
+	});
 
 	$scope.add = function(){
 
@@ -106,11 +108,7 @@ function itemAddController($scope, $routeParams, $http, $location) {
 				name : $scope.item.tagsRepo
 			});
 
-		delete $scope.item.tagsRepo;
-
-		$http.post('item/', $scope.item).success(function(data) {
-			$location.path('');
-		});
+		$scope.item.$save($location.path(''));
 	};
 
 	$scope.handleTag = function(){
