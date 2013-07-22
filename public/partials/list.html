@@ -38,7 +38,7 @@
 						</button>
 						<ul class="dropdown-menu">
 							<li><a ng-click="showComments(item, $index)"><i class="icon-comment"></i> Commenter</a></li>
-							<li><a href="#/filter/[[item.user.email]]"><i class="icon-user"></i> Filtrer par auteur</a></li>
+							<li><a ng-click="filterList(item.user.email)"><i class="icon-user"></i> Filtrer par auteur</a></li>
 
 							<li><a ng-show="item.user._id == connectedUserId" href="" ng-click="updateModal(item, $index)" ><i class="icon-edit"></i> Modifier</a></li>
 							<!-- <li><a ng-show="item.user._id == connectedUserId" href="#/update/[[item._id]]"><i class="icon-edit"></i> Modifier</a></li> -->
