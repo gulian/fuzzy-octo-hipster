@@ -161,6 +161,9 @@ function itemAddController($scope, $rootScope, $routeParams, $http, $location, I
 function itemUpdateController($scope,$rootScope, $http, $routeParams, $location){
 
 	$scope.item = $scope.$parent.currentItem;
+	var save = angular.copy($scope.item);
+
+	console.log(save);
 
 	$scope.update = function(){
 
@@ -175,6 +178,11 @@ function itemUpdateController($scope,$rootScope, $http, $routeParams, $location)
 			$scope.hide();
 		});
 
+	};
+
+	$scope.cancelUpdate = function(){
+		angular.copy(save, $scope.item);
+		$scope.hide();
 	};
 
 	$scope.handleTag = function(){
