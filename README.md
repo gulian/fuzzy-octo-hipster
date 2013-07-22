@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/gulian/fuzzy-octo-hipster.png)](http://waffle.io/gulian/fuzzy-octo-hipster)  
 fuzzy-octo-hipster (FOH)
 ==================
 
