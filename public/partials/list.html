@@ -34,7 +34,7 @@
 				<td>
 					<div class="btn-group">
 						<button class="btn btn-link btn-mini dropdown-toggle" data-toggle="dropdown">
-							<span class="label">[[item.user.email|trigram]]</span>
+							<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
 							<li><a ng-click="showComments(item, $index)"><i class="icon-comment"></i> Commenter</a></li>
@@ -47,7 +47,7 @@
 				</td>
 				<td>
 					<a href="[[item.url]]" target='_blank' ng-click='click(item)' data-placement="right" 
-					bs-tooltip=" item.click+' click(s)'">[[item.title]] </a> <span class="timeago">[[item.created|timeago]]</span>
+					bs-tooltip=" item.click+' click(s)'">[[item.title]] </a> <span class="timeago">[[item.created|timeago]] by <a href=""  ng-click="filterList(item.user.email)">[[item.user.email|trigram]]</a></span>
 				</td>
 				<td>
 					<a  ng-click="showComments(item, $index)" href="">
