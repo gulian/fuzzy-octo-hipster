@@ -1,5 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/gulian/fuzzy-octo-hipster.png)](http://waffle.io/gulian/fuzzy-octo-hipster)  
-fuzzy-octo-hipster (FOH)
+fuzzy-octo-hipster (FOH) [![Stories in Ready](https://badge.waffle.io/gulian/fuzzy-octo-hipster.png)](http://waffle.io/gulian/fuzzy-octo-hipster) [![Build Status](https://drone.io/github.com/gulian/fuzzy-octo-hipster/status.png)](https://drone.io/github.com/gulian/fuzzy-octo-hipster/latest) :punch: 
 ==================
 
 ## What's FOH ?
