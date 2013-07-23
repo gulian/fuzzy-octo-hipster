@@ -9,6 +9,8 @@ It provides a way to easily share your technology watch to your coworkers. Every
 
 FOH runs on nodejs/expressjs/mongo database on server side, and angularjs/boostrap on client side. 
 
+![capture decran 2013-07-23 a 09 34 00](https://f.cloud.github.com/assets/487387/840185/713c0880-f36a-11e2-9399-a6f505c7b02c.png)
+
 ## Why FOH ?
 
 FOH was originaly developped to manage tech watch at @gismartware 
