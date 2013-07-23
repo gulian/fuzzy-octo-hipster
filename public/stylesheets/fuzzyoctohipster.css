@@ -4,6 +4,11 @@
 .comment .author {
   font-size: 10px;
 }
+.timeago {
+  font-style: italic;
+  font-size: 0.8em;
+  color: #808080;
+}
 .brand {
   font-size: 15px !important;
 }
