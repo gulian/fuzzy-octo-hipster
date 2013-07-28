@@ -105,6 +105,10 @@ function itemListController($scope, $rootScope, $routeParams, $http, $modal, $co
 
 	$rootScope.items = Item.all();
 
+	setInterval(function(){ //TODO : DE-UGLYFIED, fetch diff only
+		$rootScope.items = Item.all(); 
+	},60000)
+
 	$http.get('credentials/').success(function(data){
 		$scope.connectedUserId = data._id ; // set this value at login in cookie to access it everywhere
 	});
