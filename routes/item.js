@@ -82,14 +82,20 @@ exports.updateClick = function(req, res){
 		if(error)
 			return res.send(500);
 
-		item.click = (item.click || 0) + 1 ;
-
-		item.save(function(error, item){
-			if(error){
-				console.log(error);
+		req.mongoose.models.user.findOne({ _id: req.session._id}, function (error, user) {
+			if(error)
 				return res.send(500);
-			}
-			return res.json(200, item);
+
+			if(item.click.indexOf(user.email) === -1 )
+				item.click.push(user.email); 
+
+			item.save(function(error, item){
+				if(error){
+					console.log(error);
+					return res.send(500);
+				}
+				return res.json(200, item);
+			});
 		});
 	});
 };

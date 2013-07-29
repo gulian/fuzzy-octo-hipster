@@ -92,7 +92,7 @@ var itemSchema = mongoose.Schema({
 	image: String,
 	tags: mongoose.Schema.Types.Mixed,
 	url: String,
-	click: { type: Number, default: 0 },
+	click: { type: [String], default: []},
 	user:  {type:  mongoose.Schema.Types.ObjectId, ref: 'user' },
 	comments :  [{ type: mongoose.Schema.Types.ObjectId, ref: 'comment' }],
 	created: { type: Date, default: Date.now }

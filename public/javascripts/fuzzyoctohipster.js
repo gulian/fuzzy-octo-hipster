@@ -12,10 +12,18 @@ angular.module('fuzzyoctohipster', ['$strap.directives', 'fuzzyFilter','fuzzySer
 angular.module('fuzzyFilter', [])
 	.filter('trigram', function () {
 		return function (text) {
-			if(text)
-			return text.slice(0,3).toUpperCase();
+			if(text && text instanceof String)
+				return text.slice(0,3).toUpperCase();
+			else if(text && text instanceof Array){
+				var return_ = "" ;
+				for (var i = 0; i < text.length; i++) {
+					return_ += ", "+text[i].slice(0,3).toUpperCase();
+				}
+				return return_.slice(2);
+			}
 		};
-	}).filter('timeago', function() {
+	})
+	.filter('timeago', function() {
         return function(input, p_allowFuture) {
             var substitute = function (stringOrFunction, number, strings) {
                     var string = $.isFunction(stringOrFunction) ? stringOrFunction(number, dateDifference) : stringOrFunction;
