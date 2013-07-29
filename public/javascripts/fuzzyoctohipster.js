@@ -84,12 +84,23 @@ angular.module('fuzzyFilter', [])
         }
     });
 
-function navbarController($scope, $routeParams, $http, $modal, $cookies, $modal) {
-	$scope.userEmail = "" ; // set this value at login in cookie to access it everywhere
-	
+
+function itemListController($scope, $rootScope, $routeParams, $http, $modal, $cookies, Item) {
+
+	$rootScope.items = Item.all();
+
+	setInterval(function(){ 					//TODO : DE-UGLYFIED, fetch diff only
+		$rootScope.items = Item.all(); 
+	},60000)
+
 	$http.get('credentials/').success(function(data){
-		$scope.userEmail = data.email ; // set this value at login in cookie to access it everywhere
+		$scope.connectedUserId = data._id ; 	// set this value at login in cookie to access it everywhere
+		$scope.userEmail = data.email ; 		// set this value at login in cookie to access it everywhere
 	});
+
+	$scope.filterList = function(filter){
+		$scope.query = filter ;
+	}
 
 	$scope.addModal = function(){
 		$modal({
@@ -98,23 +109,6 @@ function navbarController($scope, $routeParams, $http, $modal, $cookies, $modal)
 			backdrop: 'static',
 			persist : true
 		});
-	}
-}
-
-function itemListController($scope, $rootScope, $routeParams, $http, $modal, $cookies, Item) {
-
-	$rootScope.items = Item.all();
-
-	setInterval(function(){ //TODO : DE-UGLYFIED, fetch diff only
-		$rootScope.items = Item.all(); 
-	},60000)
-
-	$http.get('credentials/').success(function(data){
-		$scope.connectedUserId = data._id ; // set this value at login in cookie to access it everywhere
-	});
-
-	$scope.filterList = function(filter){
-		$scope.query = filter ;
 	}
 
 	$("#bookmarklet").attr("href", "javascript:void((function(d){var e=d.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','"+document.location.origin+"/bookmarklet.js');d.body.appendChild(e)})(document));");
@@ -166,8 +160,41 @@ function itemListController($scope, $rootScope, $routeParams, $http, $modal, $co
 	};
 
 
+	$scope.newItem = new Item({
+		title:'',
+		url: 'http://',
+		tags: [], 
+		tagsRepo : ''
+	});
 
+	$scope.add = function(){
+		if($scope.newItem.tagsRepo.length)
+			$scope.newItem.tags.push({
+				name : $scope.newItem.tagsRepo
+			});
 
+		$scope.newItem.$save(function(data){
+			$rootScope.items.unshift(data);
+		
+			$scope.newItem = new Item({
+				title:'',
+				url: 'http://',
+				tags: [], 
+				tagsRepo : ''
+			});
+		});
+	};
+
+	$scope.handleTag = function(){
+		if($scope.newItem.tagsRepo.indexOf(',') !== -1){
+			$scope.newItem.tags.push({ name : $scope.newItem.tagsRepo.slice(0,-1)});
+			$scope.newItem.tagsRepo = '';
+		}
+	};
+
+	$scope.removeTag = function(index){
+		$scope.newItem.tags.splice(index, 1);
+	};
 }
 
 function commentsController($http,$scope){
@@ -195,9 +222,9 @@ function commentsController($http,$scope){
 
 }
 
-function itemAddController($scope, $rootScope, $routeParams, $http, $location, Item) {
+function itemAddController($scope, $rootScope, $http, Item) {
 
-	$scope.item = new Item({
+	$scope.newItem = new Item({
 		title:'',
 		url: 'http://',
 		tags: [], 
@@ -205,27 +232,35 @@ function itemAddController($scope, $rootScope, $routeParams, $http, $location, I
 	});
 
 	$scope.add = function(){
-
-		if($scope.item.tagsRepo.length)
-			$scope.item.tags.push({
-				name : $scope.item.tagsRepo
+		console.log($scope);
+		console.log($scope.newItem);
+		if($scope.newItem.tagsRepo.length)
+			$scope.newItem.tags.push({
+				name : $scope.newItem.tagsRepo
 			});
 
-		$scope.item.$save(function(data){
+		$scope.newItem.$save(function(data){
 			$rootScope.items.unshift(data);
-			$scope.hide();
+		
+			$scope.newItem = new Item({
+				title:'',
+				url: 'http://',
+				tags: [], 
+				tagsRepo : ''
+			});
 		});
 	};
 
 	$scope.handleTag = function(){
-		if($scope.item.tagsRepo.indexOf(',') !== -1){
-			$scope.item.tags.push({ name : $scope.item.tagsRepo.slice(0,-1)});
-			$scope.item.tagsRepo = '';
+		console.log('lol');
+		if($scope.newItem.tagsRepo.indexOf(',') !== -1){
+			$scope.newItem.tags.push({ name : $scope.newItem.tagsRepo.slice(0,-1)});
+			$scope.newItem.tagsRepo = '';
 		}
 	};
 
 	$scope.removeTag = function(index){
-		$scope.item.tags.splice(index, 1);
+		$scope.newItem.tags.splice(index, 1);
 	};
 }
 

@@ -1,14 +1,14 @@
 <div class="content" ng-controller="itemListController">
 
-	<div ng-show="query.length">
+	<div ng-show="query.length" class="pull-left">
 		<button class="btn btn-success" ng-click="query = ''"><i class="icon-arrow-left icon-white"></i> Effacer les filtres</button>
 		<br><br>
 	</div>
 
-<div class="input-prepend">
-  <span class="add-on"><i class="icon-filter"></i></span>
-  <input type=text ng-model="query" placeholder="Filtre">
-</div>
+	<div class="input-prepend">
+	  <span class="add-on"><i class="icon-filter"></i></span>
+	  <input type=text ng-model="query" placeholder="Filtre">
+	</div>
 
 	<select ng-model="orderProp">
 		<option value="title">A-Z</option>
@@ -19,6 +19,23 @@
 		<option value="created">Ancien</option>
 	</select>
 
+	<div class="btn-group pull-right">
+      <a id="bookmarklet" class="btn" href="#">
+      	<i class="icon-tag"></i> Bookmarklet
+      </a>
+      <a class="btn" href="#">
+      	<i class="icon-refresh"></i>
+      </a>
+      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+      	<i class="icon-user"></i> [[userEmail | trigram]]
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="/logout"><i class="icon-arrow-right"></i> Logout</a></li>
+        <li><a target=_blank href="mailto:glorini@gismartware.com"><i class="icon-envelope"></i> Contacter l'administrateur</a></li>
+        <li><a target=_blank href="https://github.com/gulian/fuzzy-octo-hipster/issues/new"><i class="icon-warning-sign"></i> Github Issue</a></li>
+        <li><a href="#/howto"><i class="icon-question-sign"></i> Aide</a></li>
+      </ul>
+    </div> 
 
 	<table class="table table-hover">
 		<thead>
@@ -30,6 +47,31 @@
 			</tr>
 		</thead>
 		<tbody>
+		<tr>
+			<form ng-submit="add()" ng-model='newItem'  style="margin:0">
+				<td><button class="btn btn-inverse" type="submit"><i class="icon-plus icon-white"></i></button></td>
+				<td>
+					<div class="input-prepend">
+					  <span class="add-on"><i class="icon-bookmark"></i></span>
+					  <input type=text placeholder="Titre"  name="title" ng-model='newItem.title'>
+					</div>
+					<div class="input-prepend">
+					  <span class="add-on"><i class="icon-globe"></i></span>
+					  <input type=text placeholder="Lien"  name="url" ng-model='newItem.url'>
+					</div>
+				</td>
+				<td></td>
+				<td>
+					<div class="input-prepend">
+					  <span class="add-on"><i class="icon-tag"></i></span>
+					  <input type=text placeholder="Tag" name="tags" ng-change="handleTag()" ng-model='newItem.tagsRepo'>
+					</div>
+					<span ng-repeat="tag in newItem.tags">
+						<span ng-click='removeTag($index)' class="label"><i class="icon-remove icon-white"></i> [[tag.name]]</span>
+					</span>
+				</td>
+			</form>
+		</tr>
 			<tr ng-repeat="item in items  | filter:query | orderBy:orderProp">
 				<td>
 					<div class="btn-group">
@@ -51,8 +93,11 @@
 				</td>
 				<td>
 					<a  ng-click="showComments(item, $index)" href="">
-						 <span ng-show="item.comments.length > 0" class="badge">
+						 <span ng-show="item.comments.length" class="badge pull-right">
 						 	 [[item.comments.length]] <i class="icon-comment icon-white"></i>
+						 </span>
+						 <span ng-show="!item.comments.length" bs-tooltip="'Commenter'"  data-placement="left" class="badge pull-right no-comment">
+						 	<i class="icon-comment icon-white" ></i>
 						 </span>
 					</a>
 				</td>

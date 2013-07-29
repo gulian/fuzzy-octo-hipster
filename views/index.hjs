@@ -11,50 +11,15 @@
     <link rel='stylesheet' href='/stylesheets/fuzzyoctohipster.css' />
   </head>
   <body>
-    <div class="navbar navbar-fixed-top" ng-controller="navbarController">
+    <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#"><img src="images/logo.png" alt="logo"> fuzzy-octo-hipster</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li>
-                <div class="btn-group">
-                  <a class="btn" ng-click="addModal()">
-                  <i class="icon-plus"></i>
-                  </a>
-                </div>
-              </li>
-            </ul>
-            <ul class='nav pull-right'>
-
-              <li>
-                <div class="btn-group">
-                  <a id="bookmarklet" class="btn" href="#">
-                  <i class="icon-tag"></i> Bookmarklet
-                  </a>
-                  <a class="btn" href="#">
-                  <i class="icon-refresh"></i>
-                  </a>
-                  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                  <i class="icon-user"></i> [[userEmail | trigram]]
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a href="/logout"><i class="icon-arrow-right"></i> Logout</a></li>
-                    <li><a target=_blank href="mailto:glorini@gismartware.com"><i class="icon-envelope"></i> Contacter l'administrateur</a></li>
-                    <li><a target=_blank href="https://github.com/gulian/fuzzy-octo-hipster/issues/new"><i class="icon-warning-sign"></i> Github Issue</a></li>
-                    <li><a href="#/howto"><i class="icon-question-sign"></i> Aide</a></li>
-                  </ul>
-                </div>
-              </li>
-      
-
-            </ul>
-          </div>
+          <a class="brand" href="/"><img src="images/logo.png" alt="logo"> fuzzy-octo-hipster</a>
         </div>
       </div>
     </div>
