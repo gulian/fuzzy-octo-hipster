@@ -12,7 +12,7 @@ angular.module('fuzzyoctohipster', ['$strap.directives', 'fuzzyFilter','fuzzySer
 angular.module('fuzzyFilter', [])
 	.filter('trigram', function () {
 		return function (text) {
-			if(text && text instanceof String)
+			if(text && typeof text === "string")
 				return text.slice(0,3).toUpperCase();
 			else if(text && text instanceof Array){
 				var return_ = "" ;
