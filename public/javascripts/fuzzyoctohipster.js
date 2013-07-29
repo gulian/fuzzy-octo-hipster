@@ -105,6 +105,10 @@ function itemListController($scope, $rootScope, $routeParams, $http, $modal, $co
 	$http.get('credentials/').success(function(data){
 		$scope.connectedUserId = data._id ; 	// set this value at login in cookie to access it everywhere
 		$scope.userEmail = data.email ; 		// set this value at login in cookie to access it everywhere
+
+		if(data == 'null')
+			document.location = "/";
+
 	});
 
 	$scope.filterList = function(filter){
