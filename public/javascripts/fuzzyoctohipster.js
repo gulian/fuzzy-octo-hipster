@@ -19,7 +19,8 @@ angular.module('fuzzyFilter', [])
 				for (var i = 0; i < text.length; i++) {
 					return_ += ", "+text[i].slice(0,3).toUpperCase();
 				}
-				return return_.slice(2);
+
+				return return_.length ? "Visited by "+return_.slice(2) : "";
 			}
 		};
 	})
