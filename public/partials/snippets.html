@@ -1,0 +1,118 @@
+<div class="btn-group pull-right">
+      <a class="btn" href="#/snippets">
+        <i class="icon-refresh"></i>
+      </a>
+      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+        <i class="icon-user"></i> [[userEmail | trigram]]
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="/logout"><i class="icon-arrow-right"></i> Logout</a></li>
+        <li><a target=_blank href="mailto:glorini@gismartware.com"><i class="icon-envelope"></i> Contacter l'administrateur</a></li>
+        <li><a target=_blank href="https://github.com/gulian/fuzzy-octo-hipster/issues/new"><i class="icon-warning-sign"></i> Github Issue</a></li>
+        <li><a href="#/howto"><i class="icon-question-sign"></i> Aide</a></li>
+      </ul>
+    </div>
+
+
+<div class="content" ng-controller="snippetListController">
+    <form ng-submit="add()" ng-model='newSnippet' class='pull-left'>
+        <h3>Nouveau snippet</h3>
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-bookmark"></i></span>
+          <input type=text placeholder="Titre"  name="title" ng-model='newSnippet.title'>
+        </div>
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-tag"></i></span>
+          <input type=text placeholder="Langage, Application, Tags" name="tags" ng-change="handleTag()" ng-model='newSnippet.tagsRepo'>
+        </div>
+        <span ng-repeat="tag in newSnippet.tags">
+            <span ng-click='removeTag($index)' class="label"><i class="icon-remove icon-white"></i> [[tag.name]]</span>
+        </span>
+        <h4>Code du snippet</h4>
+        <div class="span12 code-wrapper"><textarea ui-codemirror="editorOptions" ng-model="newSnippet.code"></textarea></div>
+        <button class="btn btn-inverse pull-right" type="submit"><i class="icon-plus icon-white"></i> Ajouter snippet</button>
+    </form>
+
+
+
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+      <th></th>
+      <th>Titre</th>
+      <th></th>
+      <th><i class="icon-tags"></i></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div ng-show="query.length" class="pull-left">
+            <button class="btn btn-success" ng-click="query = ''"><i class="icon-remove icon-white"></i></button>
+          </div>
+        </td>
+        <td>
+          <div class="input-prepend">
+            <span class="add-on"><i class="icon-filter"></i></span>
+            <input type=text ng-model="query" placeholder="Filtre">
+          </div>
+          <select ng-model="orderProp">
+            <option value="title">A-Z</option>
+            <option value="-title">Z-A</option>
+            <option value="click">Visites</option>
+            <option value="-click">Visites desc</option>
+            <option value="-created">Nouveau</option>
+            <option value="created">Ancien</option>
+          </select>
+        </td>
+        <td></td>
+        <td>
+
+        </td>
+      </tr>
+      <tr ng-repeat="snippet in snippets  | filter:query | orderBy:orderProp">
+        <td>
+          <div  ng-show="snippet.user._id == connectedUserId"  class="btn-group">
+            <button class="btn btn-link btn-mini dropdown-toggle" data-toggle="dropdown">
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+<!--               <li><a ng-click="showComments(snippet, $index)"><i class="icon-comment"></i> Commenter</a></li>
+              <li><a ng-click="filterList(snippet.user.email)"><i class="icon-user"></i> Filtrer par auteur</a></li> -->
+
+              <li><a href="" ng-click="updateModal(snippet, $index)" ><i class="icon-edit"></i> Modifier</a></li>
+              <li><a href=""  ng-click="deleteModal(snippet, $index)"><i class="icon-trash"></i> Supprimer</a></li>
+            </ul>
+          </div>
+        </td>
+        <td>
+          <a href="[[snippet.url]]" target='_blank' ng-click='click(snippet)' data-placement="right"
+          bs-tooltip="(snippet.click|trigram)">[[snippet.title]] </a> <span class="timeago">[[snippet.created|timeago]] by <a href=""  ng-click="filterList(snippet.user.email)">[[snippet.user.email|trigram]]</a></span>
+        </td>
+        <td>
+
+
+         <!--  <a  ng-click="showComments(snippet, $index)" href="">
+             <span ng-show="snippet.comments.length" class="badge pull-right">
+               [[snippet.comments.length]] <i class="icon-comment icon-white"></i>
+             </span>
+             <span ng-show="!snippet.comments.length" bs-tooltip="'Commenter'"  data-placement="left" class="badge pull-right no-comment">
+              <i class="icon-comment icon-white" ></i>
+             </span>
+          </a> -->
+        </td>
+        <td><span ng-repeat="tag in snippet.tags">
+              <span ng-model='tag.name' ng-click="filterList(tag.name)"  class="label tag label-warning">[[tag.name]]</span>
+            </span></td>
+
+        <td>
+          <div class="span6 code-wrapper"><textarea ui-codemirror="editorOptions" ng-model="snippet.code"></textarea></div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+</div>

@@ -1,10 +1,11 @@
-angular.module('fuzzyoctohipster', ['$strap.directives', 'fuzzyFilter','fuzzyServices','ngCookies']).config(function($compileProvider, $interpolateProvider) {
+angular.module('fuzzyoctohipster', ['$strap.directives', 'fuzzyFilter','fuzzyServices','ngCookies','ui.codemirror']).config(function($compileProvider, $interpolateProvider) {
 	$interpolateProvider.startSymbol('[[');
 	$interpolateProvider.endSymbol(']]');
 	$compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|javascript|file):/);
 }).config(['$routeProvider', function($routeProvider) {
 	$routeProvider.
 		when('/',					{templateUrl: 'partials/list.html'}).
+        when('/snippets/',          {templateUrl: 'partials/snippets.html' }).
 		when('/howto/',				{templateUrl: 'partials/howto.html' }).
 		otherwise({redirectTo: '/'});
 }])
@@ -60,11 +61,9 @@ angular.module('fuzzyFilter', [])
                 days = hours / 24,
                 years = days / 365,
                 separator = strings.wordSeparator === undefined ?  " " : strings.wordSeparator,
-            
-                // var strings = this.settings.strings;
                 prefix = strings.prefixAgo,
                 suffix = strings.suffixAgo;
-                
+
             if (allowFuture) {
                 if (dateDifference < 0) {
                     prefix = strings.prefixFromNow;
@@ -85,26 +84,70 @@ angular.module('fuzzyFilter', [])
             substitute(strings.years, Math.round(years), strings);
 
             return $.trim([prefix, words, suffix].join(separator));
-            // conditional based on optional argument
-            // if (somethingElse) {
-            //     out = out.toUpperCase();
-            // }
-            // return out;
-        }
+        };
     });
 
+
+function snippetListController($scope, $rootScope, $routeParams, $http, $modal, $cookies, Snippet) {
+    $rootScope.snippets = Snippet.all();
+
+    $scope.newSnippet = new Snippet({
+        title:'',
+        tags: [],
+        tagsRepo : '',
+        code : ''
+    });
+
+    $scope.editorOptions = {
+        lineNumbers: true,
+        mode: 'javascript',
+        theme: 'lesser-dark',
+        width: '500px',
+        viewportMargin : Infinity
+    };
+
+    $scope.add = function(){
+        if($scope.newSnippet.tagsRepo.length)
+            $scope.newSnippet.tags.push({
+                name : $scope.newSnippet.tagsRepo
+            });
+
+        $scope.newSnippet.$save(function(data){
+            $rootScope.snippets.unshift(data);
+
+            $scope.newSnippet = new Snippet({
+                title:'',
+                tags: [],
+                tagsRepo : '',
+                code : ''
+            });
+        });
+    };
+
+    $scope.handleTag = function(){
+        if($scope.newSnippet.tagsRepo.indexOf(',') !== -1){
+            $scope.newSnippet.tags.push({ name : $scope.newSnippet.tagsRepo.slice(0,-1)});
+            $scope.newSnippet.tagsRepo = '';
+        }
+    };
+
+    $scope.filterList = function(filter){
+        $scope.query = filter ;
+    };
+
+}
 
 function itemListController($scope, $rootScope, $routeParams, $http, $modal, $cookies, Item) {
 
 	$rootScope.items = Item.all();
 
-	setInterval(function(){ 					//TODO : DE-UGLYFIED, fetch diff only
-		$rootScope.items = Item.all(); 
-	},60000)
+	setInterval(function(){					//TODO : DE-UGLYFIED, fetch diff only
+		$rootScope.items = Item.all();
+	},60000);
 
 	$http.get('credentials/').success(function(data){
-		$scope.connectedUserId = data._id ; 	// set this value at login in cookie to access it everywhere
-		$scope.userEmail = data.email ; 		// set this value at login in cookie to access it everywhere
+		$scope.connectedUserId = data._id ;	// set this value at login in cookie to access it everywhere
+		$scope.userEmail = data.email ;		// set this value at login in cookie to access it everywhere
 
 		if(data == 'null')
 			document.location = "/";
@@ -113,7 +156,7 @@ function itemListController($scope, $rootScope, $routeParams, $http, $modal, $co
 
 	$scope.filterList = function(filter){
 		$scope.query = filter ;
-	}
+	};
 
 	$scope.addModal = function(){
 		$modal({
@@ -122,7 +165,7 @@ function itemListController($scope, $rootScope, $routeParams, $http, $modal, $co
 			backdrop: 'static',
 			persist : true
 		});
-	}
+	};
 
 	$("#bookmarklet").attr("href", "javascript:void((function(d){var e=d.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','"+document.location.origin+"/bookmarklet.js');d.body.appendChild(e)})(document));");
 
@@ -146,7 +189,7 @@ function itemListController($scope, $rootScope, $routeParams, $http, $modal, $co
 			scope: $scope,
 			persist : true
 		});
-	}
+	};
 
 	$scope.deleteModal = function(item, itemIndex){
 		$scope.currentItemIndex = itemIndex ;
@@ -158,7 +201,7 @@ function itemListController($scope, $rootScope, $routeParams, $http, $modal, $co
 			scope: $scope,
 			persist : true
 		});
-	}
+	};
 
 	$scope.showComments = function(item, itemIndex){
 		$scope.currentItemId = item.id ;
@@ -176,7 +219,7 @@ function itemListController($scope, $rootScope, $routeParams, $http, $modal, $co
 	$scope.newItem = new Item({
 		title:'',
 		url: 'http://',
-		tags: [], 
+		tags: [],
 		tagsRepo : ''
 	});
 
@@ -188,11 +231,11 @@ function itemListController($scope, $rootScope, $routeParams, $http, $modal, $co
 
 		$scope.newItem.$save(function(data){
 			$rootScope.items.unshift(data);
-		
+
 			$scope.newItem = new Item({
 				title:'',
 				url: 'http://',
-				tags: [], 
+				tags: [],
 				tagsRepo : ''
 			});
 		});
@@ -235,47 +278,47 @@ function commentsController($http,$scope){
 
 }
 
-function itemAddController($scope, $rootScope, $http, Item) {
+// function itemAddController($scope, $rootScope, $http, Item) {
 
-	$scope.newItem = new Item({
-		title:'',
-		url: 'http://',
-		tags: [], 
-		tagsRepo : ''
-	});
+// 	$scope.newItem = new Item({
+// 		title:'',
+// 		url: 'http://',
+// 		tags: [],
+// 		tagsRepo : ''
+// 	});
 
-	$scope.add = function(){
-		console.log($scope);
-		console.log($scope.newItem);
-		if($scope.newItem.tagsRepo.length)
-			$scope.newItem.tags.push({
-				name : $scope.newItem.tagsRepo
-			});
+// 	$scope.add = function(){
+// 		console.log($scope);
+// 		console.log($scope.newItem);
+// 		if($scope.newItem.tagsRepo.length)
+// 			$scope.newItem.tags.push({
+// 				name : $scope.newItem.tagsRepo
+// 			});
 
-		$scope.newItem.$save(function(data){
-			$rootScope.items.unshift(data);
-		
-			$scope.newItem = new Item({
-				title:'',
-				url: 'http://',
-				tags: [], 
-				tagsRepo : ''
-			});
-		});
-	};
+// 		$scope.newItem.$save(function(data){
+// 			$rootScope.items.unshift(data);
 
-	$scope.handleTag = function(){
-		console.log('lol');
-		if($scope.newItem.tagsRepo.indexOf(',') !== -1){
-			$scope.newItem.tags.push({ name : $scope.newItem.tagsRepo.slice(0,-1)});
-			$scope.newItem.tagsRepo = '';
-		}
-	};
+// 			$scope.newItem = new Item({
+// 				title:'',
+// 				url: 'http://',
+// 				tags: [],
+// 				tagsRepo : ''
+// 			});
+// 		});
+// 	};
 
-	$scope.removeTag = function(index){
-		$scope.newItem.tags.splice(index, 1);
-	};
-}
+// 	$scope.handleTag = function(){
+// 		console.log('lol');
+// 		if($scope.newItem.tagsRepo.indexOf(',') !== -1){
+// 			$scope.newItem.tags.push({ name : $scope.newItem.tagsRepo.slice(0,-1)});
+// 			$scope.newItem.tagsRepo = '';
+// 		}
+// 	};
+
+// 	$scope.removeTag = function(index){
+// 		$scope.newItem.tags.splice(index, 1);
+// 	};
+// }
 
 function itemUpdateController($scope,$rootScope, $http, $routeParams, $location){
 
@@ -322,7 +365,7 @@ function itemDeleteController($scope, $rootScope, $http, $routeParams, $location
 	$scope.delete = function(){
 		$http.delete('item/'+$scope.$parent.currentItem._id).success(function(data){
 			$rootScope.items.splice($scope.$parent.currentItemIndex, 1);
-			$scope.hide(); 
+			$scope.hide();
 		});
 	};
 }

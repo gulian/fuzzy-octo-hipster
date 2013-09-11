@@ -8,10 +8,11 @@
     <title>fuzzy-octo-hipster</title>
     <link rel='stylesheet' href='/stylesheets/vendors/bootstrap.css' />
     <link rel='stylesheet' href='/stylesheets/vendors/bootstrap-responsive.css' />
+    <link rel='stylesheet' href='/stylesheets/vendors/codemirror.css' />
     <link rel='stylesheet' href='/stylesheets/fuzzyoctohipster.css' />
   </head>
   <body>
-    <div class="navbar navbar-fixed-top">
+    <div class="navbar navbar-fixed-top" bs-navbar>
       <div class="navbar-inner">
         <div class="container">
           <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -19,7 +20,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="/"><img src="images/logo.png" alt="logo"> fuzzy-octo-hipster</a>
+          <a class="brand" href="/"><img src="images/logo.png" alt="logo"/> fuzzy</a>
+
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li data-match-route="/"><a href="#">Veille</a></li>
+              <li data-match-route="/snippets/"><a href="#/snippets">Snippets</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -27,11 +35,13 @@
       <div ng-view></div>
     </div>
     <script src="../javascripts/vendors/jquery.js"></script>
+    <script src="../javascripts/vendors/codemirror.js"></script>
     <script src="../javascripts/vendors/angular.js"></script>
     <script src="../javascripts/vendors/bootstrap.js"></script>
     <script src="../javascripts/vendors/angular.strap.js"></script>
     <script src="../javascripts/vendors/angular.cookies.js"></script>
     <script src="../javascripts/vendors/angular.resource.js"></script>
+    <script src="../javascripts/vendors/ui-codemirror.js"></script>
     <script src="../javascripts/fuzzyoctohipster.js"></script>
     <script src="../javascripts/services.js"></script>
   </body>

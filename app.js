@@ -1,7 +1,8 @@
 var express		= require('express'),
 	routes      = require('./routes'),
 	item        = require('./routes/item'),
-	comment        = require('./routes/comment'),
+	snippet     = require('./routes/snippet'),
+	comment     = require('./routes/comment'),
 	http        = require('http'),
 	path        = require('path'),
 	app         = express(),
@@ -27,7 +28,7 @@ if ('development' == app.get('env')) {
 if(!process.env.DOMAIN){
 	console.error('no domain was provided, exiting.');
 	return false;
-} 
+}
 
 var mongo_url  = process.env.MONGOHQ_URL || 'mongodb://localhost/fuzzy-octo-hipster',
 	database   = mongoose.connect(mongo_url, function(error){
@@ -69,11 +70,21 @@ app.put('/item/:id'		, item.update);
 app.put('/item/clicked/:id'		, item.updateClick);
 app.delete('/item/:id'	, item.delete);
 
+app.post('/snippet'		, snippet.create);
+app.post('/snippet/'		, snippet.create);
+app.get('/snippet/:id'		, snippet.retreive);
+app.get('/snippet'		, snippet.retreive);
+app.get('/snippet/'		, snippet.retreive);
+app.put('/snippet/:id'		, snippet.update);
+app.put('/snippet/clicked/:id'		, snippet.updateClick);
+app.delete('/snippet/:id'	, snippet.delete);
+
+
 app.get('/credentials/'	, function(req, res){
 	req.mongoose.models.user.findOne({ _id: req.session._id}, "email", function (error, user) {
 		if(error)
 			return res.send(500);
-		
+
 		res.json(200, user);
 	});
 });
@@ -98,6 +109,16 @@ var itemSchema = mongoose.Schema({
 	created: { type: Date, default: Date.now }
 });
 
+var snippetSchema = mongoose.Schema({
+	title: String,
+	code: String,
+	tags: mongoose.Schema.Types.Mixed,
+	click: { type: [String], default: []},
+	user:  {type:  mongoose.Schema.Types.ObjectId, ref: 'user' },
+	comments :  [{ type: mongoose.Schema.Types.ObjectId, ref: 'comment' }],
+	created: { type: Date, default: Date.now }
+});
+
 var userSchema = mongoose.Schema({
 	email    : String,
 	password : String
@@ -111,5 +132,6 @@ var commentSchema = mongoose.Schema({
 });
 
 mongoose.model('item', itemSchema);
+mongoose.model('snippet', snippetSchema);
 mongoose.model('user', userSchema);
 mongoose.model('comment', commentSchema);
