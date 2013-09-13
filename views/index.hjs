@@ -24,7 +24,8 @@
 
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li data-match-route="/"><a href="#">Veille</a></li>
+              <li data-match-route="/"><a href="#">Blog</a></li>
+              <li data-match-route="/veille/"><a href="#/veille">Veille</a></li>
               <li data-match-route="/snippets/"><a href="#/snippets">Snippets</a></li>
             </ul>
           </div>
@@ -36,6 +37,7 @@
     </div>
     <script src="../javascripts/vendors/jquery.js"></script>
     <script src="../javascripts/vendors/codemirror.js"></script>
+    <script src="../javascripts/vendors/showdown.js"></script>
     <script src="../javascripts/vendors/angular.js"></script>
     <script src="../javascripts/vendors/bootstrap.js"></script>
     <script src="../javascripts/vendors/angular.strap.js"></script>

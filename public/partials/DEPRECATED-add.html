@@ -1,0 +1,28 @@
+<form ng-controller="itemAddController" ng-submit="add()" ng-model='item'  style="margin:0">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3>Ajouter un lien</h3>
+		</div>
+
+		<div class="modal-body">
+			<fieldset>
+				<label for="title">Titre</label>
+			    <input type="text" name="title" ng-model='item.title'></input>
+
+				<label for="url">Url</label>
+			    <input type="text" name="url" ng-model='item.url'></input>
+
+				<label for="tags">Tags (séparés par des virgules)</label>
+			    <input type="text" name="tags" ng-change="handleTag()" ng-model='item.tagsRepo'></input>
+
+				<span ng-repeat="tag in item.tags">
+					<span ng-click='removeTag($index)' class="label"><i class="icon-remove icon-white"></i> [[tag.name]]</span>
+				</span>
+		    </fieldset>
+		</div>
+
+		<div class="modal-footer">
+			<button class="btn btn-success" type="submit">Ajouter [[item.title]]</button>
+			<button type="button" class="btn" ng-click="hide()">Annuler</button>
+		</div>
+</form>

@@ -8,4 +8,9 @@ angular.module('fuzzyServices', ['ngResource']).
         return $resource('/snippet/', {}, {
             all: {method:'GET', isArray:true}
         });
+    }).
+    factory('Article', function($resource){
+        return $resource('/article/', {}, {
+            all: {method:'GET', isArray:true}
+        });
     });

@@ -1,0 +1,37 @@
+<div class="content" ng-controller="blogController">
+
+
+     <form ng-submit="add()" ng-model='newArticle'>
+        <h3>Nouvel article</h3>
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-bookmark"></i></span>
+          <input type=text placeholder="Titre"  name="title" ng-model='newArticle.title'>
+        </div>
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-tag"></i></span>
+          <input type=text placeholder="Langage, Application, Service, Tags" name="tags" ng-change="handleTag()" ng-model='newArticle.tagsRepo'>
+        </div>
+        <span ng-repeat="tag in newArticle.tags">
+            <span ng-click='removeTag($index)' class="label"><i class="icon-remove icon-white"></i> [[tag.name]]</span>
+        </span>
+        <h4>Contenu de l'article</h4>
+            <div class="tabbable">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab-md" data-toggle="tab">Markdown</a></li>
+                <li><a href="#tab-prev" data-toggle="tab">Preview</a></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="tab-md">
+                  <textarea  ui-codemirror="editorOptions" ng-model="newArticle.content"></textarea>
+                </div>
+                <div class="tab-pane" id="tab-prev">
+                  <div ng-bind-html-unsafe="newArticle.content|markdown"></div>
+                </div>
+              </div>
+            </div>
+
+        <button class="btn btn-inverse pull-right" type="submit"><i class="icon-plus icon-white"></i> Ajouter article</button>
+    </form>
+
+</div>
+
