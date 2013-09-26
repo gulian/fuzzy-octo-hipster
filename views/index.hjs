@@ -24,9 +24,9 @@
 
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li data-match-route="/"><a href="#">Blog</a></li>
+              <!-- <li data-match-route="/"><a href="#">Blog</a></li> -->
               <li data-match-route="/veille/"><a href="#/veille">Veille</a></li>
-              <li data-match-route="/snippets/"><a href="#/snippets">Snippets</a></li>
+              <!-- <li data-match-route="/snippets/"><a href="#/snippets">Snippets</a></li> -->
             </ul>
           </div>
         </div>

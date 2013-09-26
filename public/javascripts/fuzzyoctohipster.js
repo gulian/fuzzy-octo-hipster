@@ -5,9 +5,9 @@ angular.module('fuzzyoctohipster', ['$strap.directives', 'fuzzyFilter', 'fuzzySe
 }).config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
-        when('/', {
-            templateUrl: 'partials/blog.html'
-        }).
+        // when('/', {
+        //     templateUrl: 'partials/blog.html'
+        // }).
         when('/blog/', {
             templateUrl: 'partials/blog.html'
         }).
@@ -24,7 +24,7 @@ angular.module('fuzzyoctohipster', ['$strap.directives', 'fuzzyFilter', 'fuzzySe
             templateUrl: 'partials/howto.html'
         }).
         otherwise({
-            redirectTo: '/'
+            redirectTo: '/veille/'
         });
     }
 ]).directive("markdown", function ($compile, $http) {
