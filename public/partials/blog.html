@@ -1,15 +1,16 @@
 <div class="content" ng-controller="blogController">
-    <article ng-repeat="article in articles">
-        <h1 class="main-title">[[article.title]]</h1>
-        <div class="article-info">
-
-        </div>
-        <div ng-bind-html-unsafe="article.content|markdown"></div>
-        <em><a href="mailto:[[article.user.email]]">[[article.user.email|trigram]]</a> le [[article.created|date:'dd/MM/yyyy à HH:mm']]
-                <span ng-repeat="tag in article.tags">
-                    <span ng-model='tag.name' class="label tag label-warning">[[tag.name]]</span>
-                </span>
-            </em>
-        <hr/>
-    </article>
+    <div class="main">
+        <ul class="cbp_tmtimeline">
+            <li ng-repeat="article in articles">
+                <time class="cbp_tmtime" datetime="2013-04-10 18:30"><span>[[article.created|date:'dd/MM/yyyy']]</span> <span>[[article.created|date:'HH:mm']]</span></time>
+                <div class="cbp_tmicon cbp_tmicon-mail"></div>
+                <div class="cbp_tmlabel">
+                    <h2>[[article.title]]</h2>
+                    <p ng-bind-html-unsafe="article.content|markdown"></p>
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>
+
+

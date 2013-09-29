@@ -6,10 +6,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>fuzzy-octo-hipster</title>
-    <link rel='stylesheet' href='/stylesheets/vendors/bootstrap.css' />
-    <link rel='stylesheet' href='/stylesheets/vendors/bootstrap-responsive.css' />
-    <link rel='stylesheet' href='/stylesheets/vendors/codemirror.css' />
-    <link rel='stylesheet' href='/stylesheets/fuzzyoctohipster.css' />
+    <link rel='stylesheet' type="text/css" href='/stylesheets/vendors/bootstrap.css' />
+    <link rel='stylesheet' type="text/css" href='/stylesheets/vendors/bootstrap-responsive.css' />
+    <link rel='stylesheet' type="text/css" href='/stylesheets/vendors/codemirror.css' />
+    <link rel='stylesheet' type="text/css" href='/stylesheets/fuzzyoctohipster.css' />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/vendors/component.css" />
   </head>
   <body>
     <div class="navbar navbar-fixed-top" bs-navbar>
