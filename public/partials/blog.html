@@ -9,6 +9,11 @@
                 <div class="cbp_tmlabel">
                     <h2>[[article.title]]</h2>
                     <p ng-bind-html-unsafe="article.content|markdown"></p>
+                    <p  ng-show="article.user._id == connectedUserId" >
+                        <a class='btn btn-mini' href="#/blog/update/[[article._id]]"><i class="icon icon-edit"></i></a>
+                        <a class='btn btn-mini' href="#/blog/delete/[[article._id]]"><i class="icon icon-remove"></i></a>
+                        <!-- <a href="#/blog/comment/[[article._id]]">commenter</a> -->
+                    </p>
                 </div>
             </li>
         </ul>

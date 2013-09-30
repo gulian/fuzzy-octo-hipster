@@ -14,6 +14,12 @@ angular.module('fuzzyoctohipster', ['$strap.directives', 'fuzzyFilter', 'fuzzySe
         when('/blog/new', {
             templateUrl: 'partials/new-article.html'
         }).
+        when('/blog/update/:articleId', {
+            templateUrl: 'partials/update-article.html'
+        }).
+        when('/blog/delete/:articleId', {
+            templateUrl: 'partials/delete-article.html'
+        }).
         when('/veille/', {
             templateUrl: 'partials/list.html'
         }).
@@ -61,6 +67,9 @@ angular.module('fuzzyFilter', [])
     })
     .filter('markdown', function() {
         return function(markdown) {
+            if(!markdown || markdown === ''){
+                return '' ;
+            }
             var converter = new Showdown.converter();
             return  converter.makeHtml(markdown);
         };
@@ -127,7 +136,68 @@ angular.module('fuzzyFilter', [])
         };
     });
 
+function blogArticleUpdateController($scope, $rootScope, $routeParams, $http, $modal, $cookies, Article, $location) {
+
+    $scope.editorOptions = {
+        lineNumbers: true,
+        mode: 'markdown',
+        theme: 'lesser-dark',
+        width: '500px',
+        viewportMargin: Infinity
+    };
+
+    Article.query({
+        'articleId' : $routeParams.articleId
+    }, function(articles){
+        $scope.article = articles[0];
+    });
+
+    $scope.update = function(){
+
+        if ($scope.article.tagsRepo && $scope.article.tagsRepo.length) {
+            $scope.article.tags.push({
+                name: $scope.article.tagsRepo
+            });
+        }
+
+        $http.put('article/' + $scope.article._id, $scope.article).success(function(data) {
+            $location.path('/blog');
+        });
+    };
+
+    $scope.delete = function(){
+        $http.delete('article/' + $scope.article._id).success(function(data) {
+            $location.path('/blog');
+        });
+    };
+
+
+    $scope.handleTag = function() {
+        if ($scope.article.tagsRepo.indexOf(',') !== -1) {
+            $scope.article.tags.push({
+                name: $scope.article.tagsRepo.slice(0, -1)
+            });
+            $scope.article.tagsRepo = '';
+        }
+    };
+
+    $scope.removeTag = function(index) {
+        $scope.article.tags.splice(index, 1);
+    };
+
+}
+
 function blogController($scope, $rootScope, $routeParams, $http, $modal, $cookies, Article) {
+
+
+    $http.get('credentials/').success(function(data) {
+        $scope.connectedUserId = data._id; // set this value at login in cookie to access it everywhere
+        $scope.userEmail = data.email; // set this value at login in cookie to access it everywhere
+
+        if (data == 'null')
+            document.location = "/";
+
+    });
 
     $scope.articles = Article.all();
 
@@ -173,6 +243,10 @@ function blogController($scope, $rootScope, $routeParams, $http, $modal, $cookie
             });
             $scope.newArticle.tagsRepo = '';
         }
+    };
+
+    $scope.removeTag = function(index) {
+        $scope.newArticle.tags.splice(index, 1);
     };
 
     $scope.openHelp = function(){
@@ -373,48 +447,6 @@ function commentsController($http, $scope) {
     };
 
 }
-
-// function itemAddController($scope, $rootScope, $http, Item) {
-
-// 	$scope.newItem = new Item({
-// 		title:'',
-// 		url: 'http://',
-// 		tags: [],
-// 		tagsRepo : ''
-// 	});
-
-// 	$scope.add = function(){
-// 		console.log($scope);
-// 		console.log($scope.newItem);
-// 		if($scope.newItem.tagsRepo.length)
-// 			$scope.newItem.tags.push({
-// 				name : $scope.newItem.tagsRepo
-// 			});
-
-// 		$scope.newItem.$save(function(data){
-// 			$rootScope.items.unshift(data);
-
-// 			$scope.newItem = new Item({
-// 				title:'',
-// 				url: 'http://',
-// 				tags: [],
-// 				tagsRepo : ''
-// 			});
-// 		});
-// 	};
-
-// 	$scope.handleTag = function(){
-// 		console.log('lol');
-// 		if($scope.newItem.tagsRepo.indexOf(',') !== -1){
-// 			$scope.newItem.tags.push({ name : $scope.newItem.tagsRepo.slice(0,-1)});
-// 			$scope.newItem.tagsRepo = '';
-// 		}
-// 	};
-
-// 	$scope.removeTag = function(index){
-// 		$scope.newItem.tags.splice(index, 1);
-// 	};
-// }
 
 function itemUpdateController($scope, $rootScope, $http, $routeParams, $location) {
 

@@ -60,6 +60,7 @@ exports.update = function(req, res){
             return res.send(403);
 
         article.title   =  req.body.title;
+        article.content =  req.body.content;
         article.tags    =  req.body.tags;
         article.created = Date.now();
 

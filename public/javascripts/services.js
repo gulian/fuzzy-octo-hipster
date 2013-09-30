@@ -10,7 +10,8 @@ angular.module('fuzzyServices', ['ngResource']).
         });
     }).
     factory('Article', function($resource){
-        return $resource('/article/', {}, {
-            all: {method:'GET', isArray:true}
+        return $resource('/article/:articleId', {}, {
+            all:   {method:'GET',                                 isArray:true },
+            query: {method:'GET', params:{articleId:'articleId'}, isArray:true }
         });
     });
