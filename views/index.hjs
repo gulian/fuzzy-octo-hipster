@@ -10,7 +10,6 @@
     <link rel='stylesheet' type="text/css" href='/stylesheets/vendors/bootstrap-responsive.css' />
     <link rel='stylesheet' type="text/css" href='/stylesheets/vendors/codemirror.css' />
     <link rel='stylesheet' type="text/css" href='/stylesheets/fuzzyoctohipster.css' />
-    <link rel="stylesheet" type="text/css" href="/stylesheets/vendors/component.css" />
   </head>
   <body>
     <div class="navbar navbar-fixed-top" bs-navbar>
