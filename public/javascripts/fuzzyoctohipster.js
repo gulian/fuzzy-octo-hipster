@@ -174,6 +174,10 @@ function blogController($scope, $rootScope, $routeParams, $http, $modal, $cookie
             $scope.newArticle.tagsRepo = '';
         }
     };
+
+    $scope.openHelp = function(){
+        window.open('partials/markdown-help.html','Markdown','titlebar=no,toolbar=no,location=no,status=no,menubar=no,height=380,width=280');
+    };
 }
 
 function snippetListController($scope, $rootScope, $routeParams, $http, $modal, $cookies, Snippet) {
