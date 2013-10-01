@@ -19,26 +19,23 @@ Concerning the name, it's one of the random name given by github
 
 ## How to run FOH ?
 
-* Install node
+* Install node && npm (http://nodejs.org/)
 
-* Install deps
+* Clone repository
 
 ```bash
 git clone https://github.com/gulian/fuzzy-octo-hipster
 cd fuzzy-octo-hipster
+```
+
+* Install dependancies 
+
+```bash
 npm install
 ```
 
-* Install _mongod_
-
-* Run app locally
+* Run app
 
 ```bash
-node app
-```
-
-* Run app remotely (on mongohq for example)
-
-```bash
-MONGOHQ_URL=mongodb://[user]:[passw0rd]@dharma.mongohq.com:[port]/[database_name] node app
+MONGOHQ_URL=mongodb://<user>:<password>@paulo.mongohq.com:10036/fuzzy-octo-hipster-dev DOMAIN=gismartware.com node app.js
 ```
